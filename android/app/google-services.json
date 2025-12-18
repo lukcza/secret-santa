@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "116877629362",
+    "project_id": "secret-santa-a5756",
+    "storage_bucket": "secret-santa-a5756.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:116877629362:android:3ff2e098678e71c333f6ab",
+        "android_client_info": {
+          "package_name": "com.example.secret_santa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgqlF5GS0KmFenelAXNo5Yqt2aVvjvoTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
