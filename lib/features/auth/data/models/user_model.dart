@@ -50,4 +50,14 @@ class UserModel {
       wishlist: List<String>.from(data['wishlist'] ?? []),
     );
   }
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'email': email,
+      'nickname': nickname,
+      'photoUrl': photoUrl,
+      'groups': groups,
+      'wishlist': wishlist,
+    };
+  }
 }
