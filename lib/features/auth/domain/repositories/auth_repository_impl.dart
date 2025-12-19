@@ -82,9 +82,9 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
       final user = userCredential.user;
-      final UserEntity userEntity = UserEntity(
+      final newUserModel = UserModel(
         uid: user!.uid,
-        email: user.email!,
+        email: email,
         nickname: nickname,
         photoUrl: user.photoURL,
         groups: [],
@@ -93,16 +93,9 @@ class AuthRepositoryImpl implements AuthRepository {
       await _firestore
           .collection('users')
           .doc(user.uid)
-          .set({
-        'nickname': nickname,
-        'email': email,
-        'photoUrl': user.photoURL,
-        'createdAt': FieldValue.serverTimestamp(),
-        'groups': [],
-        'wishlist': [],
-      });
+          .set(newUserModel.toMap());
       print('User document created for UID: ${user.uid}');
-      return Right(userEntity);
+      return Right(newUserModel.toEntity());
     } catch (e) {
       return Left(AuthFailure(e.toString()));
     }
