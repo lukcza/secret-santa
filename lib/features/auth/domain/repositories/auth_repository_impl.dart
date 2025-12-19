@@ -102,7 +102,6 @@ class AuthRepositoryImpl implements AuthRepository {
   }
   
   @override
-  // TODO: implement getCurrentUserStream
   Stream<UserEntity?> get getCurrentUserStream {
     return _firebaseAuth.authStateChanges().asyncMap((user) async {
       if (user == null) {
