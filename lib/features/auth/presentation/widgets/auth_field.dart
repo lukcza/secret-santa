@@ -22,25 +22,35 @@ class AuthField extends StatelessWidget {
   final bool isReapetPasswordField;
   @override
   Widget build(BuildContext context) {
-    return Container(child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(labelText),
-        TextField(
-          controller: controller,
-          keyboardType: isEmailField
-              ? TextInputType.emailAddress
-              : (isPasswordField || isReapetPasswordField)
-                  ? TextInputType.visiblePassword
-                  : TextInputType.text,
-          obscureText: isPasswordField || isReapetPasswordField ? true : false,
-          decoration: InputDecoration(
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            hintText: hintText,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (labelText.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                labelText,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+          TextField(
+            controller: controller,
+            keyboardType: isEmailField
+                ? TextInputType.emailAddress
+                : (isPasswordField || isReapetPasswordField)
+                    ? TextInputType.visiblePassword
+                    : TextInputType.text,
+            obscureText: isPasswordField || isReapetPasswordField,
+            decoration: InputDecoration(
+              prefixIcon: prefixIcon,
+              suffixIcon: isPasswordField || isReapetPasswordField ? suffixIcon : null,
+              hintText: hintText,
+            ),
           ),
-        ),
-      ],
-    ),);
+        ],
+      ),
+    );
   }
 }
