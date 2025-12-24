@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:secret_santa/core/theme/app_theme.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_event.dart';
+import 'package:secret_santa/features/auth/presentation/pages/auth_wrapper.dart';
 import 'firebase_options.dart';
 import 'package:secret_santa/injection_container.dart' as di;
 void main() async{
@@ -26,14 +28,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Secret Santa',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
-        home: const Scaffold(
-          body: Center(
-            child: Text('Welcome to Secret Santa!'),
-          ),
-        ))    ,
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightThemeMode,
+        darkTheme: AppTheme.darkThemeMode,
+        themeMode: ThemeMode.system,
+        home: const AuthWrapper(),
+      ),
       );
   }
 }
