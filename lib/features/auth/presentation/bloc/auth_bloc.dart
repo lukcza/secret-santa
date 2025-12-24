@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(
             state.copyWith(
               status: AuthStatus.error,
-              errorMessage: failure.toString(),
+              errorMessage: failure.message,
             ),
           );
         },
@@ -33,20 +33,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         },
       );
     });
-    on<AuthSignUpRequested>((event, emit) {
+    on<AuthSignUpRequested>((event, emit) async {
       emit(state.copyWith(status: AuthStatus.loading));
-      final result = registerUser(
+      final result = await registerUser(
         nickname: event.nickname,
         email: event.email,
         password: event.password,
       );
-      result.then((either) {
-        either.fold(
-          (failure) {
-            emit(
-              state.copyWith(
-                status: AuthStatus.error,
-                errorMessage: failure.toString(),
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              status: AuthStatus.error,
+                errorMessage: failure.message,
               ),
             );
           },
@@ -55,7 +54,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           },
         );
       });
-    });
     on<AuthSignOutRequested>((event, emit) async {
       emit(state.copyWith(status: AuthStatus.loading));
       final result = await signOutUser();
@@ -70,6 +68,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         },
         (_) {
           emit(state.copyWith(status: AuthStatus.unauthenticated, user: null));
+        },
+      );
+    });
+    on<AuthCheckSession>((event, emit) async {
+      final currentUserResult = await getCurrentUser();
+      currentUserResult.fold(
+        (failure) {
+          emit(state.copyWith(status: AuthStatus.unauthenticated, user: null, errorMessage: null));
+        },
+        (user) {
+          emit(state.copyWith(status: AuthStatus.authenticated, user: user));
         },
       );
     });

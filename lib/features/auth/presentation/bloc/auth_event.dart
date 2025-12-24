@@ -47,3 +47,8 @@ class AuthCheckSession extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
+class AuthGetCurrentUserRequested extends AuthEvent {
+  const AuthGetCurrentUserRequested();
+  @override
+  List<Object?> get props => [];
+}
