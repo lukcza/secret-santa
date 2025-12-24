@@ -98,6 +98,7 @@ class AppTheme {
       contentPadding: const EdgeInsets.all(20),
       filled: true,
       fillColor: surfaceDark,
+      border: _border(borderDark),
       enabledBorder: _border(surfaceHighlight),
       focusedBorder: _border(primary),
       errorBorder: _border(primaryLight),
