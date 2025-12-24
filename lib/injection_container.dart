@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
+import 'package:secret_santa/features/auth/domain/repositories/auth_repository.dart';
 import 'package:secret_santa/features/auth/domain/repositories/auth_repository_impl.dart';
 import 'package:secret_santa/features/auth/domain/usecases/get_current_user.dart';
 import 'package:secret_santa/features/auth/domain/usecases/login_user.dart';
@@ -28,7 +29,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetCurrentUser(sl()));
   sl.registerLazySingleton(() => SignOutUser(sl()));
 
-  sl.registerLazySingleton(
+  sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(firebaseAuth: sl(), firestore: sl()),
   );
 

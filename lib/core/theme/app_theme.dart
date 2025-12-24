@@ -12,12 +12,14 @@ class AppTheme {
   static const Color surfaceLight = Color(0xFFFFFFFF);
 
   static const Color backgroundDark = Color(0xFF0F0505);
-  static const Color surfaceDark = Color(0xFF1E1012);
+  static const Color surfaceDark = Color(0xFF2a1215);
   static const Color surfaceHighlight = Color(0xFF2D1519);
 
   static const Color textMain = Color(0xFF1B0E10);
   static const Color textInverse = Color(0xFFFDF2F4);
   static const Color textMuted = Color(0xFF994D5C);
+
+  static const Color borderDark = Color(0xFF4a2328);
 
   static OutlineInputBorder _border(Color color) {
     return OutlineInputBorder(
@@ -95,12 +97,14 @@ class AppTheme {
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(20),
       filled: true,
-      fillColor: surfaceHighlight,
+      fillColor: surfaceDark,
       enabledBorder: _border(surfaceHighlight),
       focusedBorder: _border(primary),
       errorBorder: _border(primaryLight),
       focusedErrorBorder: _border(primaryLight),
       hintStyle: TextStyle(color: textInverse.withOpacity(0.5)),
+      prefixIconColor: textMuted,
+      suffixIconColor: textMuted,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
