@@ -60,4 +60,5 @@ class UserModel {
       'wishlist': wishlist,
     };
   }
+  
 }
