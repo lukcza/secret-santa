@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart' hide State;
+import 'package:go_router/go_router.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_event.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_state.dart';
-import 'package:secret_santa/features/auth/presentation/pages/auth_wrapper.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/auth_button.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/auth_field.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/login_divider.dart';
@@ -145,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     GestureDetector(
-                      onTap: () => debugPrint("Navigate to Register Page"),
+                      onTap: () => context.push('/register'),
                       child: Text(
                         context.loc.registerLink,
                         style: TextStyle(
