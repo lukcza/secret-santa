@@ -1,0 +1,10 @@
+{
+    "loginTitle": "Ho ho ho!\nWho are you?",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "signInButton": "Sign In",
+    "registerLink": "Don't have an account? Sign Up",
+    "errorEmptyEmail": "Please enter your email",
+    "errorShortPassword": "Password must be at least 6 characters",
+    "welcomeImageText": "Merry Christmas!"
+}

@@ -1,0 +1,381 @@
+[1mdiff --git a/lib/core/theme/app_theme.dart b/lib/core/theme/app_theme.dart[m
+[1mindex cb898ff..8d717f5 100644[m
+[1m--- a/lib/core/theme/app_theme.dart[m
+[1m+++ b/lib/core/theme/app_theme.dart[m
+[36m@@ -11,15 +11,15 @@[m [mclass AppTheme {[m
+   static const Color backgroundLight = Color(0xFFFCF8F9);[m
+   static const Color surfaceLight = Color(0xFFFFFFFF);[m
+ [m
+[31m-  static const Color backgroundDark = Color(0xFF0F0505);[m
+[31m-  static const Color surfaceDark = Color(0xFF2a1215);[m
+[31m-  static const Color surfaceHighlight = Color(0xFF2D1519);[m
+[32m+[m[32m  static const Color backgroundDark = Color.fromARGB(255, 31, 10, 10);[m
+[32m+[m[32m  static const Color surfaceDark = Color.fromARGB(255, 46, 23, 25);[m
+[32m+[m[32m  static const Color surfaceHighlight = Color.fromARGB(255, 48, 27, 30);[m
+ [m
+   static const Color textMain = Color(0xFF1B0E10);[m
+   static const Color textInverse = Color(0xFFFDF2F4);[m
+   static const Color textMuted = Color(0xFF994D5C);[m
+ [m
+[31m-  static const Color borderDark = Color(0xFF4a2328);[m
+[32m+[m[32m  static const Color borderDark = Color.fromARGB(255, 95, 45, 52);[m
+ [m
+   static OutlineInputBorder _border(Color color) {[m
+     return OutlineInputBorder([m
+[36m@@ -98,9 +98,9 @@[m [mclass AppTheme {[m
+       contentPadding: const EdgeInsets.all(20),[m
+       filled: true,[m
+       fillColor: surfaceDark,[m
+[31m-      border: _border(borderDark),[m
+[32m+[m[32m      border: _border(textMuted),[m
+       enabledBorder: _border(surfaceHighlight),[m
+[31m-      focusedBorder: _border(primary),[m
+[32m+[m[32m      focusedBorder: _border(textMuted),[m
+       errorBorder: _border(primaryLight),[m
+       focusedErrorBorder: _border(primaryLight),[m
+       hintStyle: TextStyle(color: textInverse.withOpacity(0.5)),[m
+[1mdiff --git a/lib/features/auth/presentation/pages/login_page.dart b/lib/features/auth/presentation/pages/login_page.dart[m
+[1mindex ede916e..b1cde82 100644[m
+[1m--- a/lib/features/auth/presentation/pages/login_page.dart[m
+[1m+++ b/lib/features/auth/presentation/pages/login_page.dart[m
+[36m@@ -4,6 +4,8 @@[m [mimport 'package:fpdart/fpdart.dart';[m
+ import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';[m
+ import 'package:secret_santa/features/auth/presentation/bloc/auth_state.dart';[m
+ import 'package:secret_santa/features/auth/presentation/widgets/auth_field.dart';[m
+[32m+[m[32mimport 'package:secret_santa/features/auth/presentation/widgets/login_divider.dart';[m
+[32m+[m[32mimport 'package:secret_santa/features/auth/presentation/widgets/login_header_card.dart';[m
+ [m
+ class LoginPage extends StatelessWidget {[m
+   LoginPage({super.key});[m
+[36m@@ -24,150 +26,110 @@[m [mclass LoginPage extends StatelessWidget {[m
+       },[m
+       child: Scaffold([m
+         body: SafeArea([m
+[31m-          child: Column([m
+[31m-            mainAxisAlignment: MainAxisAlignment.start,[m
+[31m-            children: [[m
+[31m-              Card([m
+[31m-                margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),[m
+[31m-                clipBehavior: Clip.antiAlias,[m
+[31m-                elevation: 8,[m
+[31m-                shape: RoundedRectangleBorder([m
+[31m-                  borderRadius: BorderRadius.circular(20),[m
+[32m+[m[32m          child: SingleChildScrollView([m
+[32m+[m[32m            child: Column([m
+[32m+[m[32m              mainAxisAlignment: MainAxisAlignment.start,[m
+[32m+[m[32m              children: [[m
+[32m+[m[32m                LoginHeaderCard(),[m
+[32m+[m[32m                Container([m
+[32m+[m[32m                  margin: const EdgeInsets.only(top:10,),[m
+[32m+[m[32m                  child: Text([m
+[32m+[m[32m                    "Ho ho ho Who are you?",[m
+[32m+[m[32m                    style: Theme.of(context).textTheme.bodyLarge?.copyWith([m
+[32m+[m[32m                          fontWeight: FontWeight.bold,[m
+[32m+[m[32m                    ),[m
+[32m+[m[32m                  ),[m
+[32m+[m[32m                ),[m
+[32m+[m[32m                AuthField([m
+[32m+[m[32m                  labelText: "Email Address",[m
+[32m+[m[32m                  hintText: "santa@northpole.com",[m
+[32m+[m[32m                  controller: _emailController,[m
+[32m+[m[32m                  isEmailField: true,[m
+[32m+[m[32m                  prefixIcon: const Icon(Icons.email),[m
+                 ),[m
+[31m-                child: Stack([m
+[31m-                  fit: StackFit.passthrough,[m
+[32m+[m[32m                AuthField([m
+[32m+[m[32m                  controller: _passwordController,[m
+[32m+[m[32m                  isPasswordField: true,[m
+[32m+[m[32m                  prefixIcon: const Icon(Icons.lock),[m
+[32m+[m[32m                  labelText: "Password",[m
+[32m+[m[32m                  hintText: "Enter your password",[m
+[32m+[m[32m                  suffixIcon: const Icon(Icons.visibility_off),[m
+[32m+[m[32m                ),[m
+[32m+[m[32m                Row([m
+[32m+[m[32m                  mainAxisAlignment: MainAxisAlignment.end,[m
+                   children: [[m
+[31m-                    Image([m
+[31m-                      image: AssetImage('assets/images/cardBGLoginPage.png'),[m
+[31m-                      fit: BoxFit.cover,[m
+[31m-                    ),[m
+[31m-                    Positioned.fill([m
+[31m-                      child: Container([m
+[31m-                        decoration: BoxDecoration([m
+[31m-                          gradient: LinearGradient([m
+[31m-                            colors: [[m
+[31m-                              Colors.transparent,[m
+[31m-                              Colors.black.withOpacity(0.7),[m
+[31m-                            ],[m
+[31m-                            begin: Alignment.topCenter,[m
+[31m-                            end: Alignment.bottomCenter,[m
+[31m-                            stops: const [0.4, 1.0],[m
+[31m-                          ),[m
+[31m-                        ),[m
+[31m-                      ),[m
+[31m-                    ),[m
+[31m-                    Positioned([m
+[31m-                      left: 16,[m
+[31m-                      bottom: 16,[m
+[32m+[m[32m                    TextButton([m
+[32m+[m[32m                      onPressed: () => debugPrint("Forgot Password clicked"),[m
+                       child: Text([m
+[31m-                        "Welcome Back!\n Santa! 🎅",[m
+[31m-                        style: Theme.of([m
+[31m-                          context,[m
+[31m-                        ).textTheme.headlineMedium?.copyWith([m
+[31m-                          color: Colors.white,[m
+[31m-                          fontWeight: FontWeight.bold,[m
+[32m+[m[32m                        "Forgot Password?",[m
+[32m+[m[32m                        style: TextStyle([m
+[32m+[m[32m                          color: Theme.of(context).colorScheme.tertiary,[m
+                         ),[m
+                       ),[m
+                     ),[m
+                   ],[m
+                 ),[m
+[31m-              ),[m
+[31m-              Text([m
+[31m-                "Ho ho ho Who are you?",[m
+[31m-                style: Theme.of(context).textTheme.bodyLarge,[m
+[31m-              ),[m
+[31m-              AuthField([m
+[31m-                labelText: "Email Address",[m
+[31m-                hintText: "santa@northpole.com",[m
+[31m-                controller: _emailController,[m
+[31m-                isEmailField: true,[m
+[31m-                prefixIcon: const Icon(Icons.email),[m
+[31m-              ),[m
+[31m-              AuthField([m
+[31m-                controller: _passwordController,[m
+[31m-                isPasswordField: true,[m
+[31m-                prefixIcon: const Icon(Icons.lock),[m
+[31m-                labelText: "Password",[m
+[31m-                hintText: "Enter your password",[m
+[31m-                suffixIcon: const Icon(Icons.visibility_off),[m
+[31m-              ),[m
+[31m-              Row([m
+[31m-                mainAxisAlignment: MainAxisAlignment.end,[m
+[31m-                children: [[m
+[31m-                  TextButton([m
+[31m-                    onPressed: () => debugPrint("Forgot Password clicked"),[m
+[31m-                    child: Text([m
+[31m-                      "Forgot Password?",[m
+[31m-                      style: TextStyle([m
+[31m-                        color: Theme.of(context).colorScheme.tertiary,[m
+[31m-                      ),[m
+[31m-                    ),[m
+[32m+[m[32m                Container([m
+[32m+[m[32m                  margin: const EdgeInsets.symmetric([m
+[32m+[m[32m                    horizontal: 16,[m
+[32m+[m[32m                    vertical: 8,[m
+                   ),[m
+[31m-                ],[m
+[31m-              ),[m
+[31m-              Container([m
+[31m-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),[m
+[31m-                child: ElevatedButton([m
+[31m-                  style: ElevatedButton.styleFrom([m
+[31m-                    minimumSize: const Size(double.infinity, 50),[m
+[32m+[m[32m                  child: ElevatedButton([m
+[32m+[m[32m                    style: ElevatedButton.styleFrom([m
+[32m+[m[32m                      minimumSize: const Size(double.infinity, 50),[m
+[32m+[m[32m                    ),[m
+[32m+[m[32m                    onPressed: () => debugPrint("Login clicked"),[m
+[32m+[m[32m                    child: Text("Login"),[m
+                   ),[m
+[31m-                  onPressed: ()=>debugPrint("Login clicked"),[m
+[31m-                  child: Text("Login"),[m
+                 ),[m
+[31m-              ),[m
+[31m-              Container([m
+[31m-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),[m
+[31m-                child: Row([m
+[32m+[m[32m                LoginDivider(),[m
+[32m+[m[32m                Row([m
+[32m+[m[32m                  mainAxisAlignment: MainAxisAlignment.center,[m
+                   children: [[m
+[31m-                    Expanded(child: Divider(color: Theme.of(context).colorScheme.outline)),[m
+[31m-                    Padding([m
+[31m-                      padding: const EdgeInsets.symmetric(horizontal: 8),[m
+[31m-                      child: Text([m
+[31m-                        "Or continue with",[m
+[31m-                        style: Theme.of(context).textTheme.bodyMedium,[m
+[32m+[m[32m                    IconButton([m
+[32m+[m[32m                      icon: Image.asset([m
+[32m+[m[32m                        'assets/images/google_icon.png',[m
+[32m+[m[32m                        height: 50,[m
+[32m+[m[32m                        width: 50,[m
+                       ),[m
+[32m+[m[32m                      iconSize: 1,[m
+[32m+[m[32m                      onPressed: () => debugPrint("Google login clicked"),[m
+[32m+[m[32m                    ),[m
+[32m+[m[32m                    SizedBox(width: 20),[m
+[32m+[m[32m                    IconButton([m
+[32m+[m[32m                      icon: Image.asset([m
+[32m+[m[32m                        'assets/images/facebook_icon.png',[m
+[32m+[m[32m                        height: 50,[m
+[32m+[m[32m                        width: 50,[m
+[32m+[m[32m                        color: Color.fromARGB(255, 59, 89, 152),[m
+[32m+[m[32m                      ),[m
+[32m+[m[32m                      iconSize: 1,[m
+[32m+[m[32m                      onPressed: () => debugPrint("Facebook login clicked"),[m
+                     ),[m
+[31m-                    Expanded(child: Divider(color: Theme.of(context).colorScheme.outline)),[m
+                   ],[m
+                 ),[m
+[31m-              ),[m
+[31m-              /*Row([m
+[31m-                mainAxisAlignment: MainAxisAlignment.center,[m
+[31m-                children: [[m
+[31m-                  IconButton([m
+[31m-                    icon: Image.asset('assets/images/google_icon.png'),[m
+[31m-                    iconSize: 50,[m
+[31m-                    onPressed: () => debugPrint("Google login clicked"),[m
+[31m-                  ),[m
+[31m-                  SizedBox(width: 20),[m
+[31m-                  IconButton([m
+[31m-                    icon: Image.asset('assets/images/facebook_icon.png'),[m
+[31m-                    iconSize: 50,[m
+[31m-                    onPressed: () => debugPrint("Facebook login clicked"),[m
+[31m-                  ),[m
+[31m-                ],[m
+[31m-              ),*/[m
+[31m-              SizedBox(height: 20),[m
+[31m-              Row([m
+[31m-                mainAxisAlignment: MainAxisAlignment.center,[m
+[31m-                children: [[m
+[31m-                  Text([m
+[31m-                    "Don't have an account? ",[m
+[31m-                    style: Theme.of(context).textTheme.bodyMedium,[m
+[31m-                  ),[m
+[31m-                  GestureDetector([m
+[31m-                    onTap: () => debugPrint("Navigate to Register Page"),[m
+[31m-                    child: Text([m
+[31m-                      "Register",[m
+[31m-                      style: TextStyle([m
+[31m-                        color: Theme.of(context).colorScheme.tertiary,[m
+[31m-                        fontWeight: FontWeight.bold,[m
+[32m+[m[32m                SizedBox(height: 20),[m
+[32m+[m[32m                Row([m
+[32m+[m[32m                  mainAxisAlignment: MainAxisAlignment.center,[m
+[32m+[m[32m                  children: [[m
+[32m+[m[32m                    Text([m
+[32m+[m[32m                      "Don't have an account? ",[m
+[32m+[m[32m                      style: Theme.of(context).textTheme.bodyMedium,[m
+[32m+[m[32m                    ),[m
+[32m+[m[32m                    GestureDetector([m
+[32m+[m[32m                      onTap: () => debugPrint("Navigate to Register Page"),[m
+[32m+[m[32m                      child: Text([m
+[32m+[m[32m                        "Register",[m
+[32m+[m[32m                        style: TextStyle([m
+[32m+[m[32m                          color: Theme.of(context).colorScheme.tertiary,[m
+[32m+[m[32m                          fontWeight: FontWeight.bold,[m
+[32m+[m[32m                        ),[m
+                       ),[m
+                     ),[m
+[31m-                  ),[m
+[31m-                ],[m
+[31m-              ),[m
+[31m-            ],[m
+[32m+[m[32m                  ],[m
+[32m+[m[32m                ),[m
+[32m+[m[32m              ],[m
+[32m+[m[32m            ),[m
+           ),[m
+         ),[m
+       ),[m
+[1mdiff --git a/lib/main.dart b/lib/main.dart[m
+[1mindex 575bdfa..9319069 100644[m
+[1m--- a/lib/main.dart[m
+[1m+++ b/lib/main.dart[m
+[36m@@ -1,10 +1,12 @@[m
+ import 'package:flutter/material.dart';[m
+ import 'package:firebase_core/firebase_core.dart';[m
+ import 'package:flutter_bloc/flutter_bloc.dart';[m
+[32m+[m[32mimport 'package:flutter_localizations/flutter_localizations.dart';[m
+ import 'package:secret_santa/core/theme/app_theme.dart';[m
+ import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';[m
+ import 'package:secret_santa/features/auth/presentation/bloc/auth_event.dart';[m
+ import 'package:secret_santa/features/auth/presentation/pages/auth_wrapper.dart';[m
+[32m+[m[32mimport 'package:secret_santa/core/l10n/app_localizations.dart';[m
+ import 'firebase_options.dart';[m
+ import 'package:secret_santa/injection_container.dart' as di;[m
+ void main() async{[m
+[36m@@ -28,6 +30,12 @@[m [mclass MyApp extends StatelessWidget {[m
+       ],[m
+       child: MaterialApp([m
+         title: 'Secret Santa',[m
+[32m+[m[32m        localizationsDelegates: [[m
+[32m+[m[32m           AppLocalizations.delegate,[m
+[32m+[m[32m           GlobalMaterialLocalizations.delegate,[m
+[32m+[m[32m           GlobalWidgetsLocalizations.delegate,[m
+[32m+[m[32m           GlobalCupertinoLocalizations.delegate,[m
+[32m+[m[32m        ],[m
+         debugShowCheckedModeBanner: false,[m
+         theme: AppTheme.lightThemeMode,[m
+         darkTheme: AppTheme.darkThemeMode,[m
+[1mdiff --git a/pubspec.lock b/pubspec.lock[m
+[1mindex b737b84..5540349 100644[m
+[1m--- a/pubspec.lock[m
+[1m+++ b/pubspec.lock[m
+[36m@@ -174,6 +174,11 @@[m [mpackages:[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+     version: "5.0.0"[m
+[32m+[m[32m  flutter_localizations:[m
+[32m+[m[32m    dependency: "direct main"[m
+[32m+[m[32m    description: flutter[m
+[32m+[m[32m    source: sdk[m
+[32m+[m[32m    version: "0.0.0"[m
+   flutter_test:[m
+     dependency: "direct dev"[m
+     description: flutter[m
+[36m@@ -216,6 +221,14 @@[m [mpackages:[m
+       url: "https://pub.dev"[m
+     source: hosted[m
+     version: "4.1.2"[m
+[32m+[m[32m  intl:[m
+[32m+[m[32m    dependency: "direct main"[m
+[32m+[m[32m    description:[m
+[32m+[m[32m      name: intl[m
+[32m+[m[32m      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"[m
+[32m+[m[32m      url: "https://pub.dev"[m
+[32m+[m[32m    source: hosted[m
+[32m+[m[32m    version: "0.20.2"[m
+   leak_tracker:[m
+     dependency: transitive[m
+     description:[m
+[1mdiff --git a/pubspec.yaml b/pubspec.yaml[m
+[1mindex 7a6b989..c2c4436 100644[m
+[1m--- a/pubspec.yaml[m
+[1m+++ b/pubspec.yaml[m
+[36m@@ -42,6 +42,10 @@[m [mdependencies:[m
+   flutter_bloc: ^9.1.1[m
+   get_it: ^9.2.0[m
+ [m
+[32m+[m[32m  flutter_localizations:[m
+[32m+[m[32m    sdk: flutter[m
+[32m+[m[32m  intl: ^0.20.2[m
+[32m+[m
+ dev_dependencies:[m
+   flutter_test:[m
+     sdk: flutter[m
+[36m@@ -58,7 +62,7 @@[m [mdev_dependencies:[m
+ [m
+ # The following section is specific to Flutter packages.[m
+ flutter:[m
+[31m-[m
+[32m+[m[32m  generate: true[m
+   # The following line ensures that the Material Icons font is[m
+   # included with your application, so that you can use the icons in[m
+   # the material Icons class.[m
+[36m@@ -67,7 +71,8 @@[m [mflutter:[m
+   # To add assets to your application, add an assets section, like this:[m
+   assets:[m
+     - assets/images/cardBGLoginPage.png[m
+[31m-[m
+[32m+[m[32m    - assets/images/google_icon.png[m
+[32m+[m[32m    - assets/images/facebook_icon.png[m
+   # An image asset can refer to one or more resolution-specific "variants", see[m
+   # https://flutter.dev/to/resolution-aware-images[m
+ [m
