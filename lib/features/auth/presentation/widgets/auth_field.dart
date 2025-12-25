@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AuthField extends StatelessWidget {
+class AuthField extends StatefulWidget {
   AuthField({
     super.key,
     this.labelText = '',
@@ -14,12 +14,21 @@ class AuthField extends StatelessWidget {
   });
   final String labelText;
   final String hintText;
-  final TextEditingController controller;  
+  final TextEditingController controller;
   final Icon prefixIcon;
   final Icon suffixIcon;
   final bool isPasswordField;
   final bool isEmailField;
   final bool isReapetPasswordField;
+
+  @override
+  State<AuthField> createState() => _AuthFieldState();
+}
+
+class _AuthFieldState extends State<AuthField> {
+  late bool isObscure =
+      widget.isPasswordField || widget.isReapetPasswordField ? true : false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,26 +36,39 @@ class AuthField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (labelText.isNotEmpty)
+          if (widget.labelText.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Text(
-                labelText,
+                widget.labelText,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
           TextField(
-            controller: controller,
-            keyboardType: isEmailField
-                ? TextInputType.emailAddress
-                : (isPasswordField || isReapetPasswordField)
+            controller: widget.controller,
+            keyboardType:
+                widget.isEmailField
+                    ? TextInputType.emailAddress
+                    : (widget.isPasswordField || widget.isReapetPasswordField)
                     ? TextInputType.visiblePassword
                     : TextInputType.text,
-            obscureText: isPasswordField || isReapetPasswordField,
+            obscureText: isObscure,
             decoration: InputDecoration(
-              prefixIcon: prefixIcon,
-              suffixIcon: isPasswordField || isReapetPasswordField ? suffixIcon : null,
-              hintText: hintText,
+              prefixIcon: widget.prefixIcon,
+              suffixIcon:
+                  widget.isPasswordField || widget.isReapetPasswordField
+                      ? IconButton(
+                        onPressed:
+                            () => setState(() {
+                              isObscure = !isObscure;
+                            }),
+                        icon:
+                            isObscure
+                                ? Icon(Icons.visibility_off)
+                                : Icon(Icons.visibility),
+                      )
+                      : null,
+              hintText: widget.hintText,
             ),
           ),
         ],

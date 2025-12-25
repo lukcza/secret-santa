@@ -1,16 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpdart/fpdart.dart';
+import 'package:fpdart/fpdart.dart' hide State;
+import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:secret_santa/features/auth/presentation/bloc/auth_event.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_state.dart';
+import 'package:secret_santa/features/auth/presentation/pages/auth_wrapper.dart';
+import 'package:secret_santa/features/auth/presentation/widgets/auth_button.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/auth_field.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/login_divider.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/login_header_card.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  Future<void> onPressedLoginButton(BuildContext context) async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    context.read<AuthBloc>().add(
+          AuthSignInRequested(email: email, password: password),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +44,14 @@ class LoginPage extends StatelessWidget {
         if (state.status == AuthStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.errorMessage ?? 'An unknown error occurred'),
+              content: Text(state.errorMessage ?? context.loc.unknownError),
+            ),
+          );
+        }
+        if (state.status == AuthStatus.authenticated) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.loc.loginSuccess),
             ),
           );
         }
@@ -34,14 +66,14 @@ class LoginPage extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(top:10,),
                   child: Text(
-                    "Ho ho ho Who are you?",
+                    context.loc.loginTitle,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 AuthField(
-                  labelText: "Email Address",
+                  labelText: context.loc.emailLabel,
                   hintText: "santa@northpole.com",
                   controller: _emailController,
                   isEmailField: true,
@@ -51,8 +83,8 @@ class LoginPage extends StatelessWidget {
                   controller: _passwordController,
                   isPasswordField: true,
                   prefixIcon: const Icon(Icons.lock),
-                  labelText: "Password",
-                  hintText: "Enter your password",
+                  labelText: context.loc.passwordLabel,
+                  hintText: "********",
                   suffixIcon: const Icon(Icons.visibility_off),
                 ),
                 Row(
@@ -61,7 +93,7 @@ class LoginPage extends StatelessWidget {
                     TextButton(
                       onPressed: () => debugPrint("Forgot Password clicked"),
                       child: Text(
-                        "Forgot Password?",
+                        context.loc.forgotPassword,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                         ),
@@ -69,18 +101,14 @@ class LoginPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 50),
-                    ),
-                    onPressed: () => debugPrint("Login clicked"),
-                    child: Text("Login"),
-                  ),
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    if(state.status == AuthStatus.loading){
+                      return const CircularProgressIndicator();
+                    }
+
+                    return AuthButton(onPressed: () => onPressedLoginButton(context), buttonText: context.loc.loginButton);
+                  }
                 ),
                 LoginDivider(),
                 Row(
@@ -113,13 +141,13 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account? ",
+                      context.loc.registerLinkText,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     GestureDetector(
                       onTap: () => debugPrint("Navigate to Register Page"),
                       child: Text(
-                        "Register",
+                        context.loc.registerLink,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.tertiary,
                           fontWeight: FontWeight.bold,

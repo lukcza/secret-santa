@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secret_santa/core/extensions/context_extension.dart';
 
 class LoginHeaderCard extends StatelessWidget {
   const LoginHeaderCard({super.key});
@@ -47,16 +48,15 @@ class LoginHeaderCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Welcome Back!",
+                    context.loc.cardTitle,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          
                         ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Christmas is coming, let's get you logged in.",
+                    context.loc.cardSubtitle,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Colors.white70,
                           fontWeight: FontWeight.bold,

@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get loginTitle => 'Ho ho ho!\nWho are you?';
+  String get loginTitle => 'Ho ho ho! Who are you?';
 
   @override
   String get emailLabel => 'Email Address';
@@ -18,10 +18,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordLabel => 'Password';
 
   @override
-  String get signInButton => 'Sign In';
+  String get loginButton => 'login';
 
   @override
-  String get registerLink => 'Don\'t have an account? Sign Up';
+  String get registerLinkText => 'Don\'t have an account? ';
+
+  @override
+  String get registerLink => 'Register';
 
   @override
   String get errorEmptyEmail => 'Please enter your email';
@@ -31,4 +34,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcomeImageText => 'Merry Christmas!';
+
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get continueWith => 'Or continue with';
+
+  @override
+  String get unknownError => 'An unknown error occurred.';
+
+  @override
+  String get cardTitle => 'Welcome Back!';
+
+  @override
+  String get cardSubtitle => 'Christmas is coming, let\'s get you logged in.';
+
+  @override
+  String get loginSuccess => 'Successfully logged in!';
+
+  @override
+  String get registerAppBarTitle => 'Register';
+
+  @override
+  String get registerTitle => 'Become a Secret Santa';
+
+  @override
+  String get registerSubTitle =>
+      'Join the fun and start exchanging gifts today!';
+
+  @override
+  String get confirmPasswordLabel => 'Confirm Password';
+
+  @override
+  String get nameLabel => 'Full Name';
+
+  @override
+  String get termsAndConditionsLabel => 'I agree to the ';
+
+  @override
+  String get termsAndConditionsLink => 'Terms and Conditions';
+
+  @override
+  String get registerButton => 'Sign Up';
+
+  @override
+  String get registerSuccess => 'Registration successful! Please log in.';
+
+  @override
+  String get passwordsDoNotMatchError => 'Passwords do not match.';
 }
