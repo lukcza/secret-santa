@@ -11,15 +11,15 @@ class AppTheme {
   static const Color backgroundLight = Color(0xFFFCF8F9);
   static const Color surfaceLight = Color(0xFFFFFFFF);
 
-  static const Color backgroundDark = Color(0xFF0F0505);
-  static const Color surfaceDark = Color(0xFF2a1215);
-  static const Color surfaceHighlight = Color(0xFF2D1519);
+  static const Color backgroundDark = Color.fromARGB(255, 31, 10, 10);
+  static const Color surfaceDark = Color.fromARGB(255, 46, 23, 25);
+  static const Color surfaceHighlight = Color.fromARGB(255, 48, 27, 30);
 
   static const Color textMain = Color(0xFF1B0E10);
   static const Color textInverse = Color(0xFFFDF2F4);
   static const Color textMuted = Color(0xFF994D5C);
 
-  static const Color borderDark = Color(0xFF4a2328);
+  static const Color borderDark = Color.fromARGB(255, 95, 45, 52);
 
   static OutlineInputBorder _border(Color color) {
     return OutlineInputBorder(
@@ -98,9 +98,9 @@ class AppTheme {
       contentPadding: const EdgeInsets.all(20),
       filled: true,
       fillColor: surfaceDark,
-      border: _border(borderDark),
+      border: _border(textMuted),
       enabledBorder: _border(surfaceHighlight),
-      focusedBorder: _border(primary),
+      focusedBorder: _border(textMuted),
       errorBorder: _border(primaryLight),
       focusedErrorBorder: _border(primaryLight),
       hintStyle: TextStyle(color: textInverse.withOpacity(0.5)),
