@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
-import 'app_localizations_pl.dart';
 
 // ignore_for_file: type=lint
 
@@ -93,15 +92,12 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-    Locale('pl'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
   /// No description provided for @loginTitle.
   ///
   /// In en, this message translates to:
-  /// **'Ho ho ho!\nWho are you?'**
+  /// **'Ho ho ho! Who are you?'**
   String get loginTitle;
 
   /// No description provided for @emailLabel.
@@ -116,16 +112,22 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get passwordLabel;
 
-  /// No description provided for @signInButton.
+  /// No description provided for @loginButton.
   ///
   /// In en, this message translates to:
-  /// **'Sign In'**
-  String get signInButton;
+  /// **'login'**
+  String get loginButton;
+
+  /// No description provided for @registerLinkText.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? '**
+  String get registerLinkText;
 
   /// No description provided for @registerLink.
   ///
   /// In en, this message translates to:
-  /// **'Don\'t have an account? Sign Up'**
+  /// **'Register'**
   String get registerLink;
 
   /// No description provided for @errorEmptyEmail.
@@ -145,6 +147,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Merry Christmas!'**
   String get welcomeImageText;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @continueWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Or continue with'**
+  String get continueWith;
+
+  /// No description provided for @unknownError.
+  ///
+  /// In en, this message translates to:
+  /// **'An unknown error occurred.'**
+  String get unknownError;
+
+  /// No description provided for @cardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back!'**
+  String get cardTitle;
+
+  /// No description provided for @cardSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Christmas is coming, let\'s get you logged in.'**
+  String get cardSubtitle;
+
+  /// No description provided for @loginSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Successfully logged in!'**
+  String get loginSuccess;
+
+  /// No description provided for @registerAppBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get registerAppBarTitle;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Become a Secret Santa'**
+  String get registerTitle;
+
+  /// No description provided for @registerSubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join the fun and start exchanging gifts today!'**
+  String get registerSubTitle;
+
+  /// No description provided for @confirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPasswordLabel;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get nameLabel;
+
+  /// No description provided for @termsAndConditionsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the '**
+  String get termsAndConditionsLabel;
+
+  /// No description provided for @termsAndConditionsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions'**
+  String get termsAndConditionsLink;
+
+  /// No description provided for @registerButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get registerButton;
+
+  /// No description provided for @registerSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration successful! Please log in.'**
+  String get registerSuccess;
+
+  /// No description provided for @passwordsDoNotMatchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match.'**
+  String get passwordsDoNotMatchError;
 }
 
 class _AppLocalizationsDelegate
@@ -158,7 +262,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'pl'].contains(locale.languageCode);
+      <String>['en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -169,8 +273,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
-    case 'pl':
-      return AppLocalizationsPl();
   }
 
   throw FlutterError(

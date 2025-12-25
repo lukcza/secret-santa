@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secret_santa/core/extensions/context_extension.dart';
 
 class LoginDivider extends StatelessWidget {
   const LoginDivider({super.key});
@@ -15,7 +16,7 @@ class LoginDivider extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              "Or continue with",
+              context.loc.continueWith,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),

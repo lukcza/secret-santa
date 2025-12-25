@@ -16,11 +16,6 @@ const AuthWrapper({ Key? key }) : super(key: key);
             body: Center(child: Text("Jesteś zalogowany! (Tu będzie HomePage)")),
           );
         } 
-        if(state.status == AuthStatus.loading){
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
         return LoginPage();
       } 
     );
