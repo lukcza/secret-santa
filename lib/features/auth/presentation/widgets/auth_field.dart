@@ -20,6 +20,7 @@ class AuthField extends StatefulWidget {
   final bool isPasswordField;
   final bool isEmailField;
   final bool isReapetPasswordField;
+  
 
   @override
   State<AuthField> createState() => _AuthFieldState();

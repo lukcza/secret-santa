@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpdart/fpdart.dart' hide State;
 import 'package:go_router/go_router.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_event.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_state.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/auth_button.dart';
-import 'package:secret_santa/features/auth/presentation/widgets/auth_field.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/login_divider.dart';
+import 'package:secret_santa/features/auth/presentation/widgets/login_form.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/login_header_card.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,21 +19,24 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
-    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
 
   Future<void> onPressedLoginButton(BuildContext context) async {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-    context.read<AuthBloc>().add(
-          AuthSignInRequested(email: email, password: password),
-        );
+    if (_formKey.currentState?.validate() ?? false) {
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+      context.read<AuthBloc>().add(
+            AuthSignInRequested(email: email, password: password),
+          );
+    }
   }
 
   @override
@@ -64,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 LoginHeaderCard(),
                 Container(
-                  margin: const EdgeInsets.only(top:10,),
+                  margin: const EdgeInsets.only(top: 10),
                   child: Text(
                     context.loc.loginTitle,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -72,26 +74,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                AuthField(
-                  labelText: context.loc.emailLabel,
-                  hintText: "santa@northpole.com",
-                  controller: _emailController,
-                  isEmailField: true,
-                  prefixIcon: const Icon(Icons.email),
-                ),
-                AuthField(
-                  controller: _passwordController,
-                  isPasswordField: true,
-                  prefixIcon: const Icon(Icons.lock),
-                  labelText: context.loc.passwordLabel,
-                  hintText: "********",
-                  suffixIcon: const Icon(Icons.visibility_off),
+                LoginForm(
+                  emailController: _emailController,
+                  passwordController: _passwordController,
+                  formKey: _formKey,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(
-                      onPressed: () => debugPrint("Forgot Password clicked"),
+                    GestureDetector(
+                      onTap: () => debugPrint("Forgot password clicked"),
                       child: Text(
                         context.loc.forgotPassword,
                         style: TextStyle(
@@ -106,7 +98,6 @@ class _LoginPageState extends State<LoginPage> {
                     if(state.status == AuthStatus.loading){
                       return const CircularProgressIndicator();
                     }
-
                     return AuthButton(onPressed: () => onPressedLoginButton(context), buttonText: context.loc.loginButton);
                   }
                 ),

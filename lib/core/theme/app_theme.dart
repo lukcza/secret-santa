@@ -59,6 +59,12 @@ class AppTheme {
       errorBorder: _border(primaryDark),
       focusedErrorBorder: _border(primaryDark),
       hintStyle: const TextStyle(color: textMuted),
+      errorStyle: const TextStyle(
+        color: primaryDark,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      ),
+      errorMaxLines: 2,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -106,6 +112,12 @@ class AppTheme {
       hintStyle: TextStyle(color: textInverse.withOpacity(0.5)),
       prefixIconColor: textMuted,
       suffixIconColor: textMuted,
+      errorStyle: const TextStyle(
+        color: primaryLight,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      ),
+      errorMaxLines: 2,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
