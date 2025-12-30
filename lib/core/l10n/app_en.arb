@@ -24,5 +24,12 @@
     "termsAndConditionsLink": "Terms and Conditions",
     "registerButton": "Sign Up",
     "registerSuccess": "Registration successful! Please log in.",
-    "passwordsDoNotMatchError": "Passwords do not match."
+    "passwordsDoNotMatchError": "Passwords do not match.",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "nameRequired": "Name is required",
+    "nameTooShort": "Name must be at least 2 characters",
+    "confirmPasswordRequired": "Please confirm your password"
 }

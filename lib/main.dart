@@ -46,3 +46,12 @@ class MyApp extends StatelessWidget {
       );
   }
 }
+void emailValidator(String? email) {
+  if (email == null || email.isEmpty) {
+    throw 'Email is required';
+  }
+  final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+  if (!emailRegex.hasMatch(email)) {
+    throw 'Enter a valid email address';
+  }
+}
