@@ -50,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             );
           },
           (user) {
-            emit(state.copyWith(status: AuthStatus.authenticated, user: user));
+            emit(state.copyWith(status: AuthStatus.registered, user: user));
           },
         );
       });

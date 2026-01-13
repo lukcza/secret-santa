@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
-enum AuthStatus { initial, authenticated, unauthenticated, loading, error }
+enum AuthStatus { initial, authenticated, unauthenticated, loading, error, registered }
 class AuthState extends Equatable {
-  AuthStatus status;
+  final AuthStatus status;
   final UserEntity? user;
   final String? errorMessage;
   AuthState(
@@ -20,5 +20,5 @@ class AuthState extends Equatable {
     );
   }
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [status, user, errorMessage];
 }
