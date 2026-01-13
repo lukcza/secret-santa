@@ -10,6 +10,14 @@ import 'package:secret_santa/features/auth/domain/usecases/login_user.dart';
 import 'package:secret_santa/features/auth/domain/usecases/register_user.dart';
 import 'package:secret_santa/features/auth/domain/usecases/sign_out_user.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:secret_santa/features/home/domain/usecases/create_group.dart';
+import 'package:secret_santa/features/home/domain/usecases/generate_group_code.dart';
+import 'package:secret_santa/features/home/domain/usecases/get_group_by_id.dart';
+import 'package:secret_santa/features/home/domain/usecases/get_group_code.dart';
+import 'package:secret_santa/features/home/domain/usecases/get_user_groups.dart';
+import 'package:secret_santa/features/home/domain/usecases/join_group.dart';
+import 'package:secret_santa/features/home/domain/usecases/leave_group.dart';
+import 'package:secret_santa/features/home/domain/usecases/update_group.dart';
 
 final sl = GetIt.instance;
 
@@ -37,6 +45,16 @@ Future<void> init() async {
       getCurrentUser: sl(),
     ),
   );
+  //sl.registerFactory(()=> HomeBloc(getUserGroups: sl()));
+
+  sl.registerLazySingleton(() => GetUserGroups(sl()));
+  sl.registerLazySingleton(() => CreateGroup(sl()));
+  sl.registerLazySingleton(() => JoinGroup(sl()));
+  sl.registerLazySingleton(() => LeaveGroup(sl()));
+  sl.registerLazySingleton(() => GetGroupCode(sl()));
+  sl.registerLazySingleton(() => GetGroupById(sl()));
+  sl.registerLazySingleton(() => UpdateGroup(sl()));
+  sl.registerLazySingleton(() => GenerateGroupCode(sl()));
 
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));
 }
