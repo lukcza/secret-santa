@@ -31,5 +31,13 @@
     "passwordTooShort": "Password must be at least 6 characters",
     "nameRequired": "Name is required",
     "nameTooShort": "Name must be at least 2 characters",
-    "confirmPasswordRequired": "Please confirm your password"
+    "confirmPasswordRequired": "Please confirm your password",
+    "activeExchanges": "Active\nExchanges",
+    "noActiveExchanges": "You have no active exchanges. Join or create one to get started!",
+    "season": "Season",
+    "nextDrawingIn": "Next Drawing In",
+    "months": "months",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes"
 }

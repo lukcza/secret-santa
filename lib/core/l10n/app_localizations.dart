@@ -291,6 +291,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please confirm your password'**
   String get confirmPasswordRequired;
+
+  /// No description provided for @activeExchanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Active\nExchanges'**
+  String get activeExchanges;
+
+  /// No description provided for @noActiveExchanges.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no active exchanges. Join or create one to get started!'**
+  String get noActiveExchanges;
+
+  /// No description provided for @season.
+  ///
+  /// In en, this message translates to:
+  /// **'Season'**
+  String get season;
+
+  /// No description provided for @nextDrawingIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Drawing In'**
+  String get nextDrawingIn;
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **'months'**
+  String get months;
+
+  /// No description provided for @days.
+  ///
+  /// In en, this message translates to:
+  /// **'days'**
+  String get days;
+
+  /// No description provided for @hours.
+  ///
+  /// In en, this message translates to:
+  /// **'hours'**
+  String get hours;
+
+  /// No description provided for @minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'minutes'**
+  String get minutes;
 }
 
 class _AppLocalizationsDelegate

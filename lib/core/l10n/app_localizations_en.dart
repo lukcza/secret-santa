@@ -107,4 +107,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmPasswordRequired => 'Please confirm your password';
+
+  @override
+  String get activeExchanges => 'Active\nExchanges';
+
+  @override
+  String get noActiveExchanges =>
+      'You have no active exchanges. Join or create one to get started!';
+
+  @override
+  String get season => 'Season';
+
+  @override
+  String get nextDrawingIn => 'Next Drawing In';
+
+  @override
+  String get months => 'months';
+
+  @override
+  String get days => 'days';
+
+  @override
+  String get hours => 'hours';
+
+  @override
+  String get minutes => 'minutes';
 }
