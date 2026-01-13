@@ -62,4 +62,15 @@ class GroupModel extends GroupEntity {
       orElse: () => GroupState.draft,
     );
   }
+
+  static String generateGroupCode() {
+    const length = 6;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final rand = DateTime.now().millisecondsSinceEpoch;
+    final code = List.generate(length, (index) {
+      final charIndex = (rand + index) % chars.length;
+      return chars[charIndex];
+    }).join();
+    return code;
+  }
 }

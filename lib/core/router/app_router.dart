@@ -17,6 +17,11 @@ class AppRouter {
       final bool isLoggingIn = state.matchedLocation == "/login";
       final bool isAuthenticated =
           authBloc.state.status == AuthStatus.authenticated;
+      final bool isRegistered =
+          authBloc.state.status == AuthStatus.registered;
+      if(isRegistered) {
+        return "/login";
+      }
       if (!isAuthenticated) {
         if (!isLoggingIn && state.matchedLocation != "/register") {
           return "/login";

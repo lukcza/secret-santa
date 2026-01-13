@@ -14,15 +14,16 @@ class GroupRemoteDataSource{
   }
 
   @override
-  Future<GroupModel> getGroupById(String groupId) async {
-    final doc = await _firestore.collection('groups').doc(groupId).get();
+  Future<List<GroupModel>> fetchUserGroups(String userId) async {
+    final querySnapshot = await _firestore
+        .collection('groups')
+        .where('participantsUIDs', arrayContains: userId)
+        .orderBy('createdAt', descending: true)
+        .get();
 
-    if (doc.exists) {
-      return GroupModel.fromSnapshot(doc);
-    } else {
-      // Rzucamy wyjątek, a nie zwracamy Left
-      throw Exception('Group not found');
-    }
+    return querySnapshot.docs
+        .map((doc) => GroupModel.fromSnapshot(doc))
+        .toList();
   }
 
   @override
@@ -39,7 +40,6 @@ class GroupRemoteDataSource{
 
     final groupDoc = query.docs.first;
     
-    // arrayUnion dodaje element tylko jeśli go tam nie ma (bezpieczne)
     await groupDoc.reference.update({
       'participantsUIDs': FieldValue.arrayUnion([userId])
     });
@@ -62,5 +62,14 @@ class GroupRemoteDataSource{
     await groupDoc.reference.update({
       'participantsUIDs': FieldValue.arrayRemove([userId])
     });
+  }
+  Future<void> updateGroup(GroupModel group) async {
+    final groupRef = _firestore.collection('groups').doc(group.id);
+    await groupRef.update(group.toDocument());
+  }
+  Future<void> generateGroupCode(String groupId) async {
+    final groupRef = _firestore.collection('groups').doc(groupId);
+    final newCode = GroupModel.generateGroupCode(); // Generate a 6-character code
+    await groupRef.update({'inviteCode': newCode});
   }
 }
