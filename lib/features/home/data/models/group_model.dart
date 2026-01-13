@@ -22,7 +22,7 @@ class GroupModel extends GroupEntity {
     final data = doc.data() as Map<String, dynamic>;
 
     return GroupModel(
-      id: doc.id, // ID bierzemy z dokumentu, nie z pola w środku
+      id: doc.id,
       title: data['title'] ?? '',
       description: data['description'],
       authorUID: data['authorUID'] ?? '',
