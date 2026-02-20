@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:secret_santa/core/enums/group_state.dart';
 import 'package:secret_santa/core/router/go_router_regresh_stream.dart';
 import 'package:go_router/go_router.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_state.dart';
 import 'package:secret_santa/features/auth/presentation/pages/login_page.dart';
 import 'package:secret_santa/features/auth/presentation/pages/register_page.dart';
+import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
+import 'package:secret_santa/features/home/presentation/bloc/home_event.dart';
+import 'package:secret_santa/features/home/presentation/bloc/home_state.dart';
+import 'package:secret_santa/features/home/presentation/pages/home_page.dart';
 
 class AppRouter {
   final AuthBloc authBloc;
@@ -43,8 +50,8 @@ class AppRouter {
         path: "/",
         builder:
             (context, state) =>
-                const Scaffold(body: Center(child: Text("Home Page"))),
-      ),
+               const HomePage(),
+      )
     ],
   );
 }

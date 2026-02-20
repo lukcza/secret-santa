@@ -84,5 +84,14 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
     }
     return GroupModel.fromSnapshot(groupDoc);
   }
-  
+  Stream<List<GroupModel>> getUserGroupsStream(String userId) {
+    return _firestore
+        .collection('groups')
+        .where('participantsUIDs', arrayContains: userId)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => GroupModel.fromSnapshot(doc))
+            .toList());
+  }
 }
