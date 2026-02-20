@@ -12,4 +12,5 @@ abstract class GroupRepository {
   Future<Either<Failure, GroupEntity>> getGroupById(String groupId);
   Future<Either<Failure, void>> updateGroup(GroupModel group);
   Future<Either<Failure, void>> generateGroupCode(String groupId);
+  Stream<List<GroupEntity>> getUserGroupsStream();
 }

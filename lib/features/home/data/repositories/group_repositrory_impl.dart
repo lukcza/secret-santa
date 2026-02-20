@@ -142,4 +142,12 @@ class GroupRepositoryImpl implements GroupRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+  @override
+  Stream<List<GroupEntity>> getUserGroupsStream() {
+    final userId = _firebaseAuth.currentUser?.uid;
+    if (userId == null) {
+      return Stream.error('User not authenticated');
+    }
+    return _remoteDataSource.getUserGroupsStream(userId);
+  }
 }

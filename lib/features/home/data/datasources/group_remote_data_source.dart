@@ -8,4 +8,5 @@ abstract class GroupRemoteDataSource {
   Future<GroupModel> getGroupById(String groupId);
   Future<void> updateGroup(GroupModel group);
   Future<void> generateGroupCode(String groupId);
+  Stream<List<GroupModel>> getUserGroupsStream(String userId);
 }
