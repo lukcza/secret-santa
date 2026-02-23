@@ -339,6 +339,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'minutes'**
   String get minutes;
+
+  /// No description provided for @allGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'All group'**
+  String get allGroup;
+
+  /// No description provided for @drawingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Drawingsoon'**
+  String get drawingSoon;
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completed;
+
+  /// No description provided for @rdyToStartRecruting.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to start recruting elevs'**
+  String get rdyToStartRecruting;
+
+  /// No description provided for @elvesRecruting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for organizer'**
+  String get elvesRecruting;
+
+  /// No description provided for @drawingComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Drawing completed check your person'**
+  String get drawingComplete;
+
+  /// No description provided for @elvesAreHelpingSanta.
+  ///
+  /// In en, this message translates to:
+  /// **'Elves are helping santa'**
+  String get elvesAreHelpingSanta;
+
+  /// No description provided for @evryoneGotAPresents.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone got a presents'**
+  String get evryoneGotAPresents;
+
+  /// No description provided for @participantsJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'Elevs Joined'**
+  String get participantsJoined;
+
+  /// No description provided for @editGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Group'**
+  String get editGroup;
+
+  /// No description provided for @viewMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'View Match'**
+  String get viewMatch;
 }
 
 class _AppLocalizationsDelegate

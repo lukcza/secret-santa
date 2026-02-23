@@ -132,4 +132,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get minutes => 'minutes';
+
+  @override
+  String get allGroup => 'All group';
+
+  @override
+  String get drawingSoon => 'Drawingsoon';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get rdyToStartRecruting => 'Ready to start recruting elevs';
+
+  @override
+  String get elvesRecruting => 'Waiting for organizer';
+
+  @override
+  String get drawingComplete => 'Drawing completed check your person';
+
+  @override
+  String get elvesAreHelpingSanta => 'Elves are helping santa';
+
+  @override
+  String get evryoneGotAPresents => 'Everyone got a presents';
+
+  @override
+  String get participantsJoined => 'Elevs Joined';
+
+  @override
+  String get editGroup => 'Edit Group';
+
+  @override
+  String get viewMatch => 'View Match';
 }

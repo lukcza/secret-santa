@@ -39,5 +39,16 @@
     "months": "months",
     "days": "days",
     "hours": "hours",
-    "minutes": "minutes"
-}
+    "minutes": "minutes",
+    "allGroup": "All group",
+    "drawingSoon": "Drawingsoon",
+    "completed": "Completed",
+    "rdyToStartRecruting": "Ready to start recruting elevs",
+    "elvesRecruting": "Waiting for organizer",
+    "drawingComplete": "Drawing completed check your person",
+    "elvesAreHelpingSanta": "Elves are helping santa",
+    "evryoneGotAPresents": "Everyone got a presents",
+    "participantsJoined": "Elevs Joined",
+    "editGroup": "Edit Group",
+    "viewMatch": "View Match"
+} 
