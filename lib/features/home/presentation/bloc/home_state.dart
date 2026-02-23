@@ -16,7 +16,7 @@ class HomeState extends Equatable {
   HomeState copyWith({
     HomeStatus? status,
     List<GroupEntity>? groups,
-    String? errorMessage, Object? userGroups,
+    String? errorMessage,
   }) {
     return HomeState(
       status: status ?? this.status,

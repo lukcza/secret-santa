@@ -22,7 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>{
         onData: (groups) {
           return state.copyWith(
             status: HomeStatus.loaded,
-            userGroups: groups,
+            groups: groups,
           );
         },
         onError: (error, stackTrace) {

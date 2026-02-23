@@ -1,6 +1,7 @@
 enum GroupState {
   draft,     
   recruiting, 
-  drawn,      
-  finished   
+  drawn,    
+  active,  
+  finished  
 }

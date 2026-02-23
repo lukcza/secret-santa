@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
+import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_event.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_state.dart';
 import 'package:secret_santa/features/home/presentation/widgets/active_exchanges_card.dart';
+import 'package:secret_santa/features/home/presentation/widgets/group_list_item.dart';
+import 'package:secret_santa/features/home/presentation/widgets/sorting_type_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,10 +18,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late UserEntity user;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    user = context.read<AuthBloc>().state.user!;
     context.read<HomeBloc>().add(HomeGetUserGroupsEvent());
   }
   @override
@@ -37,12 +44,28 @@ class _HomePageState extends State<HomePage> {
       ),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          return const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ActiveExchangesCard(countActiveExchanges: )
-              ],
+          return SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ActiveExchangesCard(countActiveExchanges: state.groups.length,),
+                  SortingTypeSlider(),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.groups.length,
+                    itemBuilder: (context, index) {
+                      final group = state.groups[index];
+                      return BlocSelector<HomeBloc, HomeState, GroupListItem>(
+                        selector: (state) => GroupListItem(group: group, user: user),
+                        builder: (context, groupListItem) {
+                          return groupListItem;
+                        },
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
           );
         }
