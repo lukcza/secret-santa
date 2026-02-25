@@ -165,4 +165,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewMatch => 'View Match';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get home => 'Home';
 }

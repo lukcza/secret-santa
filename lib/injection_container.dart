@@ -29,10 +29,6 @@ import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  await sl.reset();
-  if (sl.isRegistered<AuthBloc>()) {
-    return;
-  }
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton(() => FirebaseFirestore.instance);
 
@@ -67,7 +63,7 @@ Future<void> init() async {
     ),
   );
   //Home Bloc
-  sl.registerFactory(() => HomeBloc(getUserGroupsStream: sl(), joinGroup: sl()));
+  sl.registerLazySingleton(() => HomeBloc(getUserGroupsStream: sl(), joinGroup: sl()));
 
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));
 }

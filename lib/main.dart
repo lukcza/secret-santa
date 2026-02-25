@@ -6,6 +6,7 @@ import 'package:secret_santa/core/router/app_router.dart';
 import 'package:secret_santa/core/theme/app_theme.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_event.dart';
+import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
 import 'package:secret_santa/core/l10n/app_localizations.dart';
 import 'firebase_options.dart';
 import 'package:secret_santa/injection_container.dart' as di;
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (_) => di.sl<AuthBloc>()..add(const AuthCheckSession()),
+        ),
+        BlocProvider(
+          create: (_) => di.sl<HomeBloc>(),
         ),
       ],
       child: MaterialApp.router(

@@ -12,6 +12,7 @@ class ActiveExchangesCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Stack(
+          clipBehavior: Clip.none,
           children: [
             Positioned(
                 right: -20,
@@ -41,6 +42,7 @@ class ActiveExchangesCard extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onTertiary,
                       ),
                     ),
+                    const SizedBox(width: 8.0),
                     Text(context.loc.season.toUpperCase() + ' ${DateTime.now().year}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -60,23 +62,23 @@ class ActiveExchangesCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Container(
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.info_outline,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                          ),
-                          const SizedBox(width: 4.0),
-                          Text(
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.info_outline,
+                          size: 16,
+                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        ),
+                        const SizedBox(width: 4.0),
+                        Flexible(
+                          child: Text(
                             context.loc.noActiveExchanges + ' ' + drawingTimeValue + ' ' + drawingTimeUnit,
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     )
                   ],
                 ),

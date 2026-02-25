@@ -7,6 +7,7 @@ import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_event.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_state.dart';
 import 'package:secret_santa/features/home/presentation/widgets/active_exchanges_card.dart';
+import 'package:secret_santa/features/home/presentation/widgets/bottom_nav_bar.dart';
 import 'package:secret_santa/features/home/presentation/widgets/group_list_item.dart';
 import 'package:secret_santa/features/home/presentation/widgets/sorting_type_slider.dart';
 
@@ -45,31 +46,32 @@ class _HomePageState extends State<HomePage> {
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
                   ActiveExchangesCard(countActiveExchanges: state.groups.length,),
                   SortingTypeSlider(),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.groups.length,
-                    itemBuilder: (context, index) {
-                      final group = state.groups[index];
-                      return BlocSelector<HomeBloc, HomeState, GroupListItem>(
-                        selector: (state) => GroupListItem(group: group, user: user),
-                        builder: (context, groupListItem) {
-                          return groupListItem;
-                        },
-                      );
-                    },
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.groups.length,
+                      itemBuilder: (context, index) {
+                        final group = state.groups[index];
+                        return BlocSelector<HomeBloc, HomeState, GroupListItem>(
+                          selector: (state) => GroupListItem(group: group, user: user),
+                          builder: (context, groupListItem) {
+                            return groupListItem;
+                          },
+                        );
+                      },
+                    ),
                   )
                 ],
-              ),
             ),
           );
         }
       ),
+      bottomNavigationBar: BottomNavBar(currentIndex: 0, onTap: (index) => print("navigation button clicked with index: $index")),
     );
   }
 }

@@ -62,12 +62,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(
             state.copyWith(
               status: AuthStatus.error,
-              errorMessage: failure.toString(),
+              errorMessage: failure.message,
             ),
           );
         },
         (_) {
-          emit(state.copyWith(status: AuthStatus.unauthenticated, user: null));
+          emit(state.copyWith(status: AuthStatus.unauthenticated, clearUser: true, clearErrorMessage: true));
         },
       );
     });
@@ -75,7 +75,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final currentUserResult = await getCurrentUser();
       currentUserResult.fold(
         (failure) {
-          emit(state.copyWith(status: AuthStatus.unauthenticated, user: null, errorMessage: null));
+          emit(state.copyWith(status: AuthStatus.unauthenticated, clearUser: true, clearErrorMessage: true));
         },
         (user) {
           emit(state.copyWith(status: AuthStatus.authenticated, user: user));
