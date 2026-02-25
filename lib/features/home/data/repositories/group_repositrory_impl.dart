@@ -1,19 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
-import 'package:secret_santa/features/home/data/datasources/group_remote_data_source_impl.dart';
+import 'package:secret_santa/features/home/data/datasources/group_remote_data_source.dart';
 import 'package:secret_santa/features/home/data/models/group_model.dart';
 import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
-import 'package:secret_santa/features/home/data/repositories/group_repositrory_impl.dart'
-    as _remoteDataSource;
 import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
 
 class GroupRepositoryImpl implements GroupRepository {
-  final GroupRemoteDataSourceImpl _remoteDataSource;
+  final GroupRemoteDataSource _remoteDataSource;
   final FirebaseAuth _firebaseAuth;
 
   GroupRepositoryImpl({
-    required GroupRemoteDataSourceImpl remoteDataSource,
+    required GroupRemoteDataSource remoteDataSource,
     required FirebaseAuth firebaseAuth,
   }) : _remoteDataSource = remoteDataSource,
        _firebaseAuth = firebaseAuth;

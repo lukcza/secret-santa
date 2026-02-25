@@ -44,6 +44,8 @@ class AuthRepositoryImpl implements AuthRepository {
         wishlist: List<String>.from(currentUserModel.wishlist ?? []),
       );
       return Right(userEntity);
+    } on FirebaseAuthException catch (e) {
+      return Left(AuthFailure(_mapFirebaseError(e.code)));
     } catch (e) {
       return Left(AuthFailure(e.toString()));
     }
@@ -60,7 +62,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, UserEntity>> getCurrentUser() async {
     try {
-      final user = _firebaseAuth.currentUser;
+      final user = await _firebaseAuth.authStateChanges().first;
       if (user == null) {
         return Left(AuthFailure('No user is currently signed in.'));
       }
@@ -96,11 +98,36 @@ class AuthRepositoryImpl implements AuthRepository {
           .set(newUserModel.toMap());
       print('User document created for UID: ${user.uid}');
       return Right(newUserModel.toEntity());
+    } on FirebaseAuthException catch (e) {
+      return Left(AuthFailure(_mapFirebaseError(e.code)));
     } catch (e) {
       return Left(AuthFailure(e.toString()));
     }
   }
-  
+
+  String _mapFirebaseError(String code) {
+    switch (code) {
+      case 'invalid-credential':
+      case 'wrong-password':
+      case 'user-not-found':
+        return 'Invalid email or password.';
+      case 'email-already-in-use':
+        return 'This email is already registered.';
+      case 'invalid-email':
+        return 'The email address is invalid.';
+      case 'weak-password':
+        return 'Password is too weak (min. 6 characters).';
+      case 'user-disabled':
+        return 'This account has been disabled.';
+      case 'too-many-requests':
+        return 'Too many attempts. Try again later.';
+      case 'network-request-failed':
+        return 'No internet connection.';
+      default:
+        return 'Authentication error: $code';
+    }
+  }
+
   @override
   Stream<UserEntity?> get getCurrentUserStream {
     return _firebaseAuth.authStateChanges().asyncMap((user) async {

@@ -19,25 +19,28 @@ class _SortingTypeSliderState extends State<SortingTypeSlider> {
   @override
   Widget build(BuildContext context) {
   final listOfSortingCategories = [context.loc.allGroup, context.loc.drawingSoon, context.loc.completed];
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: listOfSortingCategories.length,
-      itemBuilder: (context, index) => 
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(
-            onPressed: ()=>{
-              setState(() {
+    return SizedBox(
+      height: 56,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: listOfSortingCategories.length,
+        itemBuilder: (context, index) =>
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () => setState(() {
                 selectedIndex = index;
-              })
-            },
-            child: Text(listOfSortingCategories[index]),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: selectedIndex == index ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.secondaryFixed,
-              shape: StadiumBorder()
+              }),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: selectedIndex == index
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.secondaryFixed,
+                shape: const StadiumBorder(),
+              ),
+              child: Text(listOfSortingCategories[index]),
             ),
           ),
-    )
+      ),
     );
   }
 }
