@@ -56,5 +56,12 @@
     "home": "Home",
     "homeTitle": "Your Secret Santa Groups",
     "drawingIn": "Next drawing in",
-    "createNewGroup": "Create or Join Group"
+    "createNewGroup": "Create or Join Group",
+    "letsGetStarted": "Let's get started!",
+    "hostOrJoin": "Host a new exchange or join the fun with your friends!",
+    "createNewGroup": "Create New Group",
+    "getStarted": "Get Started",
+    "createNewGroupDescription": "Start a new Secret  Santa exchange. Invite friends, set rules, and draw names.",
+    "joinExistingGroup": "Join Existing Group",
+    "joinExistingGroupDescription": "Got an invite code? Enter it here to join your firends' gift exchange."
 } 
