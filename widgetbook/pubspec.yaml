@@ -1,0 +1,25 @@
+name: widgetbook_secret_santa
+description: Widgetbook for Secret Santa app
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  widgetbook: ^3.20.2
+  secret_santa:
+    path: ../
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/cardBGLoginPage.png
+    - assets/images/google_icon.png
+    - assets/images/facebook_icon.png
