@@ -6,23 +6,26 @@ class ActiveExchangesCard extends StatelessWidget {
   final int countActiveExchanges;
   @override
   Widget build(BuildContext context) {
+    //TODO: get real value for drawing time and unit
     var drawingTimeValue = '0';
     var drawingTimeUnit = context.loc.days;
     return Card(
+      clipBehavior: Clip.hardEdge,
+      color: Theme.of(context).colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
             Positioned(
-                right: -20,
-                top: -20,
+                right: -35,
+                top: -30,
                 child: Transform.rotate(
                   angle: -0.5,
                   child: Icon(
                     Icons.ac_unit,
-                    size: 30,
-                    color: Colors.grey.withOpacity(0.1),
+                    size: 150,
+                    color: Colors.white.withOpacity(0.2),
                   ),
                 ),
             ),
@@ -38,49 +41,50 @@ class ActiveExchangesCard extends StatelessWidget {
                       ),
                       padding: const EdgeInsets.all(8.0),
                       child: Icon(
-                        Icons.star_border_outlined,
-                        color: Theme.of(context).colorScheme.onTertiary,
+                        Icons.star,
+                        color: Theme.of(context).colorScheme.tertiary,
                       ),
                     ),
                     const SizedBox(width: 8.0),
                     Text(context.loc.season.toUpperCase() + ' ${DateTime.now().year}',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text(
-                      '${countActiveExchanges} ${context.loc.activeExchanges}',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                Text(
+                  '${countActiveExchanges} ${context.loc.activeExchanges}',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontSize: 37,
+                    fontWeight: FontWeight.bold,
+                    height: 1,
                     ),
-                  ],
                 ),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.info_outline,
-                          size: 16,
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                        ),
-                        const SizedBox(width: 4.0),
-                        Flexible(
-                          child: Text(
-                            context.loc.noActiveExchanges + ' ' + drawingTimeValue + ' ' + drawingTimeUnit,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-                            ),
+                Container(
+                  margin: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.info_outline,
+                        size: 16,
+                        color: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      const SizedBox(width: 6.0),
+                      Expanded(
+                        child: Text(
+                          drawingTimeValue != 0 ? context.loc.drawingIn + ' ' + drawingTimeValue + ' ' + drawingTimeUnit + '.' : '',
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
-                      ],
-                    )
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 8.0),
               ],

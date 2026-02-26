@@ -301,7 +301,7 @@ abstract class AppLocalizations {
   /// No description provided for @noActiveExchanges.
   ///
   /// In en, this message translates to:
-  /// **'You have no active exchanges. Join or create one to get started!'**
+  /// **'You have no active exchanges.'**
   String get noActiveExchanges;
 
   /// No description provided for @season.
@@ -343,13 +343,13 @@ abstract class AppLocalizations {
   /// No description provided for @allGroup.
   ///
   /// In en, this message translates to:
-  /// **'All group'**
+  /// **'All Groups'**
   String get allGroup;
 
   /// No description provided for @drawingSoon.
   ///
   /// In en, this message translates to:
-  /// **'Drawingsoon'**
+  /// **'Drawing Soon'**
   String get drawingSoon;
 
   /// No description provided for @completed.
@@ -423,6 +423,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @homeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Secret Santa Groups'**
+  String get homeTitle;
+
+  /// No description provided for @drawingIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Next drawing in'**
+  String get drawingIn;
+
+  /// No description provided for @createNewGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Create or Join Group'**
+  String get createNewGroup;
 }
 
 class _AppLocalizationsDelegate

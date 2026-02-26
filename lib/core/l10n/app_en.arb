@@ -33,15 +33,15 @@
     "nameTooShort": "Name must be at least 2 characters",
     "confirmPasswordRequired": "Please confirm your password",
     "activeExchanges": "Active\nExchanges",
-    "noActiveExchanges": "You have no active exchanges. Join or create one to get started!",
+    "noActiveExchanges": "You have no active exchanges.",
     "season": "Season",
     "nextDrawingIn": "Next Drawing In",
     "months": "months",
     "days": "days",
     "hours": "hours",
     "minutes": "minutes",
-    "allGroup": "All group",
-    "drawingSoon": "Drawingsoon",
+    "allGroup": "All Groups",
+    "drawingSoon": "Drawing Soon",
     "completed": "Completed",
     "rdyToStartRecruting": "Ready to start recruting elevs",
     "elvesRecruting": "Waiting for organizer",
@@ -53,5 +53,8 @@
     "viewMatch": "View Match",
     "profile": "Profile",
     "notifications": "Notifications",
-    "home": "Home"
+    "home": "Home",
+    "homeTitle": "Your Secret Santa Groups",
+    "drawingIn": "Next drawing in",
+    "createNewGroup": "Create or Join Group"
 } 

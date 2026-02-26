@@ -34,8 +34,8 @@ class _LoginPageState extends State<LoginPage> {
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
       context.read<AuthBloc>().add(
-            AuthSignInRequested(email: email, password: password),
-          );
+        AuthSignInRequested(email: email, password: password),
+      );
     }
   }
 
@@ -51,11 +51,9 @@ class _LoginPageState extends State<LoginPage> {
           );
         }
         if (state.status == AuthStatus.authenticated) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(context.loc.loginSuccess),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(context.loc.loginSuccess)));
         }
       },
       child: Scaffold(
@@ -70,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     context.loc.loginTitle,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
@@ -95,11 +93,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 BlocBuilder<AuthBloc, AuthState>(
                   builder: (context, state) {
-                    if(state.status == AuthStatus.loading){
+                    if (state.status == AuthStatus.loading) {
                       return const CircularProgressIndicator();
                     }
-                    return AuthButton(onPressed: () => onPressedLoginButton(context), buttonText: context.loc.loginButton);
-                  }
+                    return AuthButton(
+                      onPressed: () => onPressedLoginButton(context),
+                      buttonText: context.loc.loginButton,
+                    );
+                  },
                 ),
                 LoginDivider(),
                 Row(

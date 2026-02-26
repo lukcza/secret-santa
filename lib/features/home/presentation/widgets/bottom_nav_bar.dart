@@ -24,10 +24,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: BottomNavigationBar(
+          selectedItemColor: Theme.of(context).colorScheme.secondary,
+          backgroundColor: Theme.of(context).colorScheme.secondaryFixed,
           currentIndex: widget.currentIndex,
           onTap: (index) {
             widget.onTap(index);
-            _showNavigationFeedback(context, index);
             _navigateToRoute(context, index);
           },
           items: [
@@ -36,12 +37,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
               label: context.loc.home,
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.person),
-              label: context.loc.profile,
-            ),
-            BottomNavigationBarItem(
               icon: const Icon(Icons.notifications),
               label: context.loc.notifications,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.person),
+              label: context.loc.profile,
             ),
           ],
         ),
@@ -63,15 +64,4 @@ class _BottomNavBarState extends State<BottomNavBar> {
     }
   }
 
-  void _showNavigationFeedback(BuildContext context, int index) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(milliseconds: 300),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        content: const SizedBox.shrink(),
-      ),
-    );
-  }
 }

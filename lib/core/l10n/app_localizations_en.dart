@@ -112,8 +112,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activeExchanges => 'Active\nExchanges';
 
   @override
-  String get noActiveExchanges =>
-      'You have no active exchanges. Join or create one to get started!';
+  String get noActiveExchanges => 'You have no active exchanges.';
 
   @override
   String get season => 'Season';
@@ -134,10 +133,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get minutes => 'minutes';
 
   @override
-  String get allGroup => 'All group';
+  String get allGroup => 'All Groups';
 
   @override
-  String get drawingSoon => 'Drawingsoon';
+  String get drawingSoon => 'Drawing Soon';
 
   @override
   String get completed => 'Completed';
@@ -174,4 +173,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home => 'Home';
+
+  @override
+  String get homeTitle => 'Your Secret Santa Groups';
+
+  @override
+  String get drawingIn => 'Next drawing in';
+
+  @override
+  String get createNewGroup => 'Create or Join Group';
 }
