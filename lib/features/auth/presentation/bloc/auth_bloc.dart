@@ -72,12 +72,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
     });
     on<AuthCheckSession>((event, emit) async {
+      print("AuthCheckSession: checking session...");
       final currentUserResult = await getCurrentUser();
+      print("AuthCheckSession: result = $currentUserResult");
       currentUserResult.fold(
         (failure) {
+          print("AuthCheckSession: unauthenticated - ${failure.message}");
           emit(state.copyWith(status: AuthStatus.unauthenticated, clearUser: true, clearErrorMessage: true));
         },
         (user) {
+          print("AuthCheckSession: authenticated - ${user.email}");
           emit(state.copyWith(status: AuthStatus.authenticated, user: user));
         },
       );

@@ -6,6 +6,8 @@ class AppTheme {
   static const Color primaryLight = Color(0xFFEF5350);
 
   static const Color forest = Color(0xFF2E7D32);
+  static const Color forestDark = Color.fromARGB(255, 21, 49, 30);
+  static const Color forestMoreDark = Color(0xFF66BB6A);
   static const Color gold = Color(0xFFFFC107);
 
   static const Color backgroundLight = Color(0xFFFCF8F9);
@@ -38,6 +40,7 @@ class AppTheme {
       primary: primary,
       onPrimary: Colors.white,
       secondary: forest,
+      secondaryFixed: forestDark,
       onSecondary: Colors.white,
       tertiary: gold,
       surface: surfaceLight,
@@ -87,11 +90,12 @@ class AppTheme {
       primary: primary,
       onPrimary: Colors.white,
       secondary: forest,
+      secondaryFixed: forestDark,
       onSecondary: Colors.white,
       tertiary: gold,
       surface: surfaceDark,
       onSurface: textInverse,
-      background: backgroundDark,
+      background: Color.fromARGB(255, 15, 26, 16),
       error: primaryLight,
     ),
     appBarTheme: const AppBarTheme(

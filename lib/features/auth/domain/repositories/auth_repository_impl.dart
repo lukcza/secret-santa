@@ -62,13 +62,16 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, UserEntity>> getCurrentUser() async {
     try {
-      final user = await _firebaseAuth.authStateChanges().first;
+      print("getCurrentUser: checking auth state...");
+      final user = _firebaseAuth.currentUser;
+      print("getCurrentUser: currentUser = $user");
       if (user == null) {
         return Left(AuthFailure('No user is currently signed in.'));
       }
       final currentUserModel = await _getUserModel(user.uid);
       return Right(currentUserModel.toEntity());
     } catch (e) {
+      print("getCurrentUser: error = $e");
       return Left(AuthFailure(e.toString()));
     }
   }

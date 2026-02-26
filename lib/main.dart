@@ -6,7 +6,6 @@ import 'package:secret_santa/core/router/app_router.dart';
 import 'package:secret_santa/core/theme/app_theme.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_event.dart';
-import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
 import 'package:secret_santa/core/l10n/app_localizations.dart';
 import 'firebase_options.dart';
 import 'package:secret_santa/injection_container.dart' as di;
@@ -16,6 +15,12 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await di.init();
+  // Dodaj event od razu po inicjalizacji
+  print("main: Adding AuthCheckSession event");
+  final authBloc = di.sl<AuthBloc>();
+  print("main: AuthBloc instance: $authBloc");
+  authBloc.add(const AuthCheckSession());
+  print("main: Event added, running app");
   runApp(const MyApp());
 }
 
@@ -26,11 +31,8 @@ class MyApp extends StatelessWidget {
     final appRouter = di.sl<AppRouter>();
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => di.sl<AuthBloc>()..add(const AuthCheckSession()),
-        ),
-        BlocProvider(
-          create: (_) => di.sl<HomeBloc>(),
+        BlocProvider.value(
+          value: di.sl<AuthBloc>(),
         ),
       ],
       child: MaterialApp.router(
@@ -48,14 +50,5 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
       ),
       );
-  }
-}
-void emailValidator(String? email) {
-  if (email == null || email.isEmpty) {
-    throw 'Email is required';
-  }
-  final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-  if (!emailRegex.hasMatch(email)) {
-    throw 'Enter a valid email address';
   }
 }
