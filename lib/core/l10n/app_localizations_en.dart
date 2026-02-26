@@ -181,5 +181,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get drawingIn => 'Next drawing in';
 
   @override
-  String get createNewGroup => 'Create or Join Group';
+  String get createNewGroup => 'Create New Group';
+
+  @override
+  String get letsGetStarted => 'Let\'s get started!';
+
+  @override
+  String get hostOrJoin =>
+      'Host a new exchange or join the fun with your friends!';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get createNewGroupDescription =>
+      'Start a new Secret  Santa exchange. Invite friends, set rules, and draw names.';
+
+  @override
+  String get joinExistingGroup => 'Join Existing Group';
+
+  @override
+  String get joinExistingGroupDescription =>
+      'Got an invite code? Enter it here to join your firends\' gift exchange.';
 }

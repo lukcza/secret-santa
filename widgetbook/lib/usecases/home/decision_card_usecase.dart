@@ -7,28 +7,30 @@ final decisionCardComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Primary (Create)',
-      builder: (context) => const Scaffold(
+      builder: (context) => Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: DecisionCard(
             title: 'Utwórz losowanie',
             description: 'Stwórz nową grupę Secret Santa',
             buttonText: 'Utwórz',
             cardType: true,
+            onTap: () => print("Create card tapped"),
           ),
         ),
       ),
     ),
     WidgetbookUseCase(
       name: 'Secondary (Join)',
-      builder: (context) => const Scaffold(
+      builder: (context) => Scaffold(
         body: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: DecisionCard(
             title: 'Dołącz do losowania',
             description: 'Użyj kodu zaproszenia aby dołączyć',
             buttonText: 'Dołącz',
             cardType: false,
+            onTap: () => print("Join card tapped"),
           ),
         ),
       ),

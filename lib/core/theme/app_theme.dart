@@ -23,6 +23,7 @@ class AppTheme {
 
   static const Color borderDark = Color.fromARGB(255, 95, 45, 52);
 
+  static const Color surfaceDarkTransparent = Color(0xFF301C1C);
   static OutlineInputBorder _border(Color color) {
     return OutlineInputBorder(
       borderSide: BorderSide(
@@ -94,6 +95,7 @@ class AppTheme {
       onSecondary: Colors.white,
       tertiary: gold,
       surface: surfaceDark,
+      surfaceTint: surfaceDarkTransparent,
       onSurface: textInverse,
       background: Color.fromARGB(255, 15, 26, 16),
       error: primaryLight,

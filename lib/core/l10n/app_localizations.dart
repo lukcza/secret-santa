@@ -439,8 +439,44 @@ abstract class AppLocalizations {
   /// No description provided for @createNewGroup.
   ///
   /// In en, this message translates to:
-  /// **'Create or Join Group'**
+  /// **'Create New Group'**
   String get createNewGroup;
+
+  /// No description provided for @letsGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s get started!'**
+  String get letsGetStarted;
+
+  /// No description provided for @hostOrJoin.
+  ///
+  /// In en, this message translates to:
+  /// **'Host a new exchange or join the fun with your friends!'**
+  String get hostOrJoin;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @createNewGroupDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a new Secret  Santa exchange. Invite friends, set rules, and draw names.'**
+  String get createNewGroupDescription;
+
+  /// No description provided for @joinExistingGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Existing Group'**
+  String get joinExistingGroup;
+
+  /// No description provided for @joinExistingGroupDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Got an invite code? Enter it here to join your firends\' gift exchange.'**
+  String get joinExistingGroupDescription;
 }
 
 class _AppLocalizationsDelegate
