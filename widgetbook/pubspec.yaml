@@ -21,5 +21,7 @@ flutter:
   
   assets:
     - assets/images/cardBGLoginPage.png
+    - assets/images/cardBGCreate.png
+    - assets/images/cardBGJoin.png
     - assets/images/google_icon.png
     - assets/images/facebook_icon.png
