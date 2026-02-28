@@ -63,5 +63,6 @@
     "getStarted": "Get Started",
     "createNewGroupDescription": "Start a new Secret  Santa exchange. Invite friends, set rules, and draw names.",
     "joinExistingGroup": "Join Existing Group",
-    "joinExistingGroupDescription": "Got an invite code? Enter it here to join your firends' gift exchange."
+    "joinExistingGroupDescription": "Got an invite code? Enter it here to join your firends' gift exchange.",
+    "enterCode": "Enter Code"
 } 

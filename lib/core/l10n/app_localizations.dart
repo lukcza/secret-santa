@@ -477,6 +477,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Got an invite code? Enter it here to join your firends\' gift exchange.'**
   String get joinExistingGroupDescription;
+
+  /// No description provided for @enterCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Code'**
+  String get enterCode;
 }
 
 class _AppLocalizationsDelegate
