@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:secret_santa/core/enums/group_state.dart';
+import 'package:secret_santa/core/enums/group_status.dart';
 
 class GroupEntity extends Equatable {
   final String id;
@@ -12,7 +12,7 @@ class GroupEntity extends Equatable {
   final DateTime eventDate;
   final DateTime createdAt;
   final String inviteCode;
-  final GroupState state;
+  final GroupStatus state;
 
   const GroupEntity({
     required this.id,

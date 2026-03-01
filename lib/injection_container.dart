@@ -63,7 +63,7 @@ Future<void> init() async {
     ),
   );
   //Home Bloc
-  sl.registerLazySingleton(() => HomeBloc(getUserGroupsStream: sl(), joinGroup: sl()));
+  sl.registerLazySingleton(() => HomeBloc(getUserGroupsStream: sl()));
 
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));
 }

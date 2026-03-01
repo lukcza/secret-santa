@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:secret_santa/features/home/data/datasources/group_remote_data_source.dart';
-import 'package:secret_santa/features/home/data/models/group_model.dart';
+import 'package:secret_santa/features/groups/data/models/group_model.dart';
 import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
 
 class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {

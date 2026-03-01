@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart' hide State;
-import 'package:secret_santa/core/enums/group_state.dart';
+import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
@@ -26,42 +26,42 @@ class _GroupListItemState extends State<GroupListItem> {
                 children: [
                   Icon(
                     switch (widget.group.state) {
-                      GroupState.draft => Icons.edit,
-                      GroupState.recruiting => Icons.check,
-                      GroupState.drawn => Icons.hourglass_bottom,
-                      GroupState.active => Icons.check_circle,
-                      GroupState.finished => Icons.done_all,
+                      GroupStatus.draft => Icons.edit,
+                      GroupStatus.recruiting => Icons.check,
+                      GroupStatus.drawn => Icons.hourglass_bottom,
+                      GroupStatus.active => Icons.check_circle,
+                      GroupStatus.finished => Icons.done_all,
                     },
                     color: switch (widget.group.state) {
-                      GroupState.draft => Colors.blueAccent,
-                      GroupState.recruiting =>
+                      GroupStatus.draft => Colors.blueAccent,
+                      GroupStatus.recruiting =>
                         Theme.of(context).colorScheme.tertiary,
-                      GroupState.drawn =>
+                      GroupStatus.drawn =>
                         Theme.of(context).colorScheme.secondary,
-                      GroupState.active =>
+                      GroupStatus.active =>
                         Theme.of(context).colorScheme.secondary,
-                      GroupState.finished =>
+                      GroupStatus.finished =>
                         Theme.of(context).colorScheme.onPrimary,
                     },
                   ),
                   Text(
                     switch (widget.group.state) {
-                      GroupState.draft => context.loc.rdyToStartRecruting,
-                      GroupState.recruiting => context.loc.elvesRecruting,
-                      GroupState.drawn => context.loc.drawingComplete,
-                      GroupState.active => context.loc.elvesAreHelpingSanta,
-                      GroupState.finished => context.loc.evryoneGotAPresents,
+                      GroupStatus.draft => context.loc.rdyToStartRecruting,
+                      GroupStatus.recruiting => context.loc.elvesRecruting,
+                      GroupStatus.drawn => context.loc.drawingComplete,
+                      GroupStatus.active => context.loc.elvesAreHelpingSanta,
+                      GroupStatus.finished => context.loc.evryoneGotAPresents,
                     },
                     style: TextStyle(
                       color: switch (widget.group.state) {
-                        GroupState.draft => Colors.blueAccent,
-                        GroupState.recruiting =>
+                        GroupStatus.draft => Colors.blueAccent,
+                        GroupStatus.recruiting =>
                           Theme.of(context).colorScheme.tertiary,
-                        GroupState.drawn =>
+                        GroupStatus.drawn =>
                           Theme.of(context).colorScheme.secondary,
-                        GroupState.active =>
+                        GroupStatus.active =>
                           Theme.of(context).colorScheme.secondary,
-                        GroupState.finished =>
+                        GroupStatus.finished =>
                           Theme.of(context).colorScheme.onPrimary,
                       },
                     ),

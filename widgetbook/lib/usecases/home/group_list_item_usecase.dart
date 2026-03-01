@@ -3,7 +3,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:secret_santa/features/home/presentation/widgets/group_list_item.dart';
 import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
-import 'package:secret_santa/core/enums/group_state.dart';
+import 'package:secret_santa/core/enums/group_status.dart';
 
 final groupListItemComponent = WidgetbookComponent(
   name: 'GroupListItem',
@@ -14,7 +14,7 @@ final groupListItemComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: GroupListItem(
-            group: _mockGroup(GroupState.draft),
+            group: _mockGroup(GroupStatus.draft),
             user: _mockUser(),
           ),
         ),
@@ -26,7 +26,7 @@ final groupListItemComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: GroupListItem(
-            group: _mockGroup(GroupState.recruiting),
+            group: _mockGroup(GroupStatus.recruiting),
             user: _mockUser(),
           ),
         ),
@@ -38,7 +38,7 @@ final groupListItemComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: GroupListItem(
-            group: _mockGroup(GroupState.drawn),
+            group: _mockGroup(GroupStatus.drawn),
             user: _mockUser(),
           ),
         ),
@@ -50,7 +50,7 @@ final groupListItemComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: GroupListItem(
-            group: _mockGroup(GroupState.active),
+            group: _mockGroup(GroupStatus.active),
             user: _mockUser(),
           ),
         ),
@@ -62,7 +62,7 @@ final groupListItemComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: GroupListItem(
-            group: _mockGroup(GroupState.finished),
+            group: _mockGroup(GroupStatus.finished),
             user: _mockUser(),
           ),
         ),
@@ -74,7 +74,7 @@ final groupListItemComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: GroupListItem(
-            group: _mockGroup(GroupState.recruiting, authorUID: 'user123'),
+            group: _mockGroup(GroupStatus.recruiting, authorUID: 'user123'),
             user: _mockUser(uid: 'user123'),
           ),
         ),
@@ -94,7 +94,7 @@ UserEntity _mockUser({String uid = 'mockUser123'}) {
   );
 }
 
-GroupEntity _mockGroup(GroupState state, {String authorUID = 'author123'}) {
+GroupEntity _mockGroup(GroupStatus state, {String authorUID = 'author123'}) {
   return GroupEntity(
     id: 'group123',
     title: 'Christmas Exchange 2024',

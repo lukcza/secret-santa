@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:secret_santa/core/enums/group_state.dart';
+import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
 
 class GroupModel extends GroupEntity {
@@ -16,8 +16,6 @@ class GroupModel extends GroupEntity {
     required super.inviteCode,
     required super.state,
   });
-
-  // 1. TWORZENIE Z SNAPSHOTA FIREBASE (Odczyt)
   factory GroupModel.fromSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
 
@@ -49,17 +47,17 @@ class GroupModel extends GroupEntity {
       'participantsUIDs': participantsUIDs,
       'budgetLimit': budgetLimit,
       'currency': currency,
-      'eventDate': Timestamp.fromDate(eventDate), // DateTime -> Timestamp
+      'eventDate': Timestamp.fromDate(eventDate),
       'createdAt': Timestamp.fromDate(createdAt),
       'inviteCode': inviteCode,
-      'state': state.name, // Enum -> String ("recruiting")
+      'state': state.name,
     };
   }
 
-  static GroupState _stringToState(String? stateStr) {
-    return GroupState.values.firstWhere(
+  static GroupStatus _stringToState(String? stateStr) {
+    return GroupStatus.values.firstWhere(
       (e) => e.name == stateStr,
-      orElse: () => GroupState.draft,
+      orElse: () => GroupStatus.draft,
     );
   }
 
