@@ -6,6 +6,7 @@ import 'package:secret_santa/core/l10n/app_localizations.dart';
 
 import 'usecases/auth/auth_directory.dart';
 import 'usecases/home/home_directory.dart';
+import 'usecases/groups/groups_directory.dart';
 import 'usecases/theme/theme_directory.dart';
 
 void main() {
@@ -61,6 +62,7 @@ class WidgetbookApp extends StatelessWidget {
       directories: [
         authDirectory,
         homeDirectory,
+        groupsDirectory,
         themeDirectory,
       ],
     );

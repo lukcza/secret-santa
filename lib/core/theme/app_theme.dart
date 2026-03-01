@@ -33,7 +33,15 @@ class AppTheme {
       borderRadius: BorderRadius.circular(15),
     );
   }
-
+  static const SearchBarThemeData searchBarTheme = SearchBarThemeData(
+    elevation: WidgetStatePropertyAll(0),
+    shape: WidgetStatePropertyAll(
+      RoundedRectangleBorder(
+        side: BorderSide.none,
+      ),
+    ),
+    hintStyle: WidgetStatePropertyAll(TextStyle(color: textMuted)),
+  );
   static final ThemeData lightThemeMode = ThemeData.light().copyWith(
     useMaterial3: true,
     scaffoldBackgroundColor: backgroundLight,

@@ -31,6 +31,8 @@ class _GroupListItemState extends State<GroupListItem> {
                       GroupStatus.drawn => Icons.hourglass_bottom,
                       GroupStatus.active => Icons.check_circle,
                       GroupStatus.finished => Icons.done_all,
+                      // TODO: Handle this case.
+                      GroupStatus.error => throw UnimplementedError(),
                     },
                     color: switch (widget.group.state) {
                       GroupStatus.draft => Colors.blueAccent,
@@ -42,6 +44,8 @@ class _GroupListItemState extends State<GroupListItem> {
                         Theme.of(context).colorScheme.secondary,
                       GroupStatus.finished =>
                         Theme.of(context).colorScheme.onPrimary,
+                      // TODO: Handle this case.
+                      GroupStatus.error => throw UnimplementedError(),
                     },
                   ),
                   Text(
@@ -51,6 +55,8 @@ class _GroupListItemState extends State<GroupListItem> {
                       GroupStatus.drawn => context.loc.drawingComplete,
                       GroupStatus.active => context.loc.elvesAreHelpingSanta,
                       GroupStatus.finished => context.loc.evryoneGotAPresents,
+                      // TODO: Handle this case.
+                      GroupStatus.error => throw UnimplementedError(),
                     },
                     style: TextStyle(
                       color: switch (widget.group.state) {
@@ -63,6 +69,8 @@ class _GroupListItemState extends State<GroupListItem> {
                           Theme.of(context).colorScheme.secondary,
                         GroupStatus.finished =>
                           Theme.of(context).colorScheme.onPrimary,
+                        // TODO: Handle this case.
+                        GroupStatus.error => throw UnimplementedError(),
                       },
                     ),
                   ),
