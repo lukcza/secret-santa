@@ -203,4 +203,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get joinExistingGroupDescription =>
       'Got an invite code? Enter it here to join your firends\' gift exchange.';
+
+  @override
+  String get enterCode => 'Enter Code';
 }

@@ -1,4 +1,4 @@
-import 'package:secret_santa/features/home/data/models/group_model.dart';
+import 'package:secret_santa/features/groups/data/models/group_model.dart';
 
 abstract class GroupRemoteDataSource {
   Future<void> createGroup(GroupModel group);

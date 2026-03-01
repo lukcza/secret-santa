@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
-import 'package:secret_santa/features/home/data/models/group_model.dart';
+import 'package:secret_santa/features/groups/data/models/group_model.dart';
 import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
 
 abstract class GroupRepository {

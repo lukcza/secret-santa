@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
 import 'package:secret_santa/features/home/data/datasources/group_remote_data_source.dart';
-import 'package:secret_santa/features/home/data/models/group_model.dart';
+import 'package:secret_santa/features/groups/data/models/group_model.dart';
 import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
 import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
 

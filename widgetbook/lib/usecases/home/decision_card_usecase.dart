@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:secret_santa/features/home/presentation/widgets/decision_card.dart';
 
@@ -11,9 +12,9 @@ final decisionCardComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: DecisionCard(
-            title: 'Utwórz losowanie',
-            description: 'Stwórz nową grupę Secret Santa',
-            buttonText: 'Utwórz',
+            title: context.loc.createNewGroup,
+            description: context.loc.createNewGroupDescription,
+            buttonText: context.loc.getStarted,
             cardType: true,
             onTap: () => print("Create card tapped"),
           ),
@@ -26,9 +27,9 @@ final decisionCardComponent = WidgetbookComponent(
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: DecisionCard(
-            title: 'Dołącz do losowania',
-            description: 'Użyj kodu zaproszenia aby dołączyć',
-            buttonText: 'Dołącz',
+            title: context.loc.joinExistingGroup,
+            description: context.loc.joinExistingGroupDescription,
+            buttonText: context.loc.enterCode,
             cardType: false,
             onTap: () => print("Join card tapped"),
           ),

@@ -1,7 +1,8 @@
-enum GroupState {
+enum GroupStatus {
   draft,     
   recruiting, 
   drawn,    
   active,  
-  finished  
+  finished,
+  error,   
 }
