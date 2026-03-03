@@ -105,6 +105,7 @@ class AppTheme {
       surface: surfaceDark,
       surfaceTint: surfaceDarkTransparent,
       onSurface: textInverse,
+      secondaryContainer: textMuted,
       background: Color.fromARGB(255, 15, 26, 16),
       error: primaryLight,
     ),

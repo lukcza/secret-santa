@@ -36,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final currentUserModel = await _getUserModel(user!.uid);
 
       final UserEntity userEntity = UserEntity(
-        uid: user!.uid,
+        uid: user.uid,
         email: user.email!,
         nickname: currentUserModel.nickname,
         photoUrl: currentUserModel.photoUrl,

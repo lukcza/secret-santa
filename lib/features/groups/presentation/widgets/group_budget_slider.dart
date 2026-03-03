@@ -5,12 +5,14 @@ import 'package:secret_santa/features/groups/presentation/widgets/currency%20_ch
 class GroupBudgetSlider extends StatefulWidget {
   GroupBudgetSlider({
     super.key,
+    required this.controller,
     required this.minLimitText,
     required this.maxLimitText,
     required this.budget,
     required this.onChanged,
     required this.budgetText,
   });
+  TextEditingController controller;
   String budgetText;
   String minLimitText;
   String maxLimitText;
@@ -23,91 +25,135 @@ class GroupBudgetSlider extends StatefulWidget {
 class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Icon(
-                    Icons.attach_money,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                  Text(
-                    widget.budgetText,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    widget.budget.toInt().toString(),
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 120,
-                    child: CurrencyChooser()),
-                ],
-              ),
-            ),
-          ],
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16,8,16,20),
+      decoration: BoxDecoration(
+        color: Theme.of(context).inputDecorationTheme.fillColor,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondaryContainer,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              widget.minLimitText,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
-            SliderTheme(
-              data: SliderTheme.of(context).copyWith(
-                thumbShape: RoundSliderThumbShape(
-                  enabledThumbRadius: 12,
-                  elevation: 1,
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Icon(
+                      Icons.attach_money_rounded,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                    Text(
+                      widget.budgetText,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                thumbColor: Theme.of(context).colorScheme.tertiary,
-                overlayColor: Theme.of(
-                  context,
-                ).colorScheme.tertiary.withOpacity(0.2),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
               ),
-              child: Slider(
-                value: widget.budget,
-                min: 0,
-                max: 1000,
-                onChanged: (double value) {
-                  setState(() {
-                    widget.budget = value;
-                  });
-                  widget.onChanged(value);
-                },
+              Container(
+                padding: EdgeInsets.fromLTRB(6, 0, 6, 6),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                      SizedBox(
+                        width: 70,
+                        child: TextField(
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            fontSize: 18
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.zero,
+                            isDense: true,
+                          ),
+                          controller: widget.controller,
+                          keyboardType: TextInputType.number,
+                          onChanged: (value) {
+                            double? newValue = double.tryParse(value);
+                            if (newValue != null) {
+                              setState(() {
+                                if(newValue <= 1000)
+                                widget.budget = newValue;
+                                else{
+                                  widget.budget = 1000;
+                                }
+                              });
+                              if(newValue <= 1000)
+                              widget.onChanged(newValue);
+                              else{
+                                widget.onChanged(1000);
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    SizedBox(
+                      width: 80,
+                      child: CurrencyChooser()),
+                  ],
+                ),
               ),
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  widget.minLimitText,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    thumbShape: RoundSliderThumbShape(
+                      enabledThumbRadius: 12,
+                      elevation: 1,
+                    ),
+                    inactiveTrackColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                    thumbColor: Theme.of(context).colorScheme.tertiary,
+                    overlayColor: Theme.of(
+                      context,
+                    ).colorScheme.tertiary.withOpacity(0.2),
+                    overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
+                  ),
+                  child: Slider(
+                    value: widget.budget,
+                    min: 0,
+                    max: 1000,
+                    onChanged: (double value) {
+                      setState(() {
+                        widget.budget = value;
+                        widget.controller.text = value.toStringAsFixed(0);
+                      });
+                      widget.onChanged(value);
+                    },
+                  ),
+                ),
+                Text(
+                  widget.maxLimitText,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
             ),
-            Text(
-              widget.maxLimitText,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

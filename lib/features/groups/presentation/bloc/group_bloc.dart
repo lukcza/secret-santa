@@ -7,9 +7,6 @@ import 'package:secret_santa/features/home/domain/usecases/generate_group_code.d
 import 'package:secret_santa/features/home/domain/usecases/join_group.dart';
 import 'package:secret_santa/features/home/domain/usecases/leave_group.dart';
 import 'package:secret_santa/features/home/domain/usecases/update_group.dart';
-import 'package:secret_santa/features/home/presentation/bloc/home_event.dart';
-import 'package:secret_santa/features/home/presentation/bloc/home_state.dart';
-
 class GroupBloc extends Bloc<GroupEvent, GroupState> {
   GroupBloc({
     required JoinGroup joinGroup,
