@@ -1,6 +1,4 @@
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_secret_santa/usecases/home/create_or_join_page_usecase.dart';
-import 'package:widgetbook_secret_santa/usecases/home/home_page_usecase.dart';
 
 import 'active_exchanges_card_usecase.dart';
 import 'bottom_nav_bar_usecase.dart';
@@ -20,6 +18,5 @@ final homeDirectory = WidgetbookFolder(
     addGroupPlaceholderComponent,
     sortingTypeSliderComponent,
     homePageComponent,
-    createOrJoinPageComponent
   ],
 );
