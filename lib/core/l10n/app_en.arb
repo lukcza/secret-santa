@@ -67,5 +67,16 @@
     "enterCode": "Enter Code",
     "groupNameField": "Group Name",
     "groupNameHint": "e.g North Pole Party",
-    "budgetText": "Budget Limit"
+    "budgetText": "Budget Limit",
+    "whoIsInvited": "Who is invited?",
+    "addFirendsManually": "Add Friends Manually",
+    "inputNameAndEmail": "Input email, copy link or invite code",
+    "selectFromFriends": "Select from Friends",
+    "quickAddFromContacts": "Quick Add from contact list",
+    "importFromPast": "Import from Past",
+    "reuseAPreviousGroupList": "Reuse a previous group list",
+    "yourElfSquadIsEmpty": "Your elf squad is empty",
+    "nextStep": "Next Step",
+    "added": "Added",
+    "createGroup": "Create Group"
 } 

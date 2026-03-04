@@ -501,6 +501,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Budget Limit'**
   String get budgetText;
+
+  /// No description provided for @whoIsInvited.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is invited?'**
+  String get whoIsInvited;
+
+  /// No description provided for @addFirendsManually.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Friends Manually'**
+  String get addFirendsManually;
+
+  /// No description provided for @inputNameAndEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Input email, copy link or invite code'**
+  String get inputNameAndEmail;
+
+  /// No description provided for @selectFromFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'Select from Friends'**
+  String get selectFromFriends;
+
+  /// No description provided for @quickAddFromContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Add from contact list'**
+  String get quickAddFromContacts;
+
+  /// No description provided for @importFromPast.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from Past'**
+  String get importFromPast;
+
+  /// No description provided for @reuseAPreviousGroupList.
+  ///
+  /// In en, this message translates to:
+  /// **'Reuse a previous group list'**
+  String get reuseAPreviousGroupList;
+
+  /// No description provided for @yourElfSquadIsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your elf squad is empty'**
+  String get yourElfSquadIsEmpty;
+
+  /// No description provided for @nextStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Step'**
+  String get nextStep;
+
+  /// No description provided for @added.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get added;
+
+  /// No description provided for @createGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Group'**
+  String get createGroup;
 }
 
 class _AppLocalizationsDelegate

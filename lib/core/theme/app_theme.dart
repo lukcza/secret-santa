@@ -4,6 +4,7 @@ class AppTheme {
   static const Color primary = Color(0xFFD32F2F);
   static const Color primaryDark = Color(0xFFB71C1C);
   static const Color primaryLight = Color(0xFFEF5350);
+  static const Color primaryTransparent = Color(0x80D32F2F);
 
   static const Color forest = Color(0xFF2E7D32);
   static const Color forestDark = Color.fromARGB(255, 21, 49, 30);
@@ -42,8 +43,10 @@ class AppTheme {
     ),
     hintStyle: WidgetStatePropertyAll(TextStyle(color: textMuted)),
   );
-  static final ThemeData lightThemeMode = ThemeData.light().copyWith(
+  static final ThemeData lightThemeMode = ThemeData(
     useMaterial3: true,
+    fontFamily: 'PlusJakartaSans',
+    brightness: Brightness.light,
     scaffoldBackgroundColor: backgroundLight,
     colorScheme: const ColorScheme.light(
       primary: primary,
@@ -92,8 +95,10 @@ class AppTheme {
     ),
   );
 
-  static final ThemeData darkThemeMode = ThemeData.dark().copyWith(
+  static final ThemeData darkThemeMode = ThemeData(
     useMaterial3: true,
+    fontFamily: 'PlusJakartaSans',
+    brightness: Brightness.dark,
     scaffoldBackgroundColor: backgroundDark,
     colorScheme: const ColorScheme.dark(
       primary: primary,
