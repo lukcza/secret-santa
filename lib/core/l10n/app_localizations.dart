@@ -483,6 +483,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter Code'**
   String get enterCode;
+
+  /// No description provided for @groupNameField.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Name'**
+  String get groupNameField;
+
+  /// No description provided for @groupNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g North Pole Party'**
+  String get groupNameHint;
+
+  /// No description provided for @budgetText.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget Limit'**
+  String get budgetText;
 }
 
 class _AppLocalizationsDelegate

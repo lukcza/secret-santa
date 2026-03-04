@@ -64,5 +64,8 @@
     "createNewGroupDescription": "Start a new Secret  Santa exchange. Invite friends, set rules, and draw names.",
     "joinExistingGroup": "Join Existing Group",
     "joinExistingGroupDescription": "Got an invite code? Enter it here to join your firends' gift exchange.",
-    "enterCode": "Enter Code"
+    "enterCode": "Enter Code",
+    "groupNameField": "Group Name",
+    "groupNameHint": "e.g North Pole Party",
+    "budgetText": "Budget Limit"
 } 

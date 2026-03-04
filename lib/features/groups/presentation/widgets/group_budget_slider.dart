@@ -26,7 +26,7 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16,8,16,20),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
       decoration: BoxDecoration(
         color: Theme.of(context).inputDecorationTheme.fillColor,
         borderRadius: BorderRadius.circular(12),
@@ -63,44 +63,40 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                      SizedBox(
-                        width: 70,
-                        child: TextField(
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            fontSize: 18
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            contentPadding: EdgeInsets.zero,
-                            isDense: true,
-                          ),
-                          controller: widget.controller,
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            double? newValue = double.tryParse(value);
-                            if (newValue != null) {
-                              setState(() {
-                                if(newValue <= 1000)
-                                widget.budget = newValue;
-                                else{
-                                  widget.budget = 1000;
-                                }
-                              });
-                              if(newValue <= 1000)
-                              widget.onChanged(newValue);
-                              else{
-                                widget.onChanged(1000);
-                              }
-                            }
-                          },
-                        ),
-                      ),
                     SizedBox(
-                      width: 80,
-                      child: CurrencyChooser()),
+                      width: 70,
+                      child: TextField(
+                        textAlign: TextAlign.end,
+                        style: TextStyle(fontSize: 18),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.zero,
+                          isDense: true,
+                        ),
+                        controller: widget.controller,
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          double? newValue = double.tryParse(value);
+                          if (newValue != null) {
+                            setState(() {
+                              if (newValue <= 1000)
+                                widget.budget = newValue;
+                              else {
+                                widget.budget = 1000;
+                              }
+                            });
+                            if (newValue <= 1000)
+                              widget.onChanged(newValue);
+                            else {
+                              widget.onChanged(1000);
+                            }
+                          }
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 80, child: CurrencyChooser()),
                   ],
                 ),
               ),
@@ -123,7 +119,9 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                       enabledThumbRadius: 12,
                       elevation: 1,
                     ),
-                    inactiveTrackColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                    inactiveTrackColor: Theme.of(
+                      context,
+                    ).colorScheme.primary.withOpacity(0.2),
                     thumbColor: Theme.of(context).colorScheme.tertiary,
                     overlayColor: Theme.of(
                       context,

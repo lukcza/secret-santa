@@ -206,4 +206,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterCode => 'Enter Code';
+
+  @override
+  String get groupNameField => 'Group Name';
+
+  @override
+  String get groupNameHint => 'e.g North Pole Party';
+
+  @override
+  String get budgetText => 'Budget Limit';
 }
