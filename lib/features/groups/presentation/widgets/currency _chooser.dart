@@ -143,6 +143,11 @@ class _CurrencyChooserState extends State<CurrencyChooser> {
       child: SearchAnchor(
         builder: (BuildContext context, SearchController controller) {
           return SearchBar(
+            textStyle: WidgetStatePropertyAll(
+              Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+            ),
             controller: controller,
             onTap: () {
               controller.openView();
@@ -152,7 +157,7 @@ class _CurrencyChooserState extends State<CurrencyChooser> {
             },
             leading: Text(
               selectedCurrencySign,
-              style: TextStyle(
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.tertiary,

@@ -29,7 +29,7 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
       decoration: BoxDecoration(
         color: Theme.of(context).inputDecorationTheme.fillColor,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: Theme.of(context).colorScheme.secondaryContainer,
         ),
@@ -50,16 +50,15 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                     ),
                     Text(
                       widget.budgetText,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                     ),
                   ],
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(6, 0, 6, 6),
+                padding: EdgeInsets.fromLTRB(6, 0, 0, 6),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -67,7 +66,9 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                       width: 70,
                       child: TextField(
                         textAlign: TextAlign.end,
-                        style: TextStyle(fontSize: 18),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -109,7 +110,7 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
               children: [
                 Text(
                   widget.minLimitText,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
@@ -143,7 +144,7 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                 ),
                 Text(
                   widget.maxLimitText,
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),

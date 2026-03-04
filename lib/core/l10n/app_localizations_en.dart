@@ -215,4 +215,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get budgetText => 'Budget Limit';
+
+  @override
+  String get whoIsInvited => 'Who is invited?';
+
+  @override
+  String get addFirendsManually => 'Add Friends Manually';
+
+  @override
+  String get inputNameAndEmail => 'Input email, copy link or invite code';
+
+  @override
+  String get selectFromFriends => 'Select from Friends';
+
+  @override
+  String get quickAddFromContacts => 'Quick Add from contact list';
+
+  @override
+  String get importFromPast => 'Import from Past';
+
+  @override
+  String get reuseAPreviousGroupList => 'Reuse a previous group list';
+
+  @override
+  String get yourElfSquadIsEmpty => 'Your elf squad is empty';
+
+  @override
+  String get nextStep => 'Next Step';
+
+  @override
+  String get added => 'Added';
+
+  @override
+  String get createGroup => 'Create Group';
 }
