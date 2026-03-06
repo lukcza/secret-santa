@@ -78,5 +78,10 @@
     "yourElfSquadIsEmpty": "Your elf squad is empty",
     "nextStep": "Next Step",
     "added": "Added",
-    "createGroup": "Create Group"
+    "createGroup": "Create Group",
+    "manuallyInviteTitle": "Invite by Email",
+    "manuallyInviteSubtitle": "Add firends one by one to your group by writing email below",
+    "emailFieldLabel": "Email",
+    "emailFieldHint": "example@example.com",
+    "inviteButton": "Add"
 } 

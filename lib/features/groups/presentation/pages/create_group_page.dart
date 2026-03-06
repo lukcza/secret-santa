@@ -38,7 +38,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "1/2",
+              "2/3",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
               ),
