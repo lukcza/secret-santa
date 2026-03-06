@@ -111,7 +111,7 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                 Text(
                   widget.minLimitText,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5),
                   ),
                 ),
                 SliderTheme(
@@ -145,7 +145,7 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                 Text(
                   widget.maxLimitText,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5),
                   ),
                 ),
               ],

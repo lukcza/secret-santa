@@ -248,4 +248,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createGroup => 'Create Group';
+
+  @override
+  String get manuallyInviteTitle => 'Invite by Email';
+
+  @override
+  String get manuallyInviteSubtitle =>
+      'Add firends one by one to your group by writing email below';
+
+  @override
+  String get emailFieldLabel => 'Email';
+
+  @override
+  String get emailFieldHint => 'example@example.com';
+
+  @override
+  String get inviteButton => 'Add';
 }

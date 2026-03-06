@@ -567,6 +567,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create Group'**
   String get createGroup;
+
+  /// No description provided for @manuallyInviteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite by Email'**
+  String get manuallyInviteTitle;
+
+  /// No description provided for @manuallyInviteSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add firends one by one to your group by writing email below'**
+  String get manuallyInviteSubtitle;
+
+  /// No description provided for @emailFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailFieldLabel;
+
+  /// No description provided for @emailFieldHint.
+  ///
+  /// In en, this message translates to:
+  /// **'example@example.com'**
+  String get emailFieldHint;
+
+  /// No description provided for @inviteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get inviteButton;
 }
 
 class _AppLocalizationsDelegate
