@@ -210,16 +210,6 @@ Feature Module
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ### Code Style
 - Follow [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style)
 - Run `flutter analyze` to check code quality
@@ -227,23 +217,6 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👨‍💻 Author
-
-Created with ❤️ for making Secret Santa fun and easy!
-
----
-
-## 📞 Support
-
-For support, email your.email@example.com or open an issue on GitHub.
-
----
 
 ## 🔗 Links
 
