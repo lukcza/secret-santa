@@ -6,7 +6,9 @@ import 'dart:io';
 import 'package:secret_santa/core/theme/app_theme.dart';
 
 class CurrencyChooser extends StatefulWidget {
-  const CurrencyChooser({super.key});
+  final ValueChanged<String>? onCurrencyChanged;
+
+  const CurrencyChooser({super.key, this.onCurrencyChanged});
 
   @override
   State<CurrencyChooser> createState() => _CurrencyChooserState();
@@ -21,11 +23,11 @@ class _CurrencyChooserState extends State<CurrencyChooser> {
     super.initState();
     selectedCurrency = _getLocalCurrency();
     filteredCurrencies = _getAllCurrencies();
-    selectedCurrencySign = _getAllCurrenciesSign()[
-        _getAllCurrencies().indexOf(selectedCurrency)];
+    selectedCurrencySign =
+        _getAllCurrenciesSign()[_getAllCurrencies().indexOf(selectedCurrency)];
   }
 
-  String _getLocalCurrency(){
+  String _getLocalCurrency() {
     final locale = Platform.localeName;
     if (locale.startsWith('en')) {
       return 'USD';
@@ -131,8 +133,10 @@ class _CurrencyChooserState extends State<CurrencyChooser> {
                 )
                 .toList();
       }
-      selectedCurrencySign = _getAllCurrenciesSign()[
-          _getAllCurrencies().indexOf(selectedCurrency)];
+      selectedCurrencySign =
+          _getAllCurrenciesSign()[_getAllCurrencies().indexOf(
+            selectedCurrency,
+          )];
     });
   }
 
@@ -145,8 +149,8 @@ class _CurrencyChooserState extends State<CurrencyChooser> {
           return SearchBar(
             textStyle: WidgetStatePropertyAll(
               Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ),
             controller: controller,
             onTap: () {
@@ -178,6 +182,7 @@ class _CurrencyChooserState extends State<CurrencyChooser> {
                 setState(() {
                   selectedCurrency = currency;
                 });
+                widget.onCurrencyChanged?.call(currency);
                 controller.closeView(currency);
               },
             );

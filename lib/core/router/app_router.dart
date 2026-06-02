@@ -7,6 +7,9 @@ import 'package:secret_santa/features/auth/presentation/bloc/auth_state.dart';
 import 'package:secret_santa/features/auth/presentation/pages/login_page.dart';
 import 'package:secret_santa/features/auth/presentation/pages/register_page.dart';
 import 'package:secret_santa/features/auth/presentation/pages/splash_page.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
+import 'package:secret_santa/features/groups/presentation/pages/create_group_page.dart';
+import 'package:secret_santa/features/groups/presentation/pages/set_date_group_page.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
 import 'package:secret_santa/features/home/presentation/pages/home_page.dart';
 import 'package:secret_santa/injection_container.dart' as di;
@@ -24,7 +27,8 @@ class AppRouter {
       final bool isOnSplash = state.matchedLocation == "/splash";
       final bool isAuthenticated = status == AuthStatus.authenticated;
       final bool isRegistered = status == AuthStatus.registered;
-      final bool isInitial = status == AuthStatus.initial || status == AuthStatus.loading;
+      final bool isInitial =
+          status == AuthStatus.initial || status == AuthStatus.loading;
 
       // Czekamy na wynik sprawdzenia sesji — pokazujemy splash
       if (isInitial) {
@@ -53,11 +57,20 @@ class AppRouter {
       GoRoute(path: "/register", builder: (context, state) => RegisterPage()),
       GoRoute(
         path: "/",
-        builder: (context, state) => BlocProvider.value(
-          value: di.sl<HomeBloc>(),
-          child: const HomePage(),
-        ),
-      )
+        builder:
+            (context, state) => BlocProvider.value(
+              value: di.sl<HomeBloc>(),
+              child: const HomePage(),
+            ),
+      ),
+      GoRoute(
+        path: "/create_group",
+        builder:
+            (context, state) => BlocProvider.value(
+              value: di.sl<GroupBloc>(),
+              child: const SetDateGroupPage(),
+            ),
+      ),
     ],
   );
 }

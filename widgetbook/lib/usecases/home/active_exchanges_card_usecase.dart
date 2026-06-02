@@ -7,39 +7,43 @@ final activeExchangesCardComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'No Exchanges',
-      builder: (context) => const Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(16),
-          child: ActiveExchangesCard(countActiveExchanges: 0),
-        ),
-      ),
+      builder:
+          (context) => const Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: ActiveExchangesCard(countActiveExchanges: 0),
+            ),
+          ),
     ),
     WidgetbookUseCase(
       name: 'Single Exchange',
-      builder: (context) => const Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(16),
-          child: ActiveExchangesCard(countActiveExchanges: 1),
-        ),
-      ),
+      builder:
+          (context) => const Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: ActiveExchangesCard(countActiveExchanges: 1),
+            ),
+          ),
     ),
     WidgetbookUseCase(
       name: 'Multiple Exchanges',
-      builder: (context) => const Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(16),
-          child: ActiveExchangesCard(countActiveExchanges: 5),
-        ),
-      ),
+      builder:
+          (context) => const Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: ActiveExchangesCard(countActiveExchanges: 5),
+            ),
+          ),
     ),
     WidgetbookUseCase(
       name: 'Many Exchanges',
-      builder: (context) => const Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(16),
-          child: ActiveExchangesCard(countActiveExchanges: 12),
-        ),
-      ),
+      builder:
+          (context) => const Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(16),
+              child: ActiveExchangesCard(countActiveExchanges: 12),
+            ),
+          ),
     ),
   ],
 );

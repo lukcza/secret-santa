@@ -19,18 +19,19 @@ class WidgetbookApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Widgetbook.material(
-      appBuilder: (context, child) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: const Locale('en'),
-        home: child,
-      ),
+      appBuilder:
+          (context, child) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: const Locale('en'),
+            home: child,
+          ),
       addons: [
         MaterialThemeAddon(
           themes: [
@@ -45,9 +46,7 @@ class WidgetbookApp extends StatelessWidget {
             Devices.android.samsungGalaxyS20,
           ],
         ),
-        TextScaleAddon(
-          scales: [1.0, 1.25, 1.5, 2.0],
-        ),
+        TextScaleAddon(scales: [1.0, 1.25, 1.5, 2.0]),
         LocalizationAddon(
           locales: AppLocalizations.supportedLocales,
           localizationsDelegates: [

@@ -597,6 +597,240 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add'**
   String get inviteButton;
+
+  /// No description provided for @setDateAppBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Drawing Date'**
+  String get setDateAppBarTitle;
+
+  /// No description provided for @setDateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When is the big day?'**
+  String get setDateTitle;
+
+  /// No description provided for @setDateSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a date for your Secret Santa party. We\'ll make sure everyone gets their match in time!'**
+  String get setDateSubtitle;
+
+  /// No description provided for @selectedDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Date'**
+  String get selectedDate;
+
+  /// No description provided for @groupNameCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Name'**
+  String get groupNameCard;
+
+  /// No description provided for @budgetCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get budgetCard;
+
+  /// No description provided for @dateCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateCard;
+
+  /// No description provided for @membersCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get membersCard;
+
+  /// No description provided for @reviewGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Group'**
+  String get reviewGroupTitle;
+
+  /// No description provided for @participantsReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Participants Review'**
+  String get participantsReview;
+
+  /// No description provided for @addMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Add more'**
+  String get addMore;
+
+  /// No description provided for @editListOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit List Order'**
+  String get editListOrder;
+
+  /// No description provided for @readyToDrawNames.
+  ///
+  /// In en, this message translates to:
+  /// **'READY TO DRAW NAMES?'**
+  String get readyToDrawNames;
+
+  /// No description provided for @confirmGroupCreation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Group Creation'**
+  String get confirmGroupCreation;
+
+  /// No description provided for @addFriendsAppBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Friends'**
+  String get addFriendsAppBarTitle;
+
+  /// No description provided for @inviteToYourGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite to your group'**
+  String get inviteToYourGroup;
+
+  /// No description provided for @chooseInviteMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how you want to invite your friends.'**
+  String get chooseInviteMethod;
+
+  /// No description provided for @codeTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Code'**
+  String get codeTab;
+
+  /// No description provided for @linkTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get linkTab;
+
+  /// No description provided for @emailTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailTab;
+
+  /// No description provided for @groupCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Code'**
+  String get groupCodeLabel;
+
+  /// No description provided for @codeCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Code Copied!'**
+  String get codeCopied;
+
+  /// No description provided for @copyCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Code'**
+  String get copyCode;
+
+  /// No description provided for @codeInfoBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Share this code with your friends. They can enter it when joining a group.'**
+  String get codeInfoBanner;
+
+  /// No description provided for @inviteLinkLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Link'**
+  String get inviteLinkLabel;
+
+  /// No description provided for @copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied!'**
+  String get copied;
+
+  /// No description provided for @copy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get copy;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @linkInfoBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Anyone with this link can join your group directly — no code required.'**
+  String get linkInfoBanner;
+
+  /// No description provided for @emailAddressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get emailAddressLabel;
+
+  /// No description provided for @emailAddressHint.
+  ///
+  /// In en, this message translates to:
+  /// **'friend@example.com'**
+  String get emailAddressHint;
+
+  /// No description provided for @errorEnterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter an email address'**
+  String get errorEnterEmail;
+
+  /// No description provided for @errorAlreadySentEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite already sent to this email'**
+  String get errorAlreadySentEmail;
+
+  /// No description provided for @inviteSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Sent!'**
+  String get inviteSent;
+
+  /// No description provided for @sendInvite.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Invite'**
+  String get sendInvite;
+
+  /// No description provided for @pendingInvites.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Invites'**
+  String get pendingInvites;
+
+  /// No description provided for @invitePending.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite pending'**
+  String get invitePending;
+
+  /// No description provided for @removeInviteTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove invite'**
+  String get removeInviteTooltip;
+
+  /// No description provided for @emailInfoBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Your friends will receive an email with a direct link to join your group.'**
+  String get emailInfoBanner;
 }
 
 class _AppLocalizationsDelegate

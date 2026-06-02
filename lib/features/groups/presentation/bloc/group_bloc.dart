@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
@@ -7,6 +8,7 @@ import 'package:secret_santa/features/home/domain/usecases/generate_group_code.d
 import 'package:secret_santa/features/home/domain/usecases/join_group.dart';
 import 'package:secret_santa/features/home/domain/usecases/leave_group.dart';
 import 'package:secret_santa/features/home/domain/usecases/update_group.dart';
+
 class GroupBloc extends Bloc<GroupEvent, GroupState> {
   GroupBloc({
     required JoinGroup joinGroup,
@@ -15,32 +17,56 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     required UpdateGroup updateGroup,
     required GenerateGroupCode generateGroupCode,
   }) : super(GroupState(status: GroupStatus.draft)) {
-    on<CreateGroupEvent>((event, emit) {
-      emit(state.copyWith(status: GroupStatus.draft));
-      final result = createGroup(
-        event.group
-      );
-    });
     on<JoinGroupEvent>((event, emit) async {
       final result = await joinGroup(event.groupCode);
       result.fold(
         (failure) {
-          emit(state.copyWith(
-            joinStatus: JoinGroupStatus.error,
-            errorMessage: failure.message,
-          ));
+          emit(
+            state.copyWith(
+              joinStatus: JoinGroupStatus.error,
+              errorMessage: failure.message,
+            ),
+          );
         },
         (_) {
           emit(state.copyWith(joinStatus: JoinGroupStatus.success));
         },
       );
     });
-    on<LeaveGroupEvent>((event, emit) {
-        final result = leaveGroup(event.groupId);
-        emit(state.copyWith(joinStatus: JoinGroupStatus.left));
+    on<LeaveGroupEvent>((event, emit) async {
+      final result = await leaveGroup(event.groupId);
+      emit(state.copyWith(joinStatus: JoinGroupStatus.left));
+    });
+    on<CreateGroupEvent>((event, emit) async {
+      emit(state.copyWith(status: GroupStatus.draft));
+      final result = await createGroup(event.group);
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              status: GroupStatus.error,
+              errorMessage: failure.message,
+            ),
+          );
+        },
+        (_) {
+          emit(state.copyWith(status: GroupStatus.drawn));
+        },
+      );
     });
     on<UpdateGroupEvent>((event, emit) {
       // Handle update group logic here
+    });
+    on<GenerateInviteCodeEvent>((event, emit) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      final random = math.Random();
+      final code = String.fromCharCodes(
+        Iterable.generate(
+          6,
+          (_) => chars.codeUnitAt(random.nextInt(chars.length)),
+        ),
+      );
+      emit(state.copyWith(inviteCode: code));
     });
   }
 }

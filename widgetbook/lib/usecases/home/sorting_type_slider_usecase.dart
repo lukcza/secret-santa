@@ -7,12 +7,13 @@ final sortingTypeSliderComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Default',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: SortingTypeSlider(),
-        ),
-      ),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SortingTypeSlider(),
+            ),
+          ),
     ),
   ],
 );

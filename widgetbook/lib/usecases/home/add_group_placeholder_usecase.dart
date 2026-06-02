@@ -7,11 +7,9 @@ final addGroupPlaceholderComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Default',
-      builder: (context) => const Scaffold(
-        body: Center(
-          child: AddGroupPlaceholder(),
-        ),
-      ),
+      builder:
+          (context) =>
+              const Scaffold(body: Center(child: AddGroupPlaceholder())),
     ),
   ],
 );

@@ -21,10 +21,10 @@ class AddFriendsListTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Theme.of(context).inputDecorationTheme.fillColor,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: Theme.of(context).colorScheme.secondaryContainer,
+            color: Theme.of(context).colorScheme.secondaryContainer.withValues(alpha: 0.15),
           ),
         ),
         child: ListTile(
@@ -32,7 +32,7 @@ class AddFriendsListTile extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Theme.of(
               context,
-            ).colorScheme.secondaryContainer.withOpacity(0.2),
+            ).colorScheme.secondaryContainer.withValues(alpha: 0.2),
             child: Icon(
               icon,
               color: iconColor,
@@ -44,22 +44,17 @@ class AddFriendsListTile extends StatelessWidget {
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
             ),
-          subtitle: 
-          Text(
+          subtitle: Text(
             subtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontSize: 12,              
-                  color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
+                  fontSize: 12,
+                  color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.7),
                 ),
-            ),
-          trailing: Transform.flip(
-            flipX: true,
-            flipY: true,
-            child: Icon(
-              Icons.arrow_back_ios,
-              size: 16,
-              color: Theme.of(context).colorScheme.secondaryContainer,
-            ),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 14,
+            color: Theme.of(context).colorScheme.secondaryContainer,
           ),
         ),
       ),

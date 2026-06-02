@@ -8,33 +8,35 @@ final decisionCardComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Primary (Create)',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: DecisionCard(
-            title: context.loc.createNewGroup,
-            description: context.loc.createNewGroupDescription,
-            buttonText: context.loc.getStarted,
-            cardType: true,
-            onTap: () => print("Create card tapped"),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: DecisionCard(
+                title: context.loc.createNewGroup,
+                description: context.loc.createNewGroupDescription,
+                buttonText: context.loc.getStarted,
+                cardType: true,
+                onTap: () => print("Create card tapped"),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'Secondary (Join)',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: DecisionCard(
-            title: context.loc.joinExistingGroup,
-            description: context.loc.joinExistingGroupDescription,
-            buttonText: context.loc.enterCode,
-            cardType: false,
-            onTap: () => print("Join card tapped"),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: DecisionCard(
+                title: context.loc.joinExistingGroup,
+                description: context.loc.joinExistingGroupDescription,
+                buttonText: context.loc.enterCode,
+                cardType: false,
+                onTap: () => print("Join card tapped"),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
   ],
 );
