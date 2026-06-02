@@ -264,4 +264,126 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inviteButton => 'Add';
+
+  @override
+  String get setDateAppBarTitle => 'Set Drawing Date';
+
+  @override
+  String get setDateTitle => 'When is the big day?';
+
+  @override
+  String get setDateSubtitle =>
+      'Pick a date for your Secret Santa party. We\'ll make sure everyone gets their match in time!';
+
+  @override
+  String get selectedDate => 'Selected Date';
+
+  @override
+  String get groupNameCard => 'Group Name';
+
+  @override
+  String get budgetCard => 'Budget';
+
+  @override
+  String get dateCard => 'Date';
+
+  @override
+  String get membersCard => 'Members';
+
+  @override
+  String get reviewGroupTitle => 'Review Group';
+
+  @override
+  String get participantsReview => 'Participants Review';
+
+  @override
+  String get addMore => 'Add more';
+
+  @override
+  String get editListOrder => 'Edit List Order';
+
+  @override
+  String get readyToDrawNames => 'READY TO DRAW NAMES?';
+
+  @override
+  String get confirmGroupCreation => 'Confirm Group Creation';
+
+  @override
+  String get addFriendsAppBarTitle => 'Add Friends';
+
+  @override
+  String get inviteToYourGroup => 'Invite to your group';
+
+  @override
+  String get chooseInviteMethod =>
+      'Choose how you want to invite your friends.';
+
+  @override
+  String get codeTab => 'Code';
+
+  @override
+  String get linkTab => 'Link';
+
+  @override
+  String get emailTab => 'Email';
+
+  @override
+  String get groupCodeLabel => 'Group Code';
+
+  @override
+  String get codeCopied => 'Code Copied!';
+
+  @override
+  String get copyCode => 'Copy Code';
+
+  @override
+  String get codeInfoBanner =>
+      'Share this code with your friends. They can enter it when joining a group.';
+
+  @override
+  String get inviteLinkLabel => 'Invite Link';
+
+  @override
+  String get copied => 'Copied!';
+
+  @override
+  String get copy => 'Copy';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get linkInfoBanner =>
+      'Anyone with this link can join your group directly — no code required.';
+
+  @override
+  String get emailAddressLabel => 'Email Address';
+
+  @override
+  String get emailAddressHint => 'friend@example.com';
+
+  @override
+  String get errorEnterEmail => 'Please enter an email address';
+
+  @override
+  String get errorAlreadySentEmail => 'Invite already sent to this email';
+
+  @override
+  String get inviteSent => 'Invite Sent!';
+
+  @override
+  String get sendInvite => 'Send Invite';
+
+  @override
+  String get pendingInvites => 'Pending Invites';
+
+  @override
+  String get invitePending => 'Invite pending';
+
+  @override
+  String get removeInviteTooltip => 'Remove invite';
+
+  @override
+  String get emailInfoBanner =>
+      'Your friends will receive an email with a direct link to join your group.';
 }

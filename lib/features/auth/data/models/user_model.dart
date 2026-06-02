@@ -8,6 +8,9 @@ class UserModel {
   final String? photoUrl;
   final List<String>? groups;
   final List<String>? wishlist;
+  final int? avatarBgColorValue;
+  final int? avatarForegroundColorValue;
+  final int? avatarIconCodePoint;
 
   const UserModel({
     required this.uid,
@@ -16,6 +19,9 @@ class UserModel {
     this.photoUrl,
     this.groups,
     this.wishlist,
+    this.avatarBgColorValue,
+    this.avatarForegroundColorValue,
+    this.avatarIconCodePoint,
   });
 
   factory UserModel.fromEntity(UserEntity entity) {
@@ -26,6 +32,9 @@ class UserModel {
       photoUrl: entity.photoUrl,
       groups: entity.groups,
       wishlist: entity.wishlist,
+      avatarBgColorValue: entity.avatarBgColorValue,
+      avatarForegroundColorValue: entity.avatarForegroundColorValue,
+      avatarIconCodePoint: entity.avatarIconCodePoint,
     );
   }
 
@@ -37,6 +46,9 @@ class UserModel {
       photoUrl: photoUrl,
       groups: groups,
       wishlist: wishlist,
+      avatarBgColorValue: avatarBgColorValue,
+      avatarForegroundColorValue: avatarForegroundColorValue,
+      avatarIconCodePoint: avatarIconCodePoint,
     );
   }
   factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -48,6 +60,9 @@ class UserModel {
       photoUrl: data['photoUrl'],
       groups: List<String>.from(data['groups'] ?? []),
       wishlist: List<String>.from(data['wishlist'] ?? []),
+      avatarBgColorValue: data['avatarBgColorValue'],
+      avatarForegroundColorValue: data['avatarForegroundColorValue'],
+      avatarIconCodePoint: data['avatarIconCodePoint'],
     );
   }
   Map<String, dynamic> toMap() {
@@ -58,7 +73,9 @@ class UserModel {
       'photoUrl': photoUrl,
       'groups': groups,
       'wishlist': wishlist,
+      'avatarBgColorValue': avatarBgColorValue,
+      'avatarForegroundColorValue': avatarForegroundColorValue,
+      'avatarIconCodePoint': avatarIconCodePoint,
     };
   }
-  
 }

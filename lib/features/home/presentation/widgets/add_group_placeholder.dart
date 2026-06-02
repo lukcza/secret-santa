@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 
 class AddGroupPlaceholder extends StatefulWidget {
@@ -15,7 +16,7 @@ class _AddGroupPlaceholderState extends State<AddGroupPlaceholder> {
       margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       color: Theme.of(context).colorScheme.primary,
       child: InkWell(
-        onTap: () => print("Add group tapped"),
+        onTap: () => context.push("/create_group"),
         child: Container(
           height: 60,
           alignment: Alignment.center,

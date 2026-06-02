@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:secret_santa/features/groups/presentation/widgets/currency%20_chooser.dart';
 
 class GroupBudgetSlider extends StatefulWidget {
@@ -11,6 +10,7 @@ class GroupBudgetSlider extends StatefulWidget {
     required this.budget,
     required this.onChanged,
     required this.budgetText,
+    required this.onCurrencyChanged,
   });
   TextEditingController controller;
   String budgetText;
@@ -18,6 +18,7 @@ class GroupBudgetSlider extends StatefulWidget {
   String maxLimitText;
   late double budget;
   final ValueChanged<double> onChanged;
+  final ValueChanged<String> onCurrencyChanged;
   @override
   State<GroupBudgetSlider> createState() => _GroupBudgetSliderState();
 }
@@ -28,10 +29,12 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).inputDecorationTheme.fillColor,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Theme.of(context).colorScheme.secondaryContainer,
+          color: Theme.of(
+            context,
+          ).colorScheme.secondaryContainer.withValues(alpha: 0.15),
         ),
       ),
       child: Column(
@@ -51,8 +54,8 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                     Text(
                       widget.budgetText,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                          ),
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                     ),
                   ],
                 ),
@@ -66,9 +69,11 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                       width: 70,
                       child: TextField(
                         textAlign: TextAlign.end,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
@@ -97,7 +102,12 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                         },
                       ),
                     ),
-                    SizedBox(width: 80, child: CurrencyChooser()),
+                    SizedBox(
+                      width: 80,
+                      child: CurrencyChooser(
+                        onCurrencyChanged: widget.onCurrencyChanged,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -111,7 +121,9 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                 Text(
                   widget.minLimitText,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                   ),
                 ),
                 SliderTheme(
@@ -122,11 +134,11 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                     ),
                     inactiveTrackColor: Theme.of(
                       context,
-                    ).colorScheme.primary.withOpacity(0.2),
+                    ).colorScheme.primary.withValues(alpha: 0.2),
                     thumbColor: Theme.of(context).colorScheme.tertiary,
                     overlayColor: Theme.of(
                       context,
-                    ).colorScheme.tertiary.withOpacity(0.2),
+                    ).colorScheme.tertiary.withValues(alpha: 0.2),
                     overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
                   ),
                   child: Slider(
@@ -145,7 +157,9 @@ class _GroupBudgetSliderState extends State<GroupBudgetSlider> {
                 Text(
                   widget.maxLimitText,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
                   ),
                 ),
               ],

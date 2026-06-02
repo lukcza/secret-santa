@@ -11,6 +11,7 @@ import 'package:secret_santa/features/auth/domain/usecases/login_user.dart';
 import 'package:secret_santa/features/auth/domain/usecases/register_user.dart';
 import 'package:secret_santa/features/auth/domain/usecases/sign_out_user.dart';
 import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
 import 'package:secret_santa/features/home/data/datasources/group_remote_data_source.dart';
 import 'package:secret_santa/features/home/data/datasources/group_remote_data_source_impl.dart';
 import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
@@ -35,8 +36,12 @@ Future<void> init() async {
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(firebaseAuth: sl(), firestore: sl()),
   );
-  sl.registerLazySingleton<GroupRemoteDataSource>(() => GroupRemoteDataSourceImpl(sl()));
-  sl.registerLazySingleton<GroupRepository>(() => GroupRepositoryImpl(remoteDataSource: sl(), firebaseAuth: sl()));
+  sl.registerLazySingleton<GroupRemoteDataSource>(
+    () => GroupRemoteDataSourceImpl(sl()),
+  );
+  sl.registerLazySingleton<GroupRepository>(
+    () => GroupRepositoryImpl(remoteDataSource: sl(), firebaseAuth: sl()),
+  );
   //Auth usecases
   sl.registerLazySingleton(() => LoginUser(sl()));
   sl.registerLazySingleton(() => RegisterUser(sl()));
@@ -64,6 +69,15 @@ Future<void> init() async {
   );
   //Home Bloc
   sl.registerLazySingleton(() => HomeBloc(getUserGroupsStream: sl()));
-
+  //Groups Bloc
+  sl.registerLazySingleton(
+    () => GroupBloc(
+      createGroup: sl(),
+      joinGroup: sl(),
+      leaveGroup: sl(),
+      updateGroup: sl(),
+      generateGroupCode: sl(),
+    ),
+  );
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));
 }

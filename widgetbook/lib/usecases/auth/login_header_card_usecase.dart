@@ -7,11 +7,10 @@ final loginHeaderCardComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Default',
-      builder: (context) => const Scaffold(
-        body: SingleChildScrollView(
-          child: LoginHeaderCard(),
-        ),
-      ),
+      builder:
+          (context) => const Scaffold(
+            body: SingleChildScrollView(child: LoginHeaderCard()),
+          ),
     ),
   ],
 );

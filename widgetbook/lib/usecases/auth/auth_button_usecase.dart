@@ -7,36 +7,30 @@ final authButtonComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Login',
-      builder: (context) => Scaffold(
-        body: Center(
-          child: AuthButton(
-            onPressed: () {},
-            buttonText: 'Login',
+      builder:
+          (context) => Scaffold(
+            body: Center(
+              child: AuthButton(onPressed: () {}, buttonText: 'Login'),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'Register',
-      builder: (context) => Scaffold(
-        body: Center(
-          child: AuthButton(
-            onPressed: () {},
-            buttonText: 'Sign Up',
+      builder:
+          (context) => Scaffold(
+            body: Center(
+              child: AuthButton(onPressed: () {}, buttonText: 'Sign Up'),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'Loading State',
-      builder: (context) => Scaffold(
-        body: Center(
-          child: AuthButton(
-            onPressed: () {},
-            buttonText: 'Processing...',
+      builder:
+          (context) => Scaffold(
+            body: Center(
+              child: AuthButton(onPressed: () {}, buttonText: 'Processing...'),
+            ),
           ),
-        ),
-      ),
     ),
   ],
 );

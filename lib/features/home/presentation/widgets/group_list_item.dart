@@ -32,6 +32,7 @@ class _GroupListItemState extends State<GroupListItem> {
                       GroupStatus.active => Icons.check_circle,
                       GroupStatus.finished => Icons.done_all,
                       // TODO: Handle this case.
+                      GroupStatus.checking => throw UnimplementedError(),
                       GroupStatus.error => throw UnimplementedError(),
                     },
                     color: switch (widget.group.state) {
@@ -45,6 +46,7 @@ class _GroupListItemState extends State<GroupListItem> {
                       GroupStatus.finished =>
                         Theme.of(context).colorScheme.onPrimary,
                       // TODO: Handle this case.
+                      GroupStatus.checking => throw UnimplementedError(),
                       GroupStatus.error => throw UnimplementedError(),
                     },
                   ),
@@ -56,6 +58,7 @@ class _GroupListItemState extends State<GroupListItem> {
                       GroupStatus.active => context.loc.elvesAreHelpingSanta,
                       GroupStatus.finished => context.loc.evryoneGotAPresents,
                       // TODO: Handle this case.
+                      GroupStatus.checking => throw UnimplementedError(),
                       GroupStatus.error => throw UnimplementedError(),
                     },
                     style: TextStyle(
@@ -70,6 +73,7 @@ class _GroupListItemState extends State<GroupListItem> {
                         GroupStatus.finished =>
                           Theme.of(context).colorScheme.onPrimary,
                         // TODO: Handle this case.
+                        GroupStatus.checking => throw UnimplementedError(),
                         GroupStatus.error => throw UnimplementedError(),
                       },
                     ),

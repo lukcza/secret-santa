@@ -7,14 +7,15 @@ final loginDividerComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Default',
-      builder: (context) => const Scaffold(
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: LoginDivider(),
+      builder:
+          (context) => const Scaffold(
+            body: Center(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: LoginDivider(),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
   ],
 );

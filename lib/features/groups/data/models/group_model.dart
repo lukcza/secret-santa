@@ -24,17 +24,17 @@ class GroupModel extends GroupEntity {
       title: data['title'] ?? '',
       description: data['description'],
       authorUID: data['authorUID'] ?? '',
-      
+
       participantsUIDs: List<String>.from(data['participantsUIDs'] ?? []),
-      
+
       budgetLimit: (data['budgetLimit'] ?? 0).toInt(),
       currency: data['currency'] ?? 'PLN',
-      
+
       eventDate: (data['eventDate'] as Timestamp).toDate(),
       createdAt: (data['createdAt'] as Timestamp).toDate(),
-      
+
       inviteCode: data['inviteCode'] ?? '',
-      
+
       state: _stringToState(data['state']),
     );
   }
@@ -65,10 +65,39 @@ class GroupModel extends GroupEntity {
     const length = 6;
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     final rand = DateTime.now().millisecondsSinceEpoch;
-    final code = List.generate(length, (index) {
-      final charIndex = (rand + index) % chars.length;
-      return chars[charIndex];
-    }).join();
+    final code =
+        List.generate(length, (index) {
+          final charIndex = (rand + index) % chars.length;
+          return chars[charIndex];
+        }).join();
     return code;
+  }
+
+  GroupModel copyWith({
+    String? id,
+    String? title,
+    String? description,
+    String? authorUID,
+    List<String>? participantsUIDs,
+    int? budgetLimit,
+    String? currency,
+    DateTime? eventDate,
+    DateTime? createdAt,
+    String? inviteCode,
+    GroupStatus? state,
+  }) {
+    return GroupModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      authorUID: authorUID ?? this.authorUID,
+      participantsUIDs: participantsUIDs ?? this.participantsUIDs,
+      budgetLimit: budgetLimit ?? this.budgetLimit,
+      currency: currency ?? this.currency,
+      eventDate: eventDate ?? this.eventDate,
+      createdAt: createdAt ?? this.createdAt,
+      inviteCode: inviteCode ?? this.inviteCode,
+      state: state ?? this.state,
+    );
   }
 }

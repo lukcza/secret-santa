@@ -10,75 +10,81 @@ final groupListItemComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Draft State',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: GroupListItem(
-            group: _mockGroup(GroupStatus.draft),
-            user: _mockUser(),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: GroupListItem(
+                group: _mockGroup(GroupStatus.draft),
+                user: _mockUser(),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'Recruiting State',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: GroupListItem(
-            group: _mockGroup(GroupStatus.recruiting),
-            user: _mockUser(),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: GroupListItem(
+                group: _mockGroup(GroupStatus.recruiting),
+                user: _mockUser(),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'Drawn State',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: GroupListItem(
-            group: _mockGroup(GroupStatus.drawn),
-            user: _mockUser(),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: GroupListItem(
+                group: _mockGroup(GroupStatus.drawn),
+                user: _mockUser(),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'Active State',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: GroupListItem(
-            group: _mockGroup(GroupStatus.active),
-            user: _mockUser(),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: GroupListItem(
+                group: _mockGroup(GroupStatus.active),
+                user: _mockUser(),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'Finished State',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: GroupListItem(
-            group: _mockGroup(GroupStatus.finished),
-            user: _mockUser(),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: GroupListItem(
+                group: _mockGroup(GroupStatus.finished),
+                user: _mockUser(),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
     WidgetbookUseCase(
       name: 'As Author',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: GroupListItem(
-            group: _mockGroup(GroupStatus.recruiting, authorUID: 'user123'),
-            user: _mockUser(uid: 'user123'),
+      builder:
+          (context) => Scaffold(
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: GroupListItem(
+                group: _mockGroup(GroupStatus.recruiting, authorUID: 'user123'),
+                user: _mockUser(uid: 'user123'),
+              ),
+            ),
           ),
-        ),
-      ),
     ),
   ],
 );

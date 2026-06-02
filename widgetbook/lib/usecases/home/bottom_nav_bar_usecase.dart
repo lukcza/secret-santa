@@ -7,33 +7,36 @@ final bottomNavBarComponent = WidgetbookComponent(
   useCases: [
     WidgetbookUseCase(
       name: 'Home Selected',
-      builder: (context) => Scaffold(
-        body: const Center(child: Text('Home Content')),
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: 0,
-          onTap: (index) {},
-        ),
-      ),
+      builder:
+          (context) => Scaffold(
+            body: const Center(child: Text('Home Content')),
+            bottomNavigationBar: BottomNavBar(
+              currentIndex: 0,
+              onTap: (index) {},
+            ),
+          ),
     ),
     WidgetbookUseCase(
       name: 'Notifications Selected',
-      builder: (context) => Scaffold(
-        body: const Center(child: Text('Notifications Content')),
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: 1,
-          onTap: (index) {},
-        ),
-      ),
+      builder:
+          (context) => Scaffold(
+            body: const Center(child: Text('Notifications Content')),
+            bottomNavigationBar: BottomNavBar(
+              currentIndex: 1,
+              onTap: (index) {},
+            ),
+          ),
     ),
     WidgetbookUseCase(
       name: 'Profile Selected',
-      builder: (context) => Scaffold(
-        body: const Center(child: Text('Profile Content')),
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: 2,
-          onTap: (index) {},
-        ),
-      ),
+      builder:
+          (context) => Scaffold(
+            body: const Center(child: Text('Profile Content')),
+            bottomNavigationBar: BottomNavBar(
+              currentIndex: 2,
+              onTap: (index) {},
+            ),
+          ),
     ),
   ],
 );

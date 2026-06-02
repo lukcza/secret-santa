@@ -1,8 +1,9 @@
 enum GroupStatus {
-  draft,     
-  recruiting, 
-  drawn,    
-  active,  
+  draft,
+  recruiting,
+  drawn,
+  active,
+  checking,
   finished,
-  error,   
+  error,
 }
