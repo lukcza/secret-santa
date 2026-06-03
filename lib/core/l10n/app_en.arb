@@ -122,5 +122,7 @@
     "pendingInvites": "Pending Invites",
     "invitePending": "Invite pending",
     "removeInviteTooltip": "Remove invite",
-    "emailInfoBanner": "Your friends will receive an email with a direct link to join your group."
-} 
+    "emailInfoBanner": "Your friends will receive an email with a direct link to join your group.",
+    "budget": "Budget",
+    "exchangeDate": "Exchange Date"
+}

@@ -1,4 +1,4 @@
-import 'package:secret_santa/features/groups/presentation/pages/create_group_page.dart';
+import 'package:secret_santa/features/groups/presentation/pages/create/create_group_page.dart';
 import 'package:widgetbook/widgetbook.dart';
 
 final createGroupPageComponent = WidgetbookComponent(

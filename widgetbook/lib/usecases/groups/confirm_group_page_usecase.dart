@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
-import 'package:secret_santa/features/groups/presentation/pages/confirm_group_page.dart';
+import 'package:secret_santa/features/groups/presentation/pages/create/confirm_group_page.dart';
 import 'package:widgetbook/widgetbook.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +26,7 @@ final confirmGroupPageComponent = WidgetbookComponent(
             budget: 25,
             date: DateTime(DateTime.now().year, 12, 24),
             authorUID: 'admin_uid',
+            currency: 'USD',
             participants: [
               UserEntity(
                 uid: 'admin_uid',

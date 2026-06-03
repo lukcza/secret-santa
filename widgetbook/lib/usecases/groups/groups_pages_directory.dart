@@ -4,6 +4,7 @@ import 'create_group_page_component.dart';
 import 'manually_invite_page_usecase.dart';
 import 'set_date_group_page_usecase.dart';
 import 'confirm_group_page_usecase.dart';
+import 'details_group_page_usecase.dart';
 
 final groupsPagesDirectory = WidgetbookFolder(
   name: 'Pages',
@@ -12,5 +13,6 @@ final groupsPagesDirectory = WidgetbookFolder(
     manuallyInvitePageComponent,
     setDateGroupPageComponent,
     confirmGroupPageComponent,
+    detailsGroupPageComponent,
   ],
 );

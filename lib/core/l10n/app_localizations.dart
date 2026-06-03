@@ -831,6 +831,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your friends will receive an email with a direct link to join your group.'**
   String get emailInfoBanner;
+
+  /// No description provided for @budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get budget;
+
+  /// No description provided for @exchangeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange Date'**
+  String get exchangeDate;
 }
 
 class _AppLocalizationsDelegate
