@@ -386,4 +386,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get emailInfoBanner =>
       'Your friends will receive an email with a direct link to join your group.';
+
+  @override
+  String get budget => 'Budget';
+
+  @override
+  String get exchangeDate => 'Exchange Date';
 }

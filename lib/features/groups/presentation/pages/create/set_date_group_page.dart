@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
-import 'package:secret_santa/features/groups/presentation/pages/create_group_page.dart';
+import 'package:secret_santa/features/groups/presentation/pages/create/create_group_page.dart';
 
 class SetDateGroupPage extends StatefulWidget {
   const SetDateGroupPage({super.key});
