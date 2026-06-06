@@ -8,8 +8,8 @@ import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/core/utils/validators.dart';
 
 class ManuallyInvitePage extends StatefulWidget {
-  const ManuallyInvitePage({super.key});
-
+  final void Function(List<String> email)? onBack;
+  const ManuallyInvitePage({super.key, this.onBack});
   @override
   State<ManuallyInvitePage> createState() => _ManuallyInvitePageState();
 }
@@ -99,59 +99,71 @@ class _ManuallyInvitePageState extends State<ManuallyInvitePage>
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          context.loc.addFriendsAppBarTitle,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          widget.onBack?.call(List.unmodifiable(_pendingInvites));
+        }
+        Navigator.of(context).pop();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            context.loc.addFriendsAppBarTitle,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          scrolledUnderElevation: 0,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-      ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.loc.inviteToYourGroup,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.loc.inviteToYourGroup,
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    context.loc.chooseInviteMethod,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: colorScheme.onSurface.withValues(alpha: 0.55),
+                    const SizedBox(height: 4),
+                    Text(
+                      context.loc.chooseInviteMethod,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurface.withValues(alpha: 0.55),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            // Custom Tab Bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: _buildTabBar(),
-            ),
-            const SizedBox(height: 24),
-
-            // Tab content
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [_buildCodeTab(), _buildLinkTab(), _buildEmailTab()],
+              // Custom Tab Bar
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: _buildTabBar(),
               ),
-            ),
-          ],
+              const SizedBox(height: 24),
+
+              // Tab content
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _buildCodeTab(),
+                    _buildLinkTab(),
+                    _buildEmailTab(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -503,7 +515,6 @@ class _ManuallyInvitePageState extends State<ManuallyInvitePage>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Email input card
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(

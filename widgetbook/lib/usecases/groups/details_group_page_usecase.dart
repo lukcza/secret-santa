@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/core/enums/user_status.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 import 'package:secret_santa/features/groups/presentation/pages/details/details_group_page.dart';
 import 'package:widgetbook/widgetbook.dart';
 
@@ -18,6 +19,11 @@ final detailsGroupPageComponent = WidgetbookComponent(
               initialValue: 'Design Team Santa',
             ),
             authorUID: 'admin_uid',
+            participants: const {
+              'admin_uid': UserStatus.creator,
+              'jane_uid': UserStatus.confirmed,
+              'robert_uid': UserStatus.pending,
+            },
             participantsUIDs: const ['admin_uid', 'jane_uid', 'robert_uid'],
             budgetLimit: context.knobs.double
                 .input(

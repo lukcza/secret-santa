@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/core/enums/user_status.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 
 class GroupModel extends GroupEntity {
   const GroupModel({
@@ -8,6 +9,7 @@ class GroupModel extends GroupEntity {
     required super.title,
     super.description,
     required super.authorUID,
+    required super.participants,
     required super.participantsUIDs,
     required super.budgetLimit,
     required super.currency,
@@ -24,9 +26,10 @@ class GroupModel extends GroupEntity {
       title: data['title'] ?? '',
       description: data['description'],
       authorUID: data['authorUID'] ?? '',
-
       participantsUIDs: List<String>.from(data['participantsUIDs'] ?? []),
-
+      participants: (data['participants'] as Map<String, dynamic>).map(
+        (key, value) => MapEntry(key, _stringToUserStatus(value)),
+      ),
       budgetLimit: (data['budgetLimit'] ?? 0).toInt(),
       currency: data['currency'] ?? 'PLN',
 
@@ -45,6 +48,9 @@ class GroupModel extends GroupEntity {
       'description': description,
       'authorUID': authorUID,
       'participantsUIDs': participantsUIDs,
+      'participants': participants.map(
+        (key, value) => MapEntry(key, value.name),
+      ),
       'budgetLimit': budgetLimit,
       'currency': currency,
       'eventDate': Timestamp.fromDate(eventDate),
@@ -52,6 +58,13 @@ class GroupModel extends GroupEntity {
       'inviteCode': inviteCode,
       'state': state.name,
     };
+  }
+
+  static UserStatus _stringToUserStatus(String? statusStr) {
+    return UserStatus.values.firstWhere(
+      (e) => e.name == statusStr,
+      orElse: () => UserStatus.pending,
+    );
   }
 
   static GroupStatus _stringToState(String? stateStr) {
@@ -91,6 +104,7 @@ class GroupModel extends GroupEntity {
       title: title ?? this.title,
       description: description ?? this.description,
       authorUID: authorUID ?? this.authorUID,
+      participants: participants ?? this.participants,
       participantsUIDs: participantsUIDs ?? this.participantsUIDs,
       budgetLimit: budgetLimit ?? this.budgetLimit,
       currency: currency ?? this.currency,

@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
-import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
+import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
 
 class GenerateGroupCode {
   final GroupRepository repository;

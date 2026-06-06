@@ -3,7 +3,7 @@ import 'package:fpdart/fpdart.dart' hide State;
 import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 
 class GroupListItem extends StatefulWidget {
   const GroupListItem({super.key, required this.group, required this.user});

@@ -10,6 +10,7 @@ class AppTheme {
   static const Color forestDark = Color.fromARGB(255, 21, 49, 30);
   static const Color forestMoreDark = Color(0xFF66BB6A);
   static const Color gold = Color(0xFFFFC107);
+  static const Color slateBlue = Color(0xFF90A4AE);
 
   static const Color backgroundLight = Color(0xFFFCF8F9);
   static const Color surfaceLight = Color(0xFFFFFFFF);
@@ -48,6 +49,11 @@ class AppTheme {
     fontFamily: 'PlusJakartaSans',
     brightness: Brightness.light,
     scaffoldBackgroundColor: backgroundLight,
+    textTheme: ThemeData.light().textTheme.apply(
+      fontFamily: 'PlusJakartaSans',
+      bodyColor: textMain,
+      displayColor: textMain,
+    ),
     colorScheme: const ColorScheme.light(
       primary: primary,
       onPrimary: Colors.white,
@@ -100,6 +106,11 @@ class AppTheme {
     fontFamily: 'PlusJakartaSans',
     brightness: Brightness.dark,
     scaffoldBackgroundColor: backgroundDark,
+    textTheme: ThemeData.dark().textTheme.apply(
+      fontFamily: 'PlusJakartaSans',
+      bodyColor: textInverse,
+      displayColor: textInverse,
+    ),
     colorScheme: const ColorScheme.dark(
       primary: primary,
       onPrimary: Colors.white,

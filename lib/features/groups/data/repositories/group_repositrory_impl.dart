@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
-import 'package:secret_santa/features/home/data/datasources/group_remote_data_source.dart';
+import 'package:secret_santa/features/groups/data/datasources/group_remote_data_source.dart';
 import 'package:secret_santa/features/groups/data/models/group_model.dart';
-import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 
 class GroupRepositoryImpl implements GroupRepository {
   final GroupRemoteDataSource _remoteDataSource;
@@ -24,6 +24,7 @@ class GroupRepositoryImpl implements GroupRepository {
         title: group.title,
         description: group.description,
         authorUID: group.authorUID,
+        participants: group.participants,
         participantsUIDs: group.participantsUIDs,
         budgetLimit: group.budgetLimit,
         currency: group.currency,
@@ -93,6 +94,7 @@ class GroupRepositoryImpl implements GroupRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, String>> getGroupCode(String groupId) async {
     try {
@@ -102,6 +104,7 @@ class GroupRepositoryImpl implements GroupRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, void>> generateGroupCode(String groupId) async {
     try {
@@ -115,31 +118,34 @@ class GroupRepositoryImpl implements GroupRepository {
     }
   }
 
-
   @override
   Future<Either<Failure, void>> updateGroup(GroupEntity group) async {
     try {
-      if(group.id.isEmpty) {
+      if (group.id.isEmpty) {
         return Left(ServerFailure("Invalid group ID"));
       }
-      await _remoteDataSource.updateGroup(GroupModel(
-        id: group.id,
-        title: group.title,
-        description: group.description,
-        authorUID: group.authorUID,
-        participantsUIDs: group.participantsUIDs,
-        budgetLimit: group.budgetLimit,
-        currency: group.currency,
-        eventDate: group.eventDate,
-        createdAt: group.createdAt,
-        inviteCode: group.inviteCode,
-        state: group.state,
-      ));
+      await _remoteDataSource.updateGroup(
+        GroupModel(
+          id: group.id,
+          title: group.title,
+          description: group.description,
+          authorUID: group.authorUID,
+          participants: group.participants,
+          participantsUIDs: group.participantsUIDs,
+          budgetLimit: group.budgetLimit,
+          currency: group.currency,
+          eventDate: group.eventDate,
+          createdAt: group.createdAt,
+          inviteCode: group.inviteCode,
+          state: group.state,
+        ),
+      );
       return Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }
+
   @override
   Stream<List<GroupEntity>> getUserGroupsStream() {
     final userId = _firebaseAuth.currentUser?.uid;

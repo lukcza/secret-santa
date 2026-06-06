@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
+import 'package:secret_santa/core/enums/user_status.dart';
 
 class GroupEntity extends Equatable {
   final String id;
   final String title;
   final String? description;
   final String authorUID;
+  final Map<String, UserStatus> participants;
   final List<String> participantsUIDs;
   final int budgetLimit;
   final String currency;
@@ -19,6 +21,7 @@ class GroupEntity extends Equatable {
     required this.title,
     this.description,
     required this.authorUID,
+    required this.participants,
     required this.participantsUIDs,
     required this.budgetLimit,
     required this.currency,
@@ -30,16 +33,17 @@ class GroupEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        title,
-        description,
-        authorUID,
-        participantsUIDs,
-        budgetLimit,
-        currency,
-        eventDate,
-        createdAt,
-        inviteCode,
-        state,
-      ];
+    id,
+    title,
+    description,
+    authorUID,
+    participants,
+    participantsUIDs,
+    budgetLimit,
+    currency,
+    eventDate,
+    createdAt,
+    inviteCode,
+    state,
+  ];
 }

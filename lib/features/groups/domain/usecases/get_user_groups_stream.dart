@@ -1,5 +1,5 @@
-import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 
 class GetUserGroupsStream {
   final GroupRepository repository;
