@@ -1,11 +1,11 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
-import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
+import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
 
-class JoinGroup {
+class LeaveGroup {
   final GroupRepository repository;
-  JoinGroup(this.repository);
+  LeaveGroup(this.repository);
   Future<Either<Failure, void>> call(String groupCode) {
-    return repository.joinGroup(groupCode);
+    return repository.leaveGroup(groupCode);
   }
 }

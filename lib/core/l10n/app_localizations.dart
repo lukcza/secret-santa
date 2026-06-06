@@ -843,6 +843,210 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Exchange Date'**
   String get exchangeDate;
+
+  /// No description provided for @participants.
+  ///
+  /// In en, this message translates to:
+  /// **'Participants'**
+  String get participants;
+
+  /// No description provided for @addNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New'**
+  String get addNew;
+
+  /// No description provided for @elevs.
+  ///
+  /// In en, this message translates to:
+  /// **'Elevs'**
+  String get elevs;
+
+  /// No description provided for @changesSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes saved'**
+  String get changesSaved;
+
+  /// No description provided for @manageParticipantAppBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Participant'**
+  String get manageParticipantAppBarTitle;
+
+  /// No description provided for @manageParticipantSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get manageParticipantSaveChanges;
+
+  /// No description provided for @manageParticipantAdminBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'ADMIN'**
+  String get manageParticipantAdminBadge;
+
+  /// No description provided for @exludionSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclusion Section'**
+  String get exludionSectionTitle;
+
+  /// No description provided for @exludionSectionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot give a gift to someone who gave you a gift.'**
+  String get exludionSectionSubtitle;
+
+  /// No description provided for @noExlusionsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'No exclusions added'**
+  String get noExlusionsAdded;
+
+  /// No description provided for @addExlusionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add someone who CANNOT receive a gift from you'**
+  String get addExlusionSubtitle;
+
+  /// No description provided for @exclusions.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclusions'**
+  String get exclusions;
+
+  /// No description provided for @dangerZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Danger zone'**
+  String get dangerZone;
+
+  /// No description provided for @dangerZoneSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes are irreversible. Act with caution.'**
+  String get dangerZoneSubtitle;
+
+  /// No description provided for @dangerZoneRemoveParticipant.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Participant'**
+  String get dangerZoneRemoveParticipant;
+
+  /// No description provided for @exclude.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclude'**
+  String get exclude;
+
+  /// No description provided for @allow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get allow;
+
+  /// No description provided for @excludedSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'participants are excluded. This participant cannot receive their gift.'**
+  String get excludedSummary;
+
+  /// No description provided for @noMoreParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'No more participants in group.'**
+  String get noMoreParticipants;
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @fromGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'from group'**
+  String get fromGroup;
+
+  /// No description provided for @cantRemoveAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot remove admin'**
+  String get cantRemoveAdmin;
+
+  /// No description provided for @removePatricipant.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove participant'**
+  String get removePatricipant;
+
+  /// No description provided for @sureDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete'**
+  String get sureDelete;
+
+  /// No description provided for @sureDeleteSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'from the group? This action is irreversible and will remove all assigned exclusions'**
+  String get sureDeleteSubtitle;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @groupDetailsAppBarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Details'**
+  String get groupDetailsAppBarTitle;
+
+  /// No description provided for @host.
+  ///
+  /// In en, this message translates to:
+  /// **'Host'**
+  String get host;
+
+  /// No description provided for @confirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get confirmed;
+
+  /// No description provided for @invited.
+  ///
+  /// In en, this message translates to:
+  /// **'Invited'**
+  String get invited;
+
+  /// No description provided for @pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// No description provided for @declined.
+  ///
+  /// In en, this message translates to:
+  /// **'Declined'**
+  String get declined;
 }
 
 class _AppLocalizationsDelegate

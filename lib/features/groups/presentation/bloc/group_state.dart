@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 enum JoinGroupStatus { initial, loading, success, error, left }
 class GroupState extends Equatable {
   final JoinGroupStatus joinStatus;

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
+import 'package:secret_santa/core/enums/user_status.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart'
@@ -9,7 +10,7 @@ import 'package:secret_santa/features/groups/presentation/widgets/group_data_car
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 
 class ConfirmGroupPage extends StatefulWidget {
   final String groupName;
@@ -199,9 +200,19 @@ class _ConfirmGroupPageState extends State<ConfirmGroupPage> {
                                 authorUID: widget.authorUID,
                                 id: '',
                                 title: widget.groupName,
+                                participants: Map.fromEntries(
+                                  widget.participants.map(
+                                    (e) => MapEntry(
+                                      e.uid == '' ? e.email : e.uid,
+                                      UserStatus.invited,
+                                    ),
+                                  ),
+                                ),
                                 participantsUIDs:
                                     widget.participants
-                                        .map((e) => e.uid)
+                                        .map(
+                                          (e) => e.uid == '' ? e.email : e.uid,
+                                        )
                                         .toList(),
                                 budgetLimit: widget.budget,
                                 currency: widget.currency,

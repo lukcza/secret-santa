@@ -1,8 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
 import 'package:secret_santa/features/groups/data/models/group_model.dart';
-import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
 
 class UpdateGroup {
   final GroupRepository repository;

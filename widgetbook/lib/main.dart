@@ -35,9 +35,10 @@ class WidgetbookApp extends StatelessWidget {
       addons: [
         MaterialThemeAddon(
           themes: [
-            WidgetbookTheme(name: 'Light', data: AppTheme.lightThemeMode),
             WidgetbookTheme(name: 'Dark', data: AppTheme.darkThemeMode),
+            WidgetbookTheme(name: 'Light', data: AppTheme.lightThemeMode),
           ],
+          initialTheme: WidgetbookTheme(name: 'Dark', data: AppTheme.darkThemeMode),
         ),
         DeviceFrameAddon(
           devices: [
@@ -45,6 +46,7 @@ class WidgetbookApp extends StatelessWidget {
             Devices.ios.iPadPro11Inches,
             Devices.android.samsungGalaxyS20,
           ],
+          initialDevice: Devices.ios.iPhone13,
         ),
         TextScaleAddon(scales: [1.0, 1.25, 1.5, 2.0]),
         LocalizationAddon(

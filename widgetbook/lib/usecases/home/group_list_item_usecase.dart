@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:secret_santa/core/enums/user_status.dart';
 import 'package:secret_santa/features/home/presentation/widgets/group_list_item.dart';
-import 'package:secret_santa/features/home/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
 
@@ -106,6 +107,11 @@ GroupEntity _mockGroup(GroupStatus state, {String authorUID = 'author123'}) {
     title: 'Christmas Exchange 2024',
     description: 'Annual family gift exchange',
     authorUID: authorUID,
+    participants: const {
+      'admin_uid': UserStatus.creator,
+      'jane_uid': UserStatus.invited,
+      'robert_uid': UserStatus.confirmed,
+    },
     participantsUIDs: ['user1', 'user2', 'user3', 'user4'],
     budgetLimit: 50,
     currency: 'PLN',

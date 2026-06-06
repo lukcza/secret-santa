@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
-import 'package:secret_santa/features/home/domain/usecases/create_group.dart';
-import 'package:secret_santa/features/home/domain/usecases/generate_group_code.dart';
-import 'package:secret_santa/features/home/domain/usecases/join_group.dart';
-import 'package:secret_santa/features/home/domain/usecases/leave_group.dart';
-import 'package:secret_santa/features/home/domain/usecases/update_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/create_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/generate_group_code.dart';
+import 'package:secret_santa/features/groups/domain/usecases/join_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/leave_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/update_group.dart';
 
 class GroupBloc extends Bloc<GroupEvent, GroupState> {
   GroupBloc({

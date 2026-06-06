@@ -392,4 +392,111 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exchangeDate => 'Exchange Date';
+
+  @override
+  String get participants => 'Participants';
+
+  @override
+  String get addNew => 'Add New';
+
+  @override
+  String get elevs => 'Elevs';
+
+  @override
+  String get changesSaved => 'Changes saved';
+
+  @override
+  String get manageParticipantAppBarTitle => 'Manage Participant';
+
+  @override
+  String get manageParticipantSaveChanges => 'Save changes';
+
+  @override
+  String get manageParticipantAdminBadge => 'ADMIN';
+
+  @override
+  String get exludionSectionTitle => 'Exclusion Section';
+
+  @override
+  String get exludionSectionSubtitle =>
+      'Cannot give a gift to someone who gave you a gift.';
+
+  @override
+  String get noExlusionsAdded => 'No exclusions added';
+
+  @override
+  String get addExlusionSubtitle =>
+      'Add someone who CANNOT receive a gift from you';
+
+  @override
+  String get exclusions => 'Exclusions';
+
+  @override
+  String get dangerZone => 'Danger zone';
+
+  @override
+  String get dangerZoneSubtitle =>
+      'Changes are irreversible. Act with caution.';
+
+  @override
+  String get dangerZoneRemoveParticipant => 'Remove Participant';
+
+  @override
+  String get exclude => 'Exclude';
+
+  @override
+  String get allow => 'Allow';
+
+  @override
+  String get excludedSummary =>
+      'participants are excluded. This participant cannot receive their gift.';
+
+  @override
+  String get noMoreParticipants => 'No more participants in group.';
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get fromGroup => 'from group';
+
+  @override
+  String get cantRemoveAdmin => 'You cannot remove admin';
+
+  @override
+  String get removePatricipant => 'Remove participant';
+
+  @override
+  String get sureDelete => 'Are you sure you want to delete';
+
+  @override
+  String get sureDeleteSubtitle =>
+      'from the group? This action is irreversible and will remove all assigned exclusions';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get groupDetailsAppBarTitle => 'Group Details';
+
+  @override
+  String get host => 'Host';
+
+  @override
+  String get confirmed => 'Confirmed';
+
+  @override
+  String get invited => 'Invited';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get declined => 'Declined';
 }

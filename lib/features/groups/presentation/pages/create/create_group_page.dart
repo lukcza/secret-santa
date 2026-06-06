@@ -27,6 +27,15 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
   double budget = 25.0;
   final List<UserEntity> _participants = [];
   late UserEntity user;
+  void Function(List<String>? emails)? onBack() {
+    return (emails) {
+      setState(() {
+        for (String email in emails!) {
+          _participants.add(UserEntity(uid: "", email: email));
+        }
+      });
+    };
+  }
 
   @override
   void initState() {
@@ -129,7 +138,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                             builder:
                                 (_) => BlocProvider.value(
                                   value: context.read<GroupBloc>(),
-                                  child: const ManuallyInvitePage(),
+                                  child: ManuallyInvitePage(onBack: onBack()),
                                 ),
                           ),
                         );
