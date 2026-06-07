@@ -7,7 +7,11 @@ import 'package:secret_santa/features/groups/presentation/pages/create/manually_
 import 'package:widgetbook/widgetbook.dart';
 
 class FakeGroupBloc extends Bloc<GroupEvent, GroupState> implements GroupBloc {
-  FakeGroupBloc() : super(GroupState(status: GroupStatus.draft));
+  FakeGroupBloc() : super(GroupState(status: GroupStatus.draft)) {
+    on<GenerateInviteCodeEvent>((event, emit) {
+      emit(state.copyWith(inviteCode: 'FAKE42'));
+    });
+  }
 }
 
 final manuallyInvitePageComponent = WidgetbookComponent(

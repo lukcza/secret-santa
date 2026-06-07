@@ -9,6 +9,7 @@ class GroupEntity extends Equatable {
   final String authorUID;
   final Map<String, UserStatus> participants;
   final List<String> participantsUIDs;
+  final Map<String, List<String>> excludedPairs;
   final int budgetLimit;
   final String currency;
   final DateTime eventDate;
@@ -29,6 +30,7 @@ class GroupEntity extends Equatable {
     required this.createdAt,
     required this.inviteCode,
     required this.state,
+    this.excludedPairs = const {},
   });
 
   @override
@@ -45,5 +47,6 @@ class GroupEntity extends Equatable {
     createdAt,
     inviteCode,
     state,
+    excludedPairs,
   ];
 }

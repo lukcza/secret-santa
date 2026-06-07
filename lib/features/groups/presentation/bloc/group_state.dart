@@ -1,19 +1,24 @@
 import 'package:equatable/equatable.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
+import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+
 enum JoinGroupStatus { initial, loading, success, error, left }
+
 class GroupState extends Equatable {
   final JoinGroupStatus joinStatus;
   final GroupStatus status;
   final String? errorMessage;
   final GroupEntity? group;
   final String? inviteCode;
+  final List<UserEntity> participants;
   const GroupState({
     this.group,
     this.joinStatus = JoinGroupStatus.initial,
     this.status = GroupStatus.draft,
     this.errorMessage,
     this.inviteCode,
+    this.participants = const [],
   });
 
   GroupState copyWith({
@@ -22,6 +27,7 @@ class GroupState extends Equatable {
     String? errorMessage,
     JoinGroupStatus? joinStatus,
     String? inviteCode,
+    List<UserEntity>? participants,
   }) {
     return GroupState(
       group: group ?? this.group,
@@ -29,8 +35,16 @@ class GroupState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       joinStatus: joinStatus ?? this.joinStatus,
       inviteCode: inviteCode ?? this.inviteCode,
+      participants: participants ?? this.participants,
     );
   }
+
   @override
-  List<Object?> get props => [group, status, errorMessage, joinStatus, inviteCode];
+  List<Object?> get props => [
+    group,
+    status,
+    errorMessage,
+    joinStatus,
+    inviteCode,
+  ];
 }

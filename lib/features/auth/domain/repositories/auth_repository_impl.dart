@@ -15,11 +15,12 @@ class AuthRepositoryImpl implements AuthRepository {
        _firestore = firestore;
   Future<UserModel> _getUserModel(String uid) async {
     final doc = await _firestore.collection('users').doc(uid).get();
-    if(!doc.exists){
+    if (!doc.exists) {
       throw Exception('User document does not exist');
     }
     return UserModel.fromSnapshot(doc);
   }
+
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
   @override
@@ -50,6 +51,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(AuthFailure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, void>> signOut() async {
     try {
@@ -59,6 +61,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(AuthFailure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, UserEntity>> getCurrentUser() async {
     try {
@@ -75,6 +78,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(AuthFailure(e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, UserEntity>> signUp({
     required String nickname,
@@ -132,14 +136,49 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<Either<Failure, UserEntity>> getUserByUid({
+    required String uid,
+  }) async {
+    try {
+      final docSnapshot = await _firestore.collection('users').doc(uid).get();
+      if (!docSnapshot.exists) {
+        return Left(AuthFailure('User document does not exist'));
+      }
+      return Right(UserModel.fromSnapshot(docSnapshot).toEntity());
+    } catch (e) {
+      return Left(AuthFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserByEmail({
+    required String email,
+  }) async {
+    try {
+      final querySnapshot =
+          await _firestore
+              .collection('users')
+              .where('email', isEqualTo: email)
+              .get();
+      if (querySnapshot.docs.isEmpty) {
+        return Left(AuthFailure('User document does not exist'));
+      }
+      return Right(UserModel.fromSnapshot(querySnapshot.docs.first).toEntity());
+    } catch (e) {
+      return Left(AuthFailure(e.toString()));
+    }
+  }
+
+  @override
   Stream<UserEntity?> get getCurrentUserStream {
     return _firebaseAuth.authStateChanges().asyncMap((user) async {
       if (user == null) {
         return null;
       }
-      try{
-        final docSnapshot = await _firestore.collection('users').doc(user.uid).get();
-        if(!docSnapshot.exists){
+      try {
+        final docSnapshot =
+            await _firestore.collection('users').doc(user.uid).get();
+        if (!docSnapshot.exists) {
           return null;
         }
         return UserModel.fromSnapshot(docSnapshot).toEntity();

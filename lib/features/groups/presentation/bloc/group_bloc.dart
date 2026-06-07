@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_groups_participants.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
 import 'package:secret_santa/features/groups/domain/usecases/create_group.dart';
@@ -16,6 +17,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     required LeaveGroup leaveGroup,
     required UpdateGroup updateGroup,
     required GenerateGroupCode generateGroupCode,
+    required GetGroupsParticipants getGroupsParticipants,
   }) : super(GroupState(status: GroupStatus.draft)) {
     on<JoinGroupEvent>((event, emit) async {
       final result = await joinGroup(event.groupCode);
@@ -67,6 +69,22 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
         ),
       );
       emit(state.copyWith(inviteCode: code));
+    });
+    on<GetGroupParticipantsEvent>((event, emit) async {
+      final result = await getGroupsParticipants(event.groupId);
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              status: GroupStatus.error,
+              errorMessage: failure.message,
+            ),
+          );
+        },
+        (participants) {
+          emit(state.copyWith(participants: participants));
+        },
+      );
     });
   }
 }

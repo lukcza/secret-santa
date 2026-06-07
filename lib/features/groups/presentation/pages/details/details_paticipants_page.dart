@@ -9,15 +9,11 @@ class DetailsParticipantsPage extends StatefulWidget {
     super.key,
     required this.participant,
     required this.group,
-    required this.allParticipants,
-    this.initialExcludedUIDs = const [],
     this.onSave,
     this.onRemove,
   });
   final UserEntity participant;
   final GroupEntity group;
-  final List<UserEntity> allParticipants;
-  final List<String> initialExcludedUIDs;
   final void Function(List<String> excludedUIDs)? onSave;
   final VoidCallback? onRemove;
 
@@ -36,7 +32,9 @@ class _DetailsParticipantsPageState extends State<DetailsParticipantsPage>
   @override
   void initState() {
     super.initState();
-    _excludedUIDs = Set<String>.from(widget.initialExcludedUIDs);
+    _excludedUIDs = Set<String>.from(
+      widget.group.excludedPairs[widget.participant.uid] ?? const [],
+    );
     _fadeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 350),
@@ -54,9 +52,9 @@ class _DetailsParticipantsPageState extends State<DetailsParticipantsPage>
     super.dispose();
   }
 
-  List<UserEntity> get _otherParticipants =>
-      widget.allParticipants
-          .where((u) => u.uid != widget.participant.uid)
+  List<String> get _otherParticipants =>
+      widget.group.participantsUIDs
+          .where((u) => u != widget.participant.uid)
           .toList();
 
   void _toggleExclusion(String uid) {
@@ -219,10 +217,7 @@ class _DetailsParticipantsPageState extends State<DetailsParticipantsPage>
 }
 
 class _ParticipantHeader extends StatelessWidget {
-  const _ParticipantHeader({
-    required this.participant,
-    required this.isAdmin,
-  });
+  const _ParticipantHeader({required this.participant, required this.isAdmin});
 
   final UserEntity participant;
   final bool isAdmin;

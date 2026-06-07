@@ -1,5 +1,5 @@
 class Validators {
-  static final RegExp _emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+  static final RegExp emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
 
   static String? validateEmail(
     String? value, {
@@ -9,7 +9,7 @@ class Validators {
     if (value == null || value.trim().isEmpty) {
       return emptyMessage ?? 'Email is required';
     }
-    if (!_emailRegex.hasMatch(value.trim())) {
+    if (!emailRegex.hasMatch(value.trim())) {
       return invalidMessage ?? 'Please enter a valid email';
     }
     return null;

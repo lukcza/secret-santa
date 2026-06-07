@@ -50,3 +50,12 @@ class GenerateInviteCodeEvent extends GroupEvent {
   @override
   List<Object?> get props => [];
 }
+
+class GetGroupParticipantsEvent extends GroupEvent {
+  final String groupId;
+
+  const GetGroupParticipantsEvent({required this.groupId});
+
+  @override
+  List<Object?> get props => [groupId];
+}
