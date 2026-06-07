@@ -100,12 +100,11 @@ class _ManuallyInvitePageState extends State<ManuallyInvitePage>
     final colorScheme = Theme.of(context).colorScheme;
 
     return PopScope(
-      canPop: false,
+      canPop: true,
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop) {
+        if (didPop) {
           widget.onBack?.call(List.unmodifiable(_pendingInvites));
         }
-        Navigator.of(context).pop();
       },
       child: Scaffold(
         appBar: AppBar(

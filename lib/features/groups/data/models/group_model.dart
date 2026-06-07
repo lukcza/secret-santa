@@ -17,6 +17,7 @@ class GroupModel extends GroupEntity {
     required super.createdAt,
     required super.inviteCode,
     required super.state,
+    super.excludedPairs,
   });
   factory GroupModel.fromSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -39,6 +40,12 @@ class GroupModel extends GroupEntity {
       inviteCode: data['inviteCode'] ?? '',
 
       state: _stringToState(data['state']),
+      excludedPairs:
+          data['excludedPairs'] == null
+              ? const {}
+              : Map<String, List<String>>.from(
+                data['excludedPairs'] as Map<String, dynamic>,
+              ),
     );
   }
 
@@ -57,6 +64,7 @@ class GroupModel extends GroupEntity {
       'createdAt': Timestamp.fromDate(createdAt),
       'inviteCode': inviteCode,
       'state': state.name,
+      'excludedPairs': excludedPairs,
     };
   }
 
@@ -91,6 +99,7 @@ class GroupModel extends GroupEntity {
     String? title,
     String? description,
     String? authorUID,
+    Map<String, UserStatus>? participants,
     List<String>? participantsUIDs,
     int? budgetLimit,
     String? currency,
@@ -98,6 +107,7 @@ class GroupModel extends GroupEntity {
     DateTime? createdAt,
     String? inviteCode,
     GroupStatus? state,
+    Map<String, List<String>>? excludedPairs,
   }) {
     return GroupModel(
       id: id ?? this.id,
@@ -112,6 +122,7 @@ class GroupModel extends GroupEntity {
       createdAt: createdAt ?? this.createdAt,
       inviteCode: inviteCode ?? this.inviteCode,
       state: state ?? this.state,
+      excludedPairs: excludedPairs ?? this.excludedPairs,
     );
   }
 }

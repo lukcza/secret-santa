@@ -1,13 +1,4 @@
-import 'package:secret_santa/features/home/data/repositories/group_repository.dart';
-import 'package:secret_santa/features/home/domain/usecases/create_group.dart';
-import 'package:secret_santa/features/home/domain/usecases/generate_group_code.dart';
-import 'package:secret_santa/features/home/domain/usecases/get_group_by_id.dart';
-import 'package:secret_santa/features/home/domain/usecases/get_group_code.dart';
-import 'package:secret_santa/features/home/domain/usecases/get_user_groups.dart';
-import 'package:secret_santa/features/home/domain/usecases/get_user_groups_stream.dart';
-import 'package:secret_santa/features/home/domain/usecases/join_group.dart';
-import 'package:secret_santa/features/home/domain/usecases/leave_group.dart';
-import 'package:secret_santa/features/home/domain/usecases/update_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_user_groups_stream.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_event.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -4,6 +4,7 @@ import 'package:secret_santa/core/l10n/app_localizations.dart';
 import 'package:secret_santa/core/theme/app_theme.dart';
 import 'package:secret_santa/core/enums/user_status.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/presentation/pages/details/details_paticipants_page.dart';
 
 class DetailsGroupPage extends StatefulWidget {
   const DetailsGroupPage({super.key, required this.group});
@@ -13,7 +14,42 @@ class DetailsGroupPage extends StatefulWidget {
   State<DetailsGroupPage> createState() => _DetailsGroupPageState();
 }
 
-class _DetailsGroupPageState extends State<DetailsGroupPage> {
+class _DetailsGroupPageState extends State<DetailsGroupPage>
+    with TickerProviderStateMixin {
+  late final AnimationController _showConfigController;
+  late final Animation<double> _showConfigAnimation;
+  String? _expandedUid;
+  @override
+  void initState() {
+    super.initState();
+    _showConfigController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+    _showConfigAnimation = Tween<double>(begin: 0.08, end: 1.0).animate(
+      CurvedAnimation(parent: _showConfigController, curve: Curves.easeOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _showConfigController.dispose();
+    super.dispose();
+  }
+
+  void toggleShowConfig(String uid) {
+    if (_showConfigController.isAnimating) {
+      return;
+    }
+    if (_expandedUid == uid) {
+      _showConfigController.reverse();
+      setState(() => _expandedUid = null);
+    } else {
+      _showConfigController.forward(from: 0);
+      setState(() => _expandedUid = uid);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,7 +216,16 @@ class _DetailsGroupPageState extends State<DetailsGroupPage> {
         final uid = participants.keys.elementAt(index);
         final status = participants.values.elementAt(index);
         final isAuthor = uid == widget.group.authorUID;
-        return _buildParticipantTile(context, uid, status, isAuthor);
+        return _buildParticipantTile(
+          context,
+          uid,
+          status,
+          isAuthor,
+          widget.group,
+          _showConfigAnimation,
+          _expandedUid ?? "",
+          () => toggleShowConfig(uid),
+        );
       },
     );
   }
@@ -258,66 +303,148 @@ Widget _buildInfoCard(
   );
 }
 
+Widget _buildExpandedParticpantSettings(
+  BuildContext context,
+  String uid,
+  Animation<double> animation,
+  bool isExpanded,
+  GroupEntity group,
+) {
+  return Container(
+    height: 56,
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.primary,
+      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
+    ),
+    child: AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        final double opacity =
+            isExpanded
+                ? ((animation.value - 0.08) / 0.92).clamp(0.0, 1.0)
+                : 0.0;
+        return Opacity(opacity: opacity, child: child);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          IconButton(
+            icon: Icon(Icons.link),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DetailsParticipantsPage(group: group),
+                ),
+              );
+            },
+          ),
+          IconButton(icon: Icon(Icons.person), onPressed: () {}),
+        ],
+      ),
+    ),
+  );
+}
+
 Widget _buildParticipantTile(
   BuildContext context,
   String uid,
   UserStatus status,
   bool isAuthor,
+  GroupEntity group,
+  Animation animation,
+  String expandedUid,
+  VoidCallback onTap,
 ) {
   final statusLabel = _statusLabel(status, context.loc);
   final statusColor = _statusColor(context, status);
-
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.surface,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(
-        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.08),
-      ),
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  final isExpanded = expandedUid == uid;
+  return Column(
+    children: [
+      GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.08),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                uid,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      uid,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: statusColor.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        statusLabel,
+                        style: TextStyle(
+                          color: statusColor,
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 4),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: statusColor.withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(8),
+              if (!isAuthor)
+                Icon(
+                  Icons.remove_circle_outline,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.4),
                 ),
-                child: Text(
-                  statusLabel,
-                  style: TextStyle(
-                    color: statusColor,
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
-        if (!isAuthor)
-          Icon(
-            Icons.remove_circle_outline,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
+      ),
+      ClipRRect(
+        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
+        child: AnimatedBuilder(
+          animation: animation,
+          builder: (context, child) {
+            return Align(
+              alignment: Alignment.topCenter,
+              widthFactor: isExpanded ? 2 : 1,
+              heightFactor: isExpanded ? animation.value : 0.08,
+              child: child,
+            );
+          },
+          child: _buildExpandedParticpantSettings(
+            context,
+            uid,
+            animation as Animation<double>,
+            isExpanded,
+            group,
           ),
-      ],
-    ),
+        ),
+      ),
+    ],
   );
 }
 

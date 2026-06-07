@@ -7,6 +7,8 @@ import 'package:secret_santa/core/router/app_router.dart';
 import 'package:secret_santa/features/auth/domain/repositories/auth_repository.dart';
 import 'package:secret_santa/features/auth/domain/repositories/auth_repository_impl.dart';
 import 'package:secret_santa/features/auth/domain/usecases/get_current_user.dart';
+import 'package:secret_santa/features/auth/domain/usecases/get_user_by_email.dart';
+import 'package:secret_santa/features/auth/domain/usecases/get_user_by_uid.dart';
 import 'package:secret_santa/features/auth/domain/usecases/login_user.dart';
 import 'package:secret_santa/features/auth/domain/usecases/register_user.dart';
 import 'package:secret_santa/features/auth/domain/usecases/sign_out_user.dart';
@@ -14,6 +16,7 @@ import 'package:secret_santa/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:secret_santa/features/groups/data/datasources/group_remote_data_source_impl.dart';
 import 'package:secret_santa/features/groups/data/repositories/group_repositrory_impl.dart';
 import 'package:secret_santa/features/groups/domain/usecases/create_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_groups_participants.dart';
 import 'package:secret_santa/features/groups/domain/usecases/get_user_groups.dart';
 import 'package:secret_santa/features/groups/domain/usecases/get_user_groups_stream.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
@@ -47,6 +50,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => RegisterUser(sl()));
   sl.registerLazySingleton(() => GetCurrentUser(sl()));
   sl.registerLazySingleton(() => SignOutUser(sl()));
+  sl.registerLazySingleton(() => GetUserByEmail(sl()));
+  sl.registerLazySingleton(() => GetUserByUid(sl()));
   //Home usecases
   sl.registerLazySingleton(() => GetUserGroupsStream(sl()));
   sl.registerLazySingleton(() => GetUserGroups(sl()));
@@ -57,6 +62,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetGroupById(sl()));
   sl.registerLazySingleton(() => UpdateGroup(sl()));
   sl.registerLazySingleton(() => GenerateGroupCode(sl()));
+  sl.registerLazySingleton(() => GetGroupsParticipants(sl(), sl()));
   //Blocs
   //Auth Bloc
   sl.registerLazySingleton(
@@ -77,6 +83,7 @@ Future<void> init() async {
       leaveGroup: sl(),
       updateGroup: sl(),
       generateGroupCode: sl(),
+      getGroupsParticipants: sl(),
     ),
   );
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));

@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/errors/failures.dart';
+import 'package:secret_santa/core/utils/validators.dart';
+import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
+import 'package:secret_santa/features/auth/domain/usecases/get_user_by_uid.dart';
 import 'package:secret_santa/features/groups/data/datasources/group_remote_data_source.dart';
 import 'package:secret_santa/features/groups/data/models/group_model.dart';
 import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
@@ -153,5 +156,33 @@ class GroupRepositoryImpl implements GroupRepository {
       return Stream.error('User not authenticated');
     }
     return _remoteDataSource.getUserGroupsStream(userId);
+  }
+
+  @override
+  Future<Either<Failure, List<UserEntity>>> getGroupParticipants(
+    String groupId,
+    GetUserByUid getUserByUid,
+  ) async {
+    try {
+      final group = await _remoteDataSource.getGroupById(groupId);
+      final participants = group.participantsUIDs;
+      final users = <UserEntity>[];
+      for (final userId in participants) {
+        final user = await getUserByUid(uid: userId);
+        if (Validators.validateEmail(userId) != "Email is valid") {
+          user.fold(
+            (failure) {
+              return Left(ServerFailure(failure.message));
+            },
+            (user) {
+              users.add(user);
+            },
+          );
+        }
+      }
+      return Right(users);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
   }
 }
