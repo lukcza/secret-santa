@@ -48,6 +48,14 @@ class _FakeAuthRepository implements AuthRepository {
 
   @override
   Stream<UserEntity?> get getCurrentUserStream => Stream.value(_fakeUser);
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserByEmail({required String email}) async =>
+      const Right(_fakeUser);
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserByUid({required String uid}) async =>
+      const Right(_fakeUser);
 }
 
 AuthBloc _buildFakeAuthBloc() {
