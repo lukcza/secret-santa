@@ -49,4 +49,36 @@ class GroupEntity extends Equatable {
     state,
     excludedPairs,
   ];
+
+  GroupEntity copyWith({
+    String? id,
+    String? title,
+    String? description,
+    String? authorUID,
+    Map<String, UserStatus>? participants,
+    List<String>? participantsUIDs,
+    int? budgetLimit,
+    String? currency,
+    DateTime? eventDate,
+    DateTime? createdAt,
+    String? inviteCode,
+    GroupStatus? state,
+    Map<String, List<String>>? excludedPairs,
+  }) {
+    return GroupEntity(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      authorUID: authorUID ?? this.authorUID,
+      participants: participants ?? this.participants,
+      participantsUIDs: participantsUIDs ?? this.participantsUIDs,
+      budgetLimit: budgetLimit ?? this.budgetLimit,
+      currency: currency ?? this.currency,
+      eventDate: eventDate ?? this.eventDate,
+      createdAt: createdAt ?? this.createdAt,
+      inviteCode: inviteCode ?? this.inviteCode,
+      state: state ?? this.state,
+      excludedPairs: excludedPairs ?? this.excludedPairs,
+    );
+  }
 }

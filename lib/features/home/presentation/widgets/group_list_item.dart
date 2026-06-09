@@ -34,6 +34,7 @@ class _GroupListItemState extends State<GroupListItem> {
                       // TODO: Handle this case.
                       GroupStatus.checking => throw UnimplementedError(),
                       GroupStatus.error => throw UnimplementedError(),
+                      GroupStatus.loading => Icons.sync,
                     },
                     color: switch (widget.group.state) {
                       GroupStatus.draft => Colors.blueAccent,
@@ -48,6 +49,7 @@ class _GroupListItemState extends State<GroupListItem> {
                       // TODO: Handle this case.
                       GroupStatus.checking => throw UnimplementedError(),
                       GroupStatus.error => throw UnimplementedError(),
+                      GroupStatus.loading => Colors.grey,
                     },
                   ),
                   Text(
@@ -60,6 +62,7 @@ class _GroupListItemState extends State<GroupListItem> {
                       // TODO: Handle this case.
                       GroupStatus.checking => throw UnimplementedError(),
                       GroupStatus.error => throw UnimplementedError(),
+                      GroupStatus.loading => "Loading...",
                     },
                     style: TextStyle(
                       color: switch (widget.group.state) {
@@ -75,6 +78,7 @@ class _GroupListItemState extends State<GroupListItem> {
                         // TODO: Handle this case.
                         GroupStatus.checking => throw UnimplementedError(),
                         GroupStatus.error => throw UnimplementedError(),
+                        GroupStatus.loading => Colors.grey,
                       },
                     ),
                   ),

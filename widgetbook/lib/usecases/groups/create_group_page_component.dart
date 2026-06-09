@@ -79,7 +79,15 @@ class _FakeGroupBloc extends Bloc<GroupEvent, GroupState> implements GroupBloc {
     on<GenerateInviteCodeEvent>((event, emit) {
       emit(state.copyWith(inviteCode: 'FAKE42'));
     });
-    on<CreateGroupEvent>((event, emit) {});
+    on<CreateGroupEvent>((event, emit) {
+      emit(state.copyWith(
+        status: GroupStatus.drawn,
+        group: event.group,
+      ));
+    });
+    on<UpdateGroupEvent>((event, emit) {
+      emit(state.copyWith(group: event.group));
+    });
   }
 }
 
@@ -89,7 +97,15 @@ class FakeCreateGroupBloc extends Bloc<GroupEvent, GroupState> implements GroupB
     on<GenerateInviteCodeEvent>((event, emit) {
       emit(state.copyWith(inviteCode: 'FAKE42'));
     });
-    on<CreateGroupEvent>((event, emit) {});
+    on<CreateGroupEvent>((event, emit) {
+      emit(state.copyWith(
+        status: GroupStatus.drawn,
+        group: event.group,
+      ));
+    });
+    on<UpdateGroupEvent>((event, emit) {
+      emit(state.copyWith(group: event.group));
+    });
   }
 }
 

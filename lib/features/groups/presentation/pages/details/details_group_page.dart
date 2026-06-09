@@ -1,230 +1,207 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/core/l10n/app_localizations.dart';
 import 'package:secret_santa/core/theme/app_theme.dart';
 import 'package:secret_santa/core/enums/user_status.dart';
+import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
+import 'package:secret_santa/features/groups/presentation/pages/create/manually_invite_page.dart';
 import 'package:secret_santa/features/groups/presentation/pages/details/details_paticipants_page.dart';
+import 'package:secret_santa/features/groups/presentation/widgets/invite_card.dart';
+import 'package:secret_santa/features/groups/presentation/widgets/participants_list.dart';
 
 class DetailsGroupPage extends StatefulWidget {
   const DetailsGroupPage({super.key, required this.group});
   final GroupEntity group;
-
   @override
   State<DetailsGroupPage> createState() => _DetailsGroupPageState();
 }
 
-class _DetailsGroupPageState extends State<DetailsGroupPage>
-    with TickerProviderStateMixin {
-  late final AnimationController _showConfigController;
-  late final Animation<double> _showConfigAnimation;
-  String? _expandedUid;
+class _DetailsGroupPageState extends State<DetailsGroupPage> {
+  List<UserEntity> users = [];
+  List<String> pendingInvites = [];
   @override
   void initState() {
     super.initState();
-    _showConfigController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 350),
-    );
-    _showConfigAnimation = Tween<double>(begin: 0.08, end: 1.0).animate(
-      CurvedAnimation(parent: _showConfigController, curve: Curves.easeOut),
+    context.read<GroupBloc>().add(
+      GetGroupParticipantsEvent(groupId: widget.group.id),
     );
   }
 
-  @override
-  void dispose() {
-    _showConfigController.dispose();
-    super.dispose();
+  void Function(List<String>? emails)? onBack() {
+    return (emails) {
+      setState(() {
+        final Map<String, UserStatus> map = {};
+        for (String email in emails!) {
+          if (widget.group.participants.containsKey(email)) {
+            continue;
+          }
+          map[email] = UserStatus.pending;
+        }
+        final group = widget.group.copyWith(participants: map);
+        context.read<GroupBloc>().add(UpdateGroupEvent(group));
+      });
+    };
   }
 
-  void toggleShowConfig(String uid) {
-    if (_showConfigController.isAnimating) {
-      return;
-    }
-    if (_expandedUid == uid) {
-      _showConfigController.reverse();
-      setState(() => _expandedUid = null);
-    } else {
-      _showConfigController.forward(from: 0);
-      setState(() => _expandedUid = uid);
-    }
+  void _showAddMoreSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder:
+          (_) => BlocProvider.value(
+            value: context.read<GroupBloc>(),
+            child: DraggableScrollableSheet(
+              initialChildSize: 0.90,
+              minChildSize: 0.50,
+              maxChildSize: 0.95,
+              expand: false,
+              builder:
+                  (_, scrollController) => ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(24),
+                    ),
+                    child: ManuallyInvitePage(onBack: onBack()),
+                  ),
+            ),
+          ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(context.loc.groupDetailsAppBarTitle)),
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: _buildInfoCard(
-                        context,
-                        context.loc.budget,
-                        "${widget.group.budgetLimit} ${widget.group.currency}",
-                        true,
-                      ),
-                    ),
-                    SizedBox(width: MediaQuery.sizeOf(context).width * 0.10),
-                    Expanded(
-                      child: _buildInfoCard(
-                        context,
-                        "${context.loc.exchangeDate}",
-                        "${widget.group.eventDate.day}.${widget.group.eventDate.month}.${widget.group.eventDate.year}",
-                        false,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return BlocConsumer<GroupBloc, GroupState>(
+      listener: (context, state) {
+        if (state.participants.isNotEmpty) {
+          setState(() => users = state.participants);
+        }
+      },
+      builder: (context, state) {
+        final inviteCode = widget.group.inviteCode;
+        return Scaffold(
+          appBar: AppBar(title: Text(widget.group.title)),
+          body: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
                 children: [
+                  const SizedBox(height: 12),
+                  InviteCard(inviteCode: inviteCode),
+                  const SizedBox(height: 12),
                   Row(
                     children: [
-                      Text(
-                        context.loc.participants,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: _buildInfoCard(
+                          context,
+                          context.loc.budget,
+                          "${widget.group.budgetLimit} ${widget.group.currency}",
+                          true,
                         ),
                       ),
-                      SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 2,
+                      SizedBox(width: MediaQuery.sizeOf(context).width * 0.10),
+                      Expanded(
+                        child: _buildInfoCard(
+                          context,
+                          context.loc.exchangeDate,
+                          "${widget.group.eventDate.day}.${widget.group.eventDate.month}.${widget.group.eventDate.year}",
+                          false,
                         ),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withOpacity(0.2),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            context.loc.participants,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.surface,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withOpacity(0.2),
+                              ),
+                            ),
+                            child: Text(
+                              "${widget.group.participants.length} ${context.loc.elevs}",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.tertiary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.tertiary,
+                          side: BorderSide(
+                            color: Theme.of(context).colorScheme.tertiary,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 16,
+                          ),
+                          minimumSize: Size.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
-                        child: Text(
-                          "${widget.group.participants.length} ${context.loc.elevs}",
+                        onPressed: () => _showAddMoreSheet(context),
+                        icon: Icon(
+                          Icons.person_add_alt_1_rounded,
+                          color: Theme.of(context).colorScheme.tertiary,
+                          size: 14,
+                        ),
+                        label: Text(
+                          context.loc.addMore.toUpperCase(),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.tertiary,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
-                            fontSize: 13,
+                            height: 1.0,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.surface,
-                      foregroundColor: Theme.of(context).colorScheme.tertiary,
-                      side: BorderSide(
-                        color: Theme.of(context).colorScheme.tertiary,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 16,
-                      ),
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    onPressed:
-                        () => print(
-                          "add more",
-                        ), //TODO: implement page of adding more users
-                    icon: Icon(
-                      Icons.add,
-                      color: Theme.of(context).colorScheme.tertiary,
-                      size: 12,
-                    ),
-                    label: Text(
-                      context.loc.addMore.toUpperCase(),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.tertiary,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        height: 1.0,
-                      ),
-                    ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: ParticipantsList(group: widget.group, users: users),
                   ),
+                  const SizedBox(height: 16),
+                  _buildStartDrawingButton(context),
+                  const SizedBox(height: 16),
                 ],
               ),
-              const SizedBox(height: 16),
-              Expanded(child: _buildParticipantsList(context)),
-              const SizedBox(height: 16),
-              _buildStartDrawingButton(context),
-              const SizedBox(height: 16),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildParticipantsList(BuildContext context) {
-    final participants = widget.group.participants;
-
-    if (participants.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.group_off_outlined,
-              size: 56,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.25),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Brak uczestników',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4),
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Dodaj uczestników, aby rozpocząć losowanie',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return ListView.separated(
-      itemCount: participants.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 10),
-      itemBuilder: (context, index) {
-        final uid = participants.keys.elementAt(index);
-        final status = participants.values.elementAt(index);
-        final isAuthor = uid == widget.group.authorUID;
-        return _buildParticipantTile(
-          context,
-          uid,
-          status,
-          isAuthor,
-          widget.group,
-          _showConfigAnimation,
-          _expandedUid ?? "",
-          () => toggleShowConfig(uid),
         );
       },
     );
@@ -303,221 +280,166 @@ Widget _buildInfoCard(
   );
 }
 
-Widget _buildExpandedParticpantSettings(
-  BuildContext context,
-  String uid,
-  Animation<double> animation,
-  bool isExpanded,
-  GroupEntity group,
-) {
-  return Container(
-    height: 56,
-    decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.primary,
-      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
-    ),
-    child: AnimatedBuilder(
-      animation: animation,
-      builder: (context, child) {
-        final double opacity =
-            isExpanded
-                ? ((animation.value - 0.08) / 0.92).clamp(0.0, 1.0)
-                : 0.0;
-        return Opacity(opacity: opacity, child: child);
-      },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          IconButton(
-            icon: Icon(Icons.link),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => DetailsParticipantsPage(group: group),
-                ),
-              );
-            },
-          ),
-          IconButton(icon: Icon(Icons.person), onPressed: () {}),
-        ],
-      ),
-    ),
-  );
+Widget _buildStartDrawingButton(BuildContext context) {
+  final colorScheme = Theme.of(context).colorScheme;
+  return _StartDrawingButton(colorScheme: colorScheme);
 }
 
-Widget _buildParticipantTile(
-  BuildContext context,
-  String uid,
-  UserStatus status,
-  bool isAuthor,
-  GroupEntity group,
-  Animation animation,
-  String expandedUid,
-  VoidCallback onTap,
-) {
-  final statusLabel = _statusLabel(status, context.loc);
-  final statusColor = _statusColor(context, status);
-  final isExpanded = expandedUid == uid;
-  return Column(
-    children: [
-      GestureDetector(
-        onTap: onTap,
+class _StartDrawingButton extends StatefulWidget {
+  const _StartDrawingButton({required this.colorScheme});
+  final ColorScheme colorScheme;
+
+  @override
+  State<_StartDrawingButton> createState() => _StartDrawingButtonState();
+}
+
+class _StartDrawingButtonState extends State<_StartDrawingButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _shimmerController;
+  late final Animation<double> _shimmerAnimation;
+  bool _pressed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _shimmerController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2200),
+    )..repeat();
+    _shimmerAnimation = Tween<double>(begin: -1.5, end: 2.5).animate(
+      CurvedAnimation(parent: _shimmerController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _shimmerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final primary = widget.colorScheme.primary;
+    final tertiary = widget.colorScheme.tertiary;
+
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+      onTap: () {},
+      child: AnimatedScale(
+        scale: _pressed ? 0.97 : 1.0,
+        duration: const Duration(milliseconds: 120),
+        curve: Curves.easeOut,
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          width: double.infinity,
+          height: 62,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [
+                primary,
+                Color.lerp(primary, tertiary, 0.45)!,
+                primary.withValues(alpha: 0.85),
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
             border: Border.all(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.08),
+              color: tertiary.withValues(alpha: 0.7),
+              width: 1.5,
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      uid,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 4),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: statusColor.withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        statusLabel,
-                        style: TextStyle(
-                          color: statusColor,
-                          fontSize: 11,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+            boxShadow: [
+              BoxShadow(
+                color: primary.withValues(alpha: 0.45),
+                blurRadius: 18,
+                offset: const Offset(0, 6),
               ),
-              if (!isAuthor)
-                Icon(
-                  Icons.remove_circle_outline,
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withOpacity(0.4),
-                ),
+              BoxShadow(
+                color: tertiary.withValues(alpha: 0.25),
+                blurRadius: 28,
+                offset: const Offset(0, 2),
+              ),
             ],
           ),
-        ),
-      ),
-      ClipRRect(
-        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(16)),
-        child: AnimatedBuilder(
-          animation: animation,
-          builder: (context, child) {
-            return Align(
-              alignment: Alignment.topCenter,
-              widthFactor: isExpanded ? 2 : 1,
-              heightFactor: isExpanded ? animation.value : 0.08,
-              child: child,
-            );
-          },
-          child: _buildExpandedParticpantSettings(
-            context,
-            uid,
-            animation as Animation<double>,
-            isExpanded,
-            group,
-          ),
-        ),
-      ),
-    ],
-  );
-}
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  left: -18,
+                  top: -18,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: tertiary.withValues(alpha: 0.12),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  right: -10,
+                  bottom: -12,
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withValues(alpha: 0.06),
+                    ),
+                  ),
+                ),
+                AnimatedBuilder(
+                  animation: _shimmerAnimation,
+                  builder: (context, _) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment(_shimmerAnimation.value - 0.4, -1),
+                          end: Alignment(_shimmerAnimation.value + 0.4, 1),
+                          colors: [
+                            Colors.transparent,
+                            Colors.white.withValues(alpha: 0.10),
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
 
-String _statusLabel(UserStatus status, AppLocalizations loc) {
-  switch (status) {
-    case UserStatus.creator:
-      return loc.host.toUpperCase();
-    case UserStatus.confirmed:
-      return loc.confirmed.toUpperCase();
-    case UserStatus.invited:
-      return loc.invited.toUpperCase();
-    case UserStatus.pending:
-      return loc.pending.toUpperCase();
-    case UserStatus.declined:
-      return loc.declined.toUpperCase();
-  }
-}
-
-Color _statusColor(BuildContext context, UserStatus status) {
-  switch (status) {
-    case UserStatus.creator:
-      return Theme.of(context).colorScheme.tertiary;
-    case UserStatus.confirmed:
-      return Colors.green;
-    case UserStatus.invited:
-      return Colors.blue;
-    case UserStatus.pending:
-      return Colors.orange;
-    case UserStatus.declined:
-      return Colors.red;
-  }
-}
-
-Widget _buildStartDrawingButton(BuildContext context) {
-  return SizedBox(
-    width: double.infinity,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-          side: BorderSide(
-            color: Theme.of(context).colorScheme.tertiary,
-            width: 2,
-          ),
-        ),
-      ),
-      onPressed: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.auto_awesome,
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
-          const SizedBox(width: 8),
-          const Text(
-            "START DRAWING",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.2,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.auto_awesome_rounded, color: tertiary, size: 20),
+                    const SizedBox(width: 10),
+                    Text(
+                      context.loc.startDrawing.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2.0,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withValues(alpha: 0.25),
+                            blurRadius: 4,
+                            offset: const Offset(0, 1),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Icon(Icons.auto_awesome_rounded, color: tertiary, size: 20),
+                  ],
+                ),
+              ],
             ),
           ),
-          const SizedBox(width: 8),
-          Icon(
-            Icons.auto_awesome,
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
-        ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

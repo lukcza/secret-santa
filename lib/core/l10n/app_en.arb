@@ -158,5 +158,11 @@
     "confirmed": "Confirmed",
     "invited": "Invited",
     "pending": "Pending",
-    "declined": "Declined"
+    "declined": "Declined",
+    "startDrawing": "Start Drawing",
+    "inviteCodeLabel": "Invite Code",
+    "manage": "Manage",
+    "noParticipants": "No participants",
+    "addParticipantsToStart": "Add participants to start drawing",
+    "startDrawing": "Start Drawing"
 }

@@ -19,6 +19,23 @@ class GroupModel extends GroupEntity {
     required super.state,
     super.excludedPairs,
   });
+  factory GroupModel.fromEntity(GroupEntity entity) {
+    return GroupModel(
+      id: entity.id,
+      title: entity.title,
+      description: entity.description,
+      authorUID: entity.authorUID,
+      participants: entity.participants,
+      participantsUIDs: entity.participantsUIDs,
+      budgetLimit: entity.budgetLimit,
+      currency: entity.currency,
+      eventDate: entity.eventDate,
+      createdAt: entity.createdAt,
+      inviteCode: entity.inviteCode,
+      state: entity.state,
+      excludedPairs: entity.excludedPairs,
+    );
+  }
   factory GroupModel.fromSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
 

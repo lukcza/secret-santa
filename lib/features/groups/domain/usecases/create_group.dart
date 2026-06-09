@@ -6,7 +6,7 @@ import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 class CreateGroup {
   final GroupRepository repository;
   CreateGroup(this.repository);
-  Future<Either<Failure, void>> call(GroupEntity group) {
+  Future<Either<Failure, GroupEntity>> call(GroupEntity group) {
     return repository.createGroup(group);
   }
 }

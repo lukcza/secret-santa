@@ -10,7 +10,20 @@ import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart'
 import 'package:secret_santa/core/enums/group_status.dart';
 
 class FakeGroupBloc extends Bloc<GroupEvent, GroupState> implements GroupBloc {
-  FakeGroupBloc() : super(GroupState(status: GroupStatus.draft));
+  FakeGroupBloc() : super(GroupState(status: GroupStatus.draft)) {
+    on<GenerateInviteCodeEvent>((event, emit) {
+      emit(state.copyWith(inviteCode: 'FAKE42'));
+    });
+    on<UpdateGroupEvent>((event, emit) {
+      emit(state.copyWith(group: event.group));
+    });
+    on<CreateGroupEvent>((event, emit) {
+      emit(state.copyWith(
+        status: GroupStatus.drawn,
+        group: event.group,
+      ));
+    });
+  }
 }
 
 final confirmGroupPageComponent = WidgetbookComponent(
