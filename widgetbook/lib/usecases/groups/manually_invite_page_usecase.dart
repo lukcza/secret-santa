@@ -11,6 +11,9 @@ class FakeGroupBloc extends Bloc<GroupEvent, GroupState> implements GroupBloc {
     on<GenerateInviteCodeEvent>((event, emit) {
       emit(state.copyWith(inviteCode: 'FAKE42'));
     });
+    on<UpdateGroupEvent>((event, emit) {
+      emit(state.copyWith(group: event.group));
+    });
   }
 }
 

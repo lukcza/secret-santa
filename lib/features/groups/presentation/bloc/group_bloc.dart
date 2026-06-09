@@ -51,13 +51,29 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
             ),
           );
         },
+        (createdGroup) {
+          emit(state.copyWith(
+            status: GroupStatus.drawn,
+            group: createdGroup,
+          ));
+        },
+      );
+    });
+    on<UpdateGroupEvent>((event, emit) async {
+      final result = await updateGroup(event.group);
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              status: GroupStatus.error,
+              errorMessage: failure.message,
+            ),
+          );
+        },
         (_) {
           emit(state.copyWith(status: GroupStatus.drawn));
         },
       );
-    });
-    on<UpdateGroupEvent>((event, emit) {
-      // Handle update group logic here
     });
     on<GenerateInviteCodeEvent>((event, emit) {
       const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

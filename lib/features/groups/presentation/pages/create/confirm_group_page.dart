@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/presentation/pages/details/details_group_page.dart';
 
 class ConfirmGroupPage extends StatefulWidget {
   final String groupName;
@@ -62,11 +63,23 @@ class _ConfirmGroupPageState extends State<ConfirmGroupPage> {
       listener: (context, state) {
         if (state.status == GroupStatus.drawn) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text("Group drawn successfully"),
               duration: Duration(seconds: 2),
             ),
           );
+          if (state.group != null) {
+            final groupBloc = context.read<GroupBloc>();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider.value(
+                  value: groupBloc,
+                  child: DetailsGroupPage(group: state.group!),
+                ),
+              ),
+            );
+          }
         } else if (state.status == GroupStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -190,47 +203,52 @@ class _ConfirmGroupPageState extends State<ConfirmGroupPage> {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          context.read<GroupBloc>().add(
-                            CreateGroupEvent(
-                              group: GroupEntity(
-                                authorUID: widget.authorUID,
-                                id: '',
-                                title: widget.groupName,
-                                participants: Map.fromEntries(
-                                  widget.participants.map(
-                                    (e) => MapEntry(
-                                      e.uid == '' ? e.email : e.uid,
-                                      UserStatus.invited,
+                    BlocBuilder<GroupBloc, GroupState>(
+                      builder: (context, state) {
+                        return SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              context.read<GroupBloc>().add(
+                                CreateGroupEvent(
+                                  group: GroupEntity(
+                                    authorUID: widget.authorUID,
+                                    id: '',
+                                    title: widget.groupName,
+                                    participants: Map.fromEntries(
+                                      widget.participants.map(
+                                        (e) => MapEntry(
+                                          e.uid == '' ? e.email : e.uid,
+                                          UserStatus.invited,
+                                        ),
+                                      ),
                                     ),
+                                    participantsUIDs:
+                                        widget.participants
+                                            .map(
+                                              (e) =>
+                                                  e.uid == '' ? e.email : e.uid,
+                                            )
+                                            .toList(),
+                                    budgetLimit: widget.budget,
+                                    currency: widget.currency,
+                                    eventDate: widget.date,
+                                    createdAt: DateTime.now(),
+                                    inviteCode: state.inviteCode ?? '',
+                                    state: state.status,
                                   ),
                                 ),
-                                participantsUIDs:
-                                    widget.participants
-                                        .map(
-                                          (e) => e.uid == '' ? e.email : e.uid,
-                                        )
-                                        .toList(),
-                                budgetLimit: widget.budget,
-                                currency: widget.currency,
-                                eventDate: widget.date,
-                                createdAt: DateTime.now(),
-                                inviteCode: GroupState().inviteCode ?? '',
-                                state: GroupState().status,
-                              ),
+                              );
+                            },
+                            icon: const Icon(Icons.check_circle_outline),
+                            label: Text(context.loc.confirmGroupCreation),
+                            style: ElevatedButton.styleFrom(
+                              shape: const StadiumBorder(),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
                             ),
-                          );
-                        },
-                        icon: const Icon(Icons.check_circle_outline),
-                        label: Text(context.loc.confirmGroupCreation),
-                        style: ElevatedButton.styleFrom(
-                          shape: const StadiumBorder(),
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

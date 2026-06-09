@@ -1047,6 +1047,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Declined'**
   String get declined;
+
+  /// No description provided for @startDrawing.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Drawing'**
+  String get startDrawing;
+
+  /// No description provided for @inviteCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Code'**
+  String get inviteCodeLabel;
+
+  /// No description provided for @manage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manage;
+
+  /// No description provided for @noParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'No participants'**
+  String get noParticipants;
+
+  /// No description provided for @addParticipantsToStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Add participants to start drawing'**
+  String get addParticipantsToStart;
 }
 
 class _AppLocalizationsDelegate

@@ -7,12 +7,14 @@ import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 class DetailsParticipantsPage extends StatefulWidget {
   const DetailsParticipantsPage({
     super.key,
+    required this.users,
     required this.participant,
     required this.group,
     this.onSave,
     this.onRemove,
   });
   final UserEntity participant;
+  final List<UserEntity> users;
   final GroupEntity group;
   final void Function(List<String> excludedUIDs)? onSave;
   final VoidCallback? onRemove;
@@ -52,7 +54,10 @@ class _DetailsParticipantsPageState extends State<DetailsParticipantsPage>
     super.dispose();
   }
 
-  List<String> get _otherParticipants =>
+  List<UserEntity> get _otherParticipants =>
+      widget.users.where((u) => u.uid != widget.participant.uid).toList();
+
+  List<String> get _otherParticipantsUIDs =>
       widget.group.participantsUIDs
           .where((u) => u != widget.participant.uid)
           .toList();

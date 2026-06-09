@@ -20,7 +20,7 @@ class GroupRepositoryImpl implements GroupRepository {
        _firebaseAuth = firebaseAuth;
 
   @override
-  Future<Either<Failure, void>> createGroup(GroupEntity group) async {
+  Future<Either<Failure, GroupEntity>> createGroup(GroupEntity group) async {
     try {
       final groupModel = GroupModel(
         id: group.id,
@@ -37,8 +37,8 @@ class GroupRepositoryImpl implements GroupRepository {
         state: group.state,
       );
 
-      await _remoteDataSource.createGroup(groupModel);
-      return Right(null);
+      final createdGroup = await _remoteDataSource.createGroup(groupModel);
+      return Right(createdGroup);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
@@ -122,27 +122,14 @@ class GroupRepositoryImpl implements GroupRepository {
   }
 
   @override
-  Future<Either<Failure, void>> updateGroup(GroupEntity group) async {
+  Future<Either<Failure, void>> updateGroup({
+    required GroupEntity group,
+  }) async {
     try {
       if (group.id.isEmpty) {
         return Left(ServerFailure("Invalid group ID"));
       }
-      await _remoteDataSource.updateGroup(
-        GroupModel(
-          id: group.id,
-          title: group.title,
-          description: group.description,
-          authorUID: group.authorUID,
-          participants: group.participants,
-          participantsUIDs: group.participantsUIDs,
-          budgetLimit: group.budgetLimit,
-          currency: group.currency,
-          eventDate: group.eventDate,
-          createdAt: group.createdAt,
-          inviteCode: group.inviteCode,
-          state: group.state,
-        ),
-      );
+      await _remoteDataSource.updateGroup(GroupModel.fromEntity(group));
       return Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

@@ -38,7 +38,7 @@ class LeaveGroupEvent extends GroupEvent {
 class UpdateGroupEvent extends GroupEvent {
   final GroupEntity group;
 
-  const UpdateGroupEvent({required this.group});
+  const UpdateGroupEvent(this.group);
 
   @override
   List<Object?> get props => [group];

@@ -499,4 +499,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get declined => 'Declined';
+
+  @override
+  String get startDrawing => 'Start Drawing';
+
+  @override
+  String get inviteCodeLabel => 'Invite Code';
+
+  @override
+  String get manage => 'Manage';
+
+  @override
+  String get noParticipants => 'No participants';
+
+  @override
+  String get addParticipantsToStart => 'Add participants to start drawing';
 }

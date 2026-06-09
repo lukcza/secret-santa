@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
     user = context.read<AuthBloc>().state.user!;
     context.read<HomeBloc>().add(HomeGetUserGroupsEvent());
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +37,12 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).colorScheme.background,
         leading: IconButton(
           //TODO: add navigation to notifications page
-          onPressed:() => print("notfication button clicked"), 
+          onPressed: () => print("notfication button clicked"),
           icon: Icon(
             Icons.notifications,
             color: Theme.of(context).colorScheme.tertiary,
-            )
           ),
+        ),
         title: Text(context.loc.homeTitle),
         actions: [
           Container(
@@ -50,13 +51,10 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Colors.white,
               child: IconButton(
                 onPressed: () => print("profile button clicked"),
-                icon: const Icon(
-                    Icons.person,
-                    color: Colors.grey,
-                  ),
+                icon: const Icon(Icons.person, color: Colors.grey),
               ),
             ),
-          )
+          ),
         ],
       ),
       body: BlocBuilder<HomeBloc, HomeState>(
@@ -68,30 +66,37 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                    ActiveExchangesCard(countActiveExchanges: state.groups.length ?? 0,),
-                    SortingTypeSlider(),
-                    AddGroupPlaceholder(),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: state.groups.length,
-                        itemBuilder: (context, index) {
-                          final group = state.groups[index];
-                          return BlocSelector<HomeBloc, HomeState, GroupListItem>(
-                            selector: (state) => GroupListItem(group: group, user: user),
-                            builder: (context, groupListItem) {
-                              return groupListItem;
-                            },
-                          );
-                        },
-                      ),
-                    )
-                  ],
+                  ActiveExchangesCard(
+                    countActiveExchanges: state.groups.length ?? 0,
+                  ),
+                  SortingTypeSlider(),
+                  AddGroupPlaceholder(),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.groups.length,
+                      itemBuilder: (context, index) {
+                        final group = state.groups[index];
+                        return BlocSelector<HomeBloc, HomeState, GroupListItem>(
+                          selector:
+                              (state) =>
+                                  GroupListItem(group: group, user: user),
+                          builder: (context, groupListItem) {
+                            return groupListItem;
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           );
-        }
+        },
       ),
-      bottomNavigationBar: BottomNavBar(currentIndex: 0, onTap: (index) => print("navigation button clicked with index: $index")),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: 0,
+        onTap: (index) => print("navigation button clicked with index: $index"),
+      ),
     );
   }
 }

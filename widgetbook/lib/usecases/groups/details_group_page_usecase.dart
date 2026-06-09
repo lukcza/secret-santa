@@ -124,11 +124,18 @@ class _FakeGroupBloc extends Bloc<GroupEvent, GroupState> implements GroupBloc {
         GroupState(
           status: GroupStatus.draft,
           group: group,
+          inviteCode: group.inviteCode,
           participants: participants ?? _fakeParticipants,
         ),
       ) {
     on<GetGroupParticipantsEvent>((event, emit) {
       // Already pre-loaded in initial state – no-op
+    });
+    on<GenerateInviteCodeEvent>((event, emit) {
+      emit(state.copyWith(inviteCode: 'FAKE42'));
+    });
+    on<UpdateGroupEvent>((event, emit) {
+      emit(state.copyWith(group: event.group));
     });
   }
 }
