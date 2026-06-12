@@ -46,5 +46,6 @@ class GroupState extends Equatable {
     errorMessage,
     joinStatus,
     inviteCode,
+    participants,
   ];
 }

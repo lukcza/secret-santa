@@ -15,8 +15,8 @@ import 'package:secret_santa/features/groups/presentation/widgets/invite_card.da
 import 'package:secret_santa/features/groups/presentation/widgets/participants_list.dart';
 
 class DetailsGroupPage extends StatefulWidget {
-  const DetailsGroupPage({super.key, required this.group});
-  final GroupEntity group;
+  DetailsGroupPage({super.key, required this.group});
+  GroupEntity group;
   @override
   State<DetailsGroupPage> createState() => _DetailsGroupPageState();
 }
@@ -35,15 +35,22 @@ class _DetailsGroupPageState extends State<DetailsGroupPage> {
   void Function(List<String>? emails)? onBack() {
     return (emails) {
       setState(() {
-        final Map<String, UserStatus> map = {};
+        final Map<String, UserStatus> map = Map.from(widget.group.participants);
+        final List<String> uids = List.from(widget.group.participantsUIDs);
         for (String email in emails!) {
-          if (widget.group.participants.containsKey(email)) {
+          if (map.containsKey(email)) {
             continue;
           }
-          map[email] = UserStatus.pending;
+
+          map[email] = UserStatus.invited;
+          uids.add(email);
         }
-        final group = widget.group.copyWith(participants: map);
-        context.read<GroupBloc>().add(UpdateGroupEvent(group));
+        final updatedGroup = widget.group.copyWith(
+          participants: map,
+          participantsUIDs: uids,
+        );
+        widget.group = updatedGroup;
+        context.read<GroupBloc>().add(UpdateGroupEvent(updatedGroup));
       });
     };
   }
