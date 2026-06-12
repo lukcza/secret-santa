@@ -52,10 +52,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
           );
         },
         (createdGroup) {
-          emit(state.copyWith(
-            status: GroupStatus.drawn,
-            group: createdGroup,
-          ));
+          emit(state.copyWith(status: GroupStatus.drawn, group: createdGroup));
         },
       );
     });
@@ -71,7 +68,7 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
           );
         },
         (_) {
-          emit(state.copyWith(status: GroupStatus.drawn));
+          emit(state.copyWith(status: GroupStatus.drawn, group: event.group));
         },
       );
     });

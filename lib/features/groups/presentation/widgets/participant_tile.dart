@@ -44,6 +44,7 @@ class ParticipantTile extends StatelessWidget {
         return loc.declined.toUpperCase();
     }
   }
+
   Color _statusColor(BuildContext context, UserStatus status) {
     switch (status) {
       case UserStatus.creator:
@@ -58,6 +59,7 @@ class ParticipantTile extends StatelessWidget {
         return Theme.of(context).colorScheme.primary;
     }
   }
+
   Widget _buildExpandedParticpantSettings(BuildContext context) {
     final statusColor = _statusColor(context, status);
     return Container(
@@ -115,6 +117,7 @@ class ParticipantTile extends StatelessWidget {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final statusLabel = _statusLabel(status, context.loc);
@@ -143,9 +146,12 @@ class ParticipantTile extends StatelessWidget {
                 topRight: Radius.circular(16),
               ),
               border: Border.all(
-                color: isExpanded
-                    ? statusColor.withValues(alpha: 0.45)
-                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.08),
+                color:
+                    isExpanded
+                        ? statusColor.withValues(alpha: 0.45)
+                        : Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.08),
                 width: isExpanded ? 1.5 : 1.0,
               ),
             ),
@@ -176,7 +182,7 @@ class ParticipantTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        participant.displayName,
+                        participant.nickname ?? participant.email!,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15,
@@ -224,9 +230,12 @@ class ParticipantTile extends StatelessWidget {
                   duration: const Duration(milliseconds: 250),
                   child: Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: isExpanded
-                        ? statusColor
-                        : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.35),
+                    color:
+                        isExpanded
+                            ? statusColor
+                            : Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.35),
                     size: 22,
                   ),
                 ),
@@ -255,6 +264,7 @@ class ParticipantTile extends StatelessWidget {
     );
   }
 }
+
 class _ActionButton extends StatelessWidget {
   const _ActionButton({
     required this.icon,
