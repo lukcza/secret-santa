@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/core/errors/failures.dart';
 import 'package:secret_santa/core/utils/validators.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
@@ -8,6 +9,8 @@ import 'package:secret_santa/features/groups/data/datasources/group_remote_data_
 import 'package:secret_santa/features/groups/data/models/group_model.dart';
 import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
+import 'dart:math';
 
 class GroupRepositoryImpl implements GroupRepository {
   final GroupRemoteDataSource _remoteDataSource;
@@ -168,6 +171,36 @@ class GroupRepositoryImpl implements GroupRepository {
         }
       }
       return Right(users);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GroupEntity>> drawPairs(String groupId) async {
+    try {
+      final group = await _remoteDataSource.getGroupById(groupId);
+      if (group.state != GroupStatus.active) {
+        return Left(ServerFailure("Group is not active"));
+      }
+      if (group.participants.length < 3) {
+        return Left(ServerFailure("Group has less than 3 participants"));
+      }
+      final participants = group.participants.keys.toList();
+      final excluded = group.excludedPairs;
+
+      final matches = <String, String>{};
+      for (final participant in participants) {
+        int random = Random().nextInt(participants.length);
+        while (participant == participants[random] ||
+            (excluded[participant]?.contains(participants[random]) ?? false)) {
+          random = Random().nextInt(participants.length);
+        }
+        matches[participant] = participants[random];
+      }
+
+      await _remoteDataSource.updateGroup(group.copyWith(matches: matches));
+      return Right(group.copyWith(matches: matches));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
