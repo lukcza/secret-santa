@@ -6,6 +6,7 @@ import 'package:secret_santa/core/theme/app_theme.dart';
 import 'package:secret_santa/core/enums/user_status.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/groups/domain/usecases/update_group.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
@@ -13,6 +14,10 @@ import 'package:secret_santa/features/groups/presentation/pages/create/manually_
 import 'package:secret_santa/features/groups/presentation/pages/details/details_paticipants_page.dart';
 import 'package:secret_santa/features/groups/presentation/widgets/invite_card.dart';
 import 'package:secret_santa/features/groups/presentation/widgets/participants_list.dart';
+import 'package:go_router/go_router.dart';
+
+//TODO: block back to create
+//TODO:
 
 class DetailsGroupPage extends StatefulWidget {
   DetailsGroupPage({super.key, required this.group});
@@ -91,121 +96,141 @@ class _DetailsGroupPageState extends State<DetailsGroupPage> {
       },
       builder: (context, state) {
         final inviteCode = widget.group.inviteCode;
-        return Scaffold(
-          appBar: AppBar(title: Text(widget.group.title)),
-          body: SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                children: [
-                  const SizedBox(height: 12),
-                  InviteCard(inviteCode: inviteCode),
-                  const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildInfoCard(
-                          context,
-                          context.loc.budget,
-                          "${widget.group.budgetLimit} ${widget.group.currency}",
-                          true,
-                        ),
-                      ),
-                      SizedBox(width: MediaQuery.sizeOf(context).width * 0.10),
-                      Expanded(
-                        child: _buildInfoCard(
-                          context,
-                          context.loc.exchangeDate,
-                          "${widget.group.eventDate.day}.${widget.group.eventDate.month}.${widget.group.eventDate.year}",
-                          false,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            context.loc.participants,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+        return PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) {
+            if (didPop) return;
+            context.go('/');
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(widget.group.title),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  context.go('/');
+                },
+              ),
+            ),
+            body: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 12),
+                    InviteCard(inviteCode: inviteCode),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildInfoCard(
+                            context,
+                            context.loc.budget,
+                            "${widget.group.budgetLimit} ${widget.group.currency}",
+                            true,
                           ),
-                          const SizedBox(width: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surface,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurface.withOpacity(0.2),
-                              ),
-                            ),
-                            child: Text(
-                              "${widget.group.participants.length} ${context.loc.elevs}",
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.10,
+                        ),
+                        Expanded(
+                          child: _buildInfoCard(
+                            context,
+                            context.loc.exchangeDate,
+                            "${widget.group.eventDate.day}.${widget.group.eventDate.month}.${widget.group.eventDate.year}",
+                            false,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              context.loc.participants,
+                              style: const TextStyle(
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 13,
                               ),
                             ),
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface.withOpacity(0.2),
+                                ),
+                              ),
+                              child: Text(
+                                "${widget.group.participants.length} ${context.loc.elevs}",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.tertiary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surface,
+                            foregroundColor:
+                                Theme.of(context).colorScheme.tertiary,
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.tertiary,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 16,
+                            ),
+                            minimumSize: Size.zero,
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                        ],
-                      ),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surface,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.tertiary,
-                          side: BorderSide(
+                          onPressed: () => _showAddMoreSheet(context),
+                          icon: Icon(
+                            Icons.person_add_alt_1_rounded,
                             color: Theme.of(context).colorScheme.tertiary,
+                            size: 14,
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 16,
-                          ),
-                          minimumSize: Size.zero,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        onPressed: () => _showAddMoreSheet(context),
-                        icon: Icon(
-                          Icons.person_add_alt_1_rounded,
-                          color: Theme.of(context).colorScheme.tertiary,
-                          size: 14,
-                        ),
-                        label: Text(
-                          context.loc.addMore.toUpperCase(),
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            height: 1.0,
+                          label: Text(
+                            context.loc.addMore.toUpperCase(),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.tertiary,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              height: 1.0,
+                            ),
                           ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: ParticipantsList(
+                        group: widget.group,
+                        users: users,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: ParticipantsList(group: widget.group, users: users),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildStartDrawingButton(context),
-                  const SizedBox(height: 16),
-                ],
+                    ),
+                    const SizedBox(height: 16),
+                    _buildStartDrawingButton(context),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
           ),
@@ -305,6 +330,79 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
   late final AnimationController _shimmerController;
   late final Animation<double> _shimmerAnimation;
   bool _pressed = false;
+  void onPressed() {
+    //check if group has a >=2 members if not show a dialog with error message and say maybe add someone special role for more pair or add more members.
+    //If yes, show dialog are you sure? After confirm start the drawing.
+    //After draw show paired participants and ask for accept or draw again.
+    //If accept show the draw result.
+    //If draw again, draw again and save state for that user.
+    //proceed
+    //how to get group data here maybe from bloc?
+    final groupState = context.read<GroupBloc>().state;
+    final group = groupState.group;
+    if (group == null) return;
+    if (group.participantsUIDs.length % 2 != 0) {
+      //show dialog with error message and say maybe add someone special role for more pair or add more members.
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Group must have an even number of participants, Add more or add special role for one participant to make a additional pair.',
+          ),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      );
+      return;
+    }
+    if (group.participantsUIDs.length == 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Group must have at least 2 participants')),
+      );
+      return;
+    }
+    if (group.participants.values.contains(UserStatus.invited)) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Are you sure?'),
+            content: Text(
+              'Are you sure you want to continue? Invited participants will be removed from the group and will not be able to accept the invitation.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  //remove invited participants
+                  final groupState = context.read<GroupBloc>().state;
+                  final group = groupState.group;
+                  if (group == null) return;
+                  context.read<GroupBloc>().add(
+                    UpdateGroupEvent(
+                      group.copyWith(
+                        participants: Map.fromEntries(
+                          group.participants.entries.where(
+                            (entry) => entry.value != UserStatus.invited,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -333,7 +431,7 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
       onTapDown: (_) => setState(() => _pressed = true),
       onTapUp: (_) => setState(() => _pressed = false),
       onTapCancel: () => setState(() => _pressed = false),
-      onTap: () {},
+      onTap: () => onPressed(),
       child: AnimatedScale(
         scale: _pressed ? 0.97 : 1.0,
         duration: const Duration(milliseconds: 120),
@@ -416,12 +514,9 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
                     );
                   },
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.auto_awesome_rounded, color: tertiary, size: 20),
-                    const SizedBox(width: 10),
                     Text(
                       context.loc.startDrawing.toUpperCase(),
                       style: TextStyle(
@@ -438,8 +533,6 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
                         ],
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Icon(Icons.auto_awesome_rounded, color: tertiary, size: 20),
                   ],
                 ),
               ],

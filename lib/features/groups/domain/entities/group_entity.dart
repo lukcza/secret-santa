@@ -10,6 +10,7 @@ class GroupEntity extends Equatable {
   final Map<String, UserStatus> participants;
   final List<String> participantsUIDs;
   final Map<String, List<String>> excludedPairs;
+  final Map<String, String> matches;
   final int budgetLimit;
   final String currency;
   final DateTime eventDate;
@@ -31,6 +32,7 @@ class GroupEntity extends Equatable {
     required this.inviteCode,
     required this.state,
     this.excludedPairs = const {},
+    this.matches = const {},
   });
 
   @override
@@ -48,6 +50,7 @@ class GroupEntity extends Equatable {
     inviteCode,
     state,
     excludedPairs,
+    matches,
   ];
 
   GroupEntity copyWith({
@@ -64,6 +67,7 @@ class GroupEntity extends Equatable {
     String? inviteCode,
     GroupStatus? state,
     Map<String, List<String>>? excludedPairs,
+    Map<String, String>? matches,
   }) {
     return GroupEntity(
       id: id ?? this.id,
@@ -79,6 +83,7 @@ class GroupEntity extends Equatable {
       inviteCode: inviteCode ?? this.inviteCode,
       state: state ?? this.state,
       excludedPairs: excludedPairs ?? this.excludedPairs,
+      matches: matches ?? this.matches,
     );
   }
 }

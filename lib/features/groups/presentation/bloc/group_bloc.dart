@@ -99,5 +99,21 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
         },
       );
     });
+    on<DrawPairsEvent>((event, emit) async {
+      final result = await drawPairs(event.groupId);
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              status: GroupStatus.error,
+              errorMessage: failure.message,
+            ),
+          );
+        },
+        (matches) {
+          emit(state.copyWith(matches: matches));
+        },
+      );
+    });
   }
 }

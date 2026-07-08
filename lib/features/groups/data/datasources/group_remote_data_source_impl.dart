@@ -23,12 +23,13 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
         await _firestore
             .collection('groups')
             .where('participantsUIDs', arrayContains: userId)
-            .orderBy('createdAt', descending: true)
             .get();
 
-    return querySnapshot.docs
+    final list = querySnapshot.docs
         .map((doc) => GroupModel.fromSnapshot(doc))
         .toList();
+    list.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return list;
   }
 
   @override
@@ -99,11 +100,15 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
     return _firestore
         .collection('groups')
         .where('participantsUIDs', arrayContains: userId)
-        .orderBy('createdAt', descending: true)
         .snapshots()
         .map(
-          (snapshot) =>
-              snapshot.docs.map((doc) => GroupModel.fromSnapshot(doc)).toList(),
+          (snapshot) {
+            final list = snapshot.docs
+                .map((doc) => GroupModel.fromSnapshot(doc))
+                .toList();
+            list.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+            return list;
+          },
         );
   }
 }

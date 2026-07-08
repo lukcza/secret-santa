@@ -59,3 +59,12 @@ class GetGroupParticipantsEvent extends GroupEvent {
   @override
   List<Object?> get props => [groupId];
 }
+
+class DrawPairsEvent extends GroupEvent {
+  final String groupId;
+
+  const DrawPairsEvent({required this.groupId});
+
+  @override
+  List<Object?> get props => [groupId];
+}

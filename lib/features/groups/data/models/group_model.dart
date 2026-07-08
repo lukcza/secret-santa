@@ -18,6 +18,7 @@ class GroupModel extends GroupEntity {
     required super.inviteCode,
     required super.state,
     super.excludedPairs,
+    super.matches,
   });
   factory GroupModel.fromEntity(GroupEntity entity) {
     return GroupModel(
@@ -34,6 +35,7 @@ class GroupModel extends GroupEntity {
       inviteCode: entity.inviteCode,
       state: entity.state,
       excludedPairs: entity.excludedPairs,
+      matches: entity.matches,
     );
   }
   factory GroupModel.fromSnapshot(DocumentSnapshot doc) {
@@ -63,6 +65,12 @@ class GroupModel extends GroupEntity {
               : Map<String, List<String>>.from(
                 data['excludedPairs'] as Map<String, dynamic>,
               ),
+      matches:
+          data['matches'] == null
+              ? const {}
+              : Map<String, String>.from(
+                data['matches'] as Map<String, dynamic>,
+              ),
     );
   }
 
@@ -82,6 +90,7 @@ class GroupModel extends GroupEntity {
       'inviteCode': inviteCode,
       'state': state.name,
       'excludedPairs': excludedPairs,
+      'matches': matches,
     };
   }
 
@@ -125,6 +134,7 @@ class GroupModel extends GroupEntity {
     String? inviteCode,
     GroupStatus? state,
     Map<String, List<String>>? excludedPairs,
+    Map<String, String>? matches,
   }) {
     return GroupModel(
       id: id ?? this.id,
@@ -140,6 +150,7 @@ class GroupModel extends GroupEntity {
       inviteCode: inviteCode ?? this.inviteCode,
       state: state ?? this.state,
       excludedPairs: excludedPairs ?? this.excludedPairs,
+      matches: matches ?? this.matches,
     );
   }
 }
