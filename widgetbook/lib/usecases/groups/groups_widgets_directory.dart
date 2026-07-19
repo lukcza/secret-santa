@@ -8,6 +8,7 @@ import 'add_friends_list_tile_usecase.dart';
 import 'added_counter_usecase.dart';
 import 'participant_tile_usecase.dart';
 import 'participants_list_usecase.dart';
+import 'match_tile_usecase.dart';
 
 final groupsWidgetsDirectory = WidgetbookFolder(
   name: 'Widgets',
@@ -20,6 +21,7 @@ final groupsWidgetsDirectory = WidgetbookFolder(
     addedCounterComponent,
     participantTileComponent,
     participantsListComponent,
+    matchTileComponent,
   ],
 );
 

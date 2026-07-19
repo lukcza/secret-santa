@@ -514,4 +514,84 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addParticipantsToStart => 'Add participants to start drawing';
+
+  @override
+  String get drawnPairsTitle => 'Drawn Pairs';
+
+  @override
+  String profileNavigationMock(String name) {
+    return 'Profile: $name';
+  }
+
+  @override
+  String get failedToDrawPairs => 'Failed to draw pairs';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get drawAgain => 'Draw again';
+
+  @override
+  String get confirmedCheck => 'Confirmed ✓';
+
+  @override
+  String get confirmDrawing => 'Confirm drawing';
+
+  @override
+  String get evenParticipantsRequired =>
+      'Group must have an even number of participants. Add more or add a special role for one participant to make an additional pair.';
+
+  @override
+  String get atLeastTwoParticipants =>
+      'Group must have at least 2 participants';
+
+  @override
+  String get areYouSure => 'Are you sure?';
+
+  @override
+  String get invitedParticipantsWillBeRemoved =>
+      'Are you sure you want to continue? Invited participants will be removed from the group and will not be able to accept the invitation.';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String excludedCountOf(int excluded, int total) {
+    return '$excluded of $total';
+  }
+
+  @override
+  String get groupDrawnSuccessfully => 'Group created successfully';
+
+  @override
+  String errorPrefix(String message) {
+    return 'Error: $message';
+  }
+
+  @override
+  String get secretSantaGroup => 'Secret Santa Group';
+
+  @override
+  String get enterNameHint => 'Enter name';
+
+  @override
+  String membersCountText(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Elves',
+      one: '1 Elf',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get savingMatches => 'Saving matches...';
+
+  @override
+  String get giversColumnHeader => 'Givers';
+
+  @override
+  String get receiversColumnHeader => 'Receivers';
 }

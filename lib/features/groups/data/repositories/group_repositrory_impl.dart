@@ -175,34 +175,4 @@ class GroupRepositoryImpl implements GroupRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
-
-  @override
-  Future<Either<Failure, GroupEntity>> drawPairs(String groupId) async {
-    try {
-      final group = await _remoteDataSource.getGroupById(groupId);
-      if (group.state != GroupStatus.active) {
-        return Left(ServerFailure("Group is not active"));
-      }
-      if (group.participants.length < 3) {
-        return Left(ServerFailure("Group has less than 3 participants"));
-      }
-      final participants = group.participants.keys.toList();
-      final excluded = group.excludedPairs;
-
-      final matches = <String, String>{};
-      for (final participant in participants) {
-        int random = Random().nextInt(participants.length);
-        while (participant == participants[random] ||
-            (excluded[participant]?.contains(participants[random]) ?? false)) {
-          random = Random().nextInt(participants.length);
-        }
-        matches[participant] = participants[random];
-      }
-
-      await _remoteDataSource.updateGroup(group.copyWith(matches: matches));
-      return Right(group.copyWith(matches: matches));
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
-  }
 }

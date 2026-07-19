@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
+
 import 'package:secret_santa/features/groups/domain/usecases/get_groups_participants.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
@@ -99,8 +100,77 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
         },
       );
     });
-    on<DrawPairsEvent>((event, emit) async {
-      final result = await drawPairs(event.groupId);
+    on<DrawPairsLocalEvent>((event, emit) {
+      final participants = event.participantUids;
+      final excluded = event.excludedPairs;
+      if (participants.length < 3) {
+        emit(
+          state.copyWith(
+            status: GroupStatus.error,
+            errorMessage: 'Too few participants (minimum 3)',
+          ),
+        );
+        return;
+      }
+      emit(
+        GroupState(
+          group: state.group,
+          joinStatus: state.joinStatus,
+          status: GroupStatus.loading,
+          inviteCode: state.inviteCode,
+          participants: state.participants,
+          matches: const {},
+        ),
+      );
+
+      // Sprawdź czy istnieje chociaż jedno poprawne przypisanie
+      if (!_hasValidAssignment(participants, excluded)) {
+        emit(
+          state.copyWith(
+            status: GroupStatus.error,
+            errorMessage: 'Too many exclusions – no valid draw is possible',
+          ),
+        );
+        return;
+      }
+
+      Map<String, String>? matches;
+      for (int attempt = 0; attempt < 100; attempt++) {
+        final shuffled = List<String>.from(participants)
+          ..shuffle(math.Random());
+        final draft = <String, String>{};
+        bool valid = true;
+        for (int i = 0; i < participants.length; i++) {
+          final giver = participants[i];
+          final recipient = shuffled[i];
+          if (giver == recipient ||
+              (excluded[giver]?.contains(recipient) ?? false)) {
+            valid = false;
+            break;
+          }
+          draft[giver] = recipient;
+        }
+        if (valid && draft.length == participants.length) {
+          matches = draft;
+          break;
+        }
+      }
+
+      if (matches == null) {
+        emit(
+          state.copyWith(
+            status: GroupStatus.error,
+            errorMessage: 'Failed to draw pairs – please try again',
+          ),
+        );
+        return;
+      }
+      emit(state.copyWith(status: GroupStatus.drawn, matches: matches));
+    });
+
+    on<ConfirmDrawEvent>((event, emit) async {
+      final updatedGroup = event.group.copyWith(matches: event.matches);
+      final result = await updateGroup(updatedGroup);
       result.fold(
         (failure) {
           emit(
@@ -110,10 +180,48 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
             ),
           );
         },
-        (matches) {
-          emit(state.copyWith(matches: matches));
+        (_) {
+          emit(
+            state.copyWith(
+              status: GroupStatus.drawn,
+              group: updatedGroup,
+              matches: event.matches,
+            ),
+          );
         },
       );
     });
   }
+}
+
+/// Sprawdza (backtracking z early exit) czy istnieje chociaż jedno
+/// poprawne przypisanie darówca → odbiorca bez naruszeń reguł.
+/// Zwraca [true] przy pierwszym znalezionym rozwiązaniu.
+bool _hasValidAssignment(
+  List<String> participants,
+  Map<String, List<String>> excluded,
+) {
+  bool found = false;
+  final remaining = List<String>.from(participants);
+
+  void backtrack(int idx) {
+    if (found) return; // early exit
+    if (idx == participants.length) {
+      found = true;
+      return;
+    }
+    final giver = participants[idx];
+    for (int j = 0; j < remaining.length; j++) {
+      final recipient = remaining[j];
+      if (giver == recipient) continue;
+      if (excluded[giver]?.contains(recipient) ?? false) continue;
+      remaining.removeAt(j);
+      backtrack(idx + 1);
+      remaining.insert(j, recipient);
+      if (found) return;
+    }
+  }
+
+  backtrack(0);
+  return found;
 }

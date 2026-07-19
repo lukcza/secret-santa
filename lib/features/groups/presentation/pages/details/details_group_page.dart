@@ -346,7 +346,7 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Group must have an even number of participants, Add more or add special role for one participant to make a additional pair.',
+            context.loc.evenParticipantsRequired,
           ),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
@@ -358,7 +358,7 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
     }
     if (group.participantsUIDs.length == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Group must have at least 2 participants')),
+        SnackBar(content: Text(context.loc.atLeastTwoParticipants)),
       );
       return;
     }
@@ -367,14 +367,14 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Are you sure?'),
+            title: Text(context.loc.areYouSure),
             content: Text(
-              'Are you sure you want to continue? Invited participants will be removed from the group and will not be able to accept the invitation.',
+              context.loc.invitedParticipantsWillBeRemoved,
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text('Cancel'),
+                child: Text(context.loc.cancel),
               ),
               TextButton(
                 onPressed: () {
@@ -395,7 +395,7 @@ class _StartDrawingButtonState extends State<_StartDrawingButton>
                     ),
                   );
                 },
-                child: Text('Yes'),
+                child: Text(context.loc.yes),
               ),
             ],
           );

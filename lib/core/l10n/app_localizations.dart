@@ -1077,6 +1077,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add participants to start drawing'**
   String get addParticipantsToStart;
+
+  /// No description provided for @drawnPairsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Drawn Pairs'**
+  String get drawnPairsTitle;
+
+  /// No description provided for @profileNavigationMock.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile: {name}'**
+  String profileNavigationMock(String name);
+
+  /// No description provided for @failedToDrawPairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to draw pairs'**
+  String get failedToDrawPairs;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @drawAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw again'**
+  String get drawAgain;
+
+  /// No description provided for @confirmedCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed ✓'**
+  String get confirmedCheck;
+
+  /// No description provided for @confirmDrawing.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm drawing'**
+  String get confirmDrawing;
+
+  /// No description provided for @evenParticipantsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Group must have an even number of participants. Add more or add a special role for one participant to make an additional pair.'**
+  String get evenParticipantsRequired;
+
+  /// No description provided for @atLeastTwoParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'Group must have at least 2 participants'**
+  String get atLeastTwoParticipants;
+
+  /// No description provided for @areYouSure.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure?'**
+  String get areYouSure;
+
+  /// No description provided for @invitedParticipantsWillBeRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to continue? Invited participants will be removed from the group and will not be able to accept the invitation.'**
+  String get invitedParticipantsWillBeRemoved;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @excludedCountOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{excluded} of {total}'**
+  String excludedCountOf(int excluded, int total);
+
+  /// No description provided for @groupDrawnSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Group created successfully'**
+  String get groupDrawnSuccessfully;
+
+  /// No description provided for @errorPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {message}'**
+  String errorPrefix(String message);
+
+  /// No description provided for @secretSantaGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Secret Santa Group'**
+  String get secretSantaGroup;
+
+  /// No description provided for @enterNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter name'**
+  String get enterNameHint;
+
+  /// No description provided for @membersCountText.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 Elf} other{{count} Elves}}'**
+  String membersCountText(num count);
+
+  /// No description provided for @savingMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving matches...'**
+  String get savingMatches;
+
+  /// No description provided for @giversColumnHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Givers'**
+  String get giversColumnHeader;
+
+  /// No description provided for @receiversColumnHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Receivers'**
+  String get receiversColumnHeader;
 }
 
 class _AppLocalizationsDelegate

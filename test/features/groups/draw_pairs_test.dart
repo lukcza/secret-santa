@@ -2,126 +2,139 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/core/enums/user_status.dart';
-import 'package:secret_santa/features/groups/data/models/group_model.dart';
-import 'package:secret_santa/features/groups/data/repositories/group_repositrory_impl.dart';
+import 'package:secret_santa/core/errors/failures.dart';
+import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
-import 'package:secret_santa/features/groups/domain/usecases/draw_pairs.dart';
-import 'package:secret_santa/features/groups/data/datasources/group_remote_data_source.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
+import 'package:secret_santa/features/groups/domain/usecases/create_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/generate_group_code.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_groups_participants.dart';
+import 'package:secret_santa/features/groups/domain/usecases/join_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/leave_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/update_group.dart';
 
-class MockGroupRemoteDataSource implements GroupRemoteDataSource {
-  GroupModel? mockGroup;
-  bool updateGroupCalled = false;
-  GroupModel? updatedGroup;
-
+class FakeJoinGroup implements JoinGroup {
   @override
-  Future<GroupModel> getGroupById(String groupId) async {
-    if (mockGroup != null) {
-      return mockGroup!;
-    }
-    throw Exception("Group not found");
-  }
-
-  @override
-  Future<void> updateGroup(GroupModel group) async {
-    updateGroupCalled = true;
-    updatedGroup = group;
-  }
-
-  @override
-  Future<GroupModel> createGroup(GroupModel group) =>
-      throw UnimplementedError();
-  @override
-  Future<void> generateGroupCode(String groupId) => throw UnimplementedError();
-  @override
-  Future<List<GroupModel>> getUserGroups(String userId) =>
-      throw UnimplementedError();
-  @override
-  Stream<List<GroupModel>> getUserGroupsStream(String userId) =>
-      throw UnimplementedError();
-  @override
-  Future<void> joinGroup(String groupCode, String userId) =>
-      throw UnimplementedError();
-  @override
-  Future<void> leaveGroup(String groupCode, String userId) =>
-      throw UnimplementedError();
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
-class FakeFirebaseAuth implements FirebaseAuth {
+class FakeCreateGroup implements CreateGroup {
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class FakeLeaveGroup implements LeaveGroup {
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class FakeUpdateGroup implements UpdateGroup {
+  bool callCalled = false;
+  GroupEntity? passedGroup;
+  Either<Failure, void> result = const Right(null);
+
+  @override
+  GroupRepository get repository => throw UnimplementedError();
+
+  @override
+  Future<Either<Failure, void>> call(GroupEntity group) async {
+    callCalled = true;
+    passedGroup = group;
+    return result;
+  }
+}
+
+class FakeGenerateGroupCode implements GenerateGroupCode {
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
+class FakeGetGroupsParticipants implements GetGroupsParticipants {
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
 void main() {
-  late MockGroupRemoteDataSource mockRemoteDataSource;
-  late GroupRepositoryImpl repository;
-  late DrawPairs drawPairsUseCase;
+  late FakeJoinGroup fakeJoinGroup;
+  late FakeCreateGroup fakeCreateGroup;
+  late FakeLeaveGroup fakeLeaveGroup;
+  late FakeUpdateGroup fakeUpdateGroup;
+  late FakeGenerateGroupCode fakeGenerateGroupCode;
+  late FakeGetGroupsParticipants fakeGetGroupsParticipants;
+  late GroupBloc groupBloc;
 
   setUp(() {
-    mockRemoteDataSource = MockGroupRemoteDataSource();
-    repository = GroupRepositoryImpl(
-      remoteDataSource: mockRemoteDataSource,
-      firebaseAuth: FakeFirebaseAuth(),
+    fakeJoinGroup = FakeJoinGroup();
+    fakeCreateGroup = FakeCreateGroup();
+    fakeLeaveGroup = FakeLeaveGroup();
+    fakeUpdateGroup = FakeUpdateGroup();
+    fakeGenerateGroupCode = FakeGenerateGroupCode();
+    fakeGetGroupsParticipants = FakeGetGroupsParticipants();
+
+    groupBloc = GroupBloc(
+      joinGroup: fakeJoinGroup,
+      createGroup: fakeCreateGroup,
+      leaveGroup: fakeLeaveGroup,
+      updateGroup: fakeUpdateGroup,
+      generateGroupCode: fakeGenerateGroupCode,
+      getGroupsParticipants: fakeGetGroupsParticipants,
     );
-    drawPairsUseCase = DrawPairs(repository);
   });
 
-  group('drawPairs', () {
-    final tGroupId = "group_123";
+  tearDown(() {
+    groupBloc.close();
+  });
 
-    test(
-      'should successfully draw pairs and update group when group is active and has >= 3 participants',
-      () async {
-        // arrange
-        final participants = {
-          "user_1": UserStatus.confirmed,
-          "user_2": UserStatus.confirmed,
-          "user_3": UserStatus.confirmed,
-        };
-
-        final group = GroupModel(
-          id: tGroupId,
-          title: "Test Group",
-          authorUID: "user_1",
-          participants: participants,
-          participantsUIDs: const ["user_1", "user_2", "user_3"],
-          budgetLimit: 10,
-          currency: "USD",
-          eventDate: DateTime.now(),
-          createdAt: DateTime.now(),
-          inviteCode: "123456",
-          state: GroupStatus.active,
-        );
-
-        mockRemoteDataSource.mockGroup = group;
-
-        // act
-        final result = await drawPairsUseCase(tGroupId);
-
-        // assert
-        expect(result.isRight(), true);
-        final drawnGroup = result.getOrElse((_) => throw Exception());
-
-        print("Generated matches map: ${drawnGroup.matches}");
-
-        expect(drawnGroup.matches.length, 3);
-        // Ensure no one draws themselves
-        for (final entry in drawnGroup.matches.entries) {
-          expect(entry.key, isNot(equals(entry.value)));
-        }
-        // Ensure all participants are receivers
-        expect(drawnGroup.matches.values.toSet().length, 3);
-        expect(drawnGroup.matches.values.toSet(), containsAll(["user_1", "user_2", "user_3"]));
-
-        expect(mockRemoteDataSource.updateGroupCalled, true);
-        expect(mockRemoteDataSource.updatedGroup?.matches, drawnGroup.matches);
-      },
-    );
-
-    test('should return Failure when group is not active', () async {
+  group('DrawPairsLocalEvent', () {
+    test('should draw pairs locally and update matches state when participants >= 3', () async {
       // arrange
-      final group = GroupModel(
-        id: tGroupId,
+      final participants = ["user_1", "user_2", "user_3"];
+
+      // act
+      groupBloc.add(DrawPairsLocalEvent(participantUids: participants));
+
+      // assert/wait for state change
+      await expectLater(
+        groupBloc.stream,
+        emits(isA<GroupState>().having((state) => state.matches.length, 'matches count', 3)),
+      );
+
+      final matches = groupBloc.state.matches;
+      // Ensure no one draws themselves
+      for (final entry in matches.entries) {
+        expect(entry.key, isNot(equals(entry.value)));
+      }
+      // Ensure all participants are receivers
+      expect(matches.values.toSet().length, 3);
+      expect(matches.values.toSet(), containsAll(participants));
+    });
+
+    test('should emit error state when participants < 3', () async {
+      // arrange
+      final participants = ["user_1", "user_2"];
+
+      // act
+      groupBloc.add(DrawPairsLocalEvent(participantUids: participants));
+
+      // assert
+      await expectLater(
+        groupBloc.stream,
+        emits(isA<GroupState>().having(
+          (state) => state.status, 'status', GroupStatus.error
+        ).having(
+          (state) => state.errorMessage, 'errorMessage', 'Za mało uczestników (minimum 3)'
+        )),
+      );
+    });
+  });
+
+  group('ConfirmDrawEvent', () {
+    test('should call UpdateGroup and update group state on success', () async {
+      // arrange
+      final group = GroupEntity(
+        id: "group_123",
         title: "Test Group",
         authorUID: "user_1",
         participants: const {
@@ -135,56 +148,71 @@ void main() {
         eventDate: DateTime.now(),
         createdAt: DateTime.now(),
         inviteCode: "123456",
-        state: GroupStatus.draft, // not active
+        state: GroupStatus.active,
       );
-
-      mockRemoteDataSource.mockGroup = group;
+      final matches = {
+        "user_1": "user_2",
+        "user_2": "user_3",
+        "user_3": "user_1",
+      };
 
       // act
-      final result = await drawPairsUseCase(tGroupId);
+      groupBloc.add(ConfirmDrawEvent(group: group, matches: matches));
 
       // assert
-      expect(result.isLeft(), true);
-      result.fold(
-        (failure) => expect(failure.message, "Group is not active"),
-        (_) => fail("Should not succeed"),
+      await expectLater(
+        groupBloc.stream,
+        emits(isA<GroupState>().having(
+          (state) => state.status, 'status', GroupStatus.drawn
+        ).having(
+          (state) => state.matches, 'matches', matches
+        ).having(
+          (state) => state.group?.matches, 'group matches', matches
+        )),
       );
+
+      expect(fakeUpdateGroup.callCalled, true);
+      expect(fakeUpdateGroup.passedGroup?.matches, matches);
     });
 
-    test(
-      'should return Failure when group has less than 3 participants',
-      () async {
-        // arrange
-        final group = GroupModel(
-          id: tGroupId,
-          title: "Test Group",
-          authorUID: "user_1",
-          participants: const {
-            "user_1": UserStatus.confirmed,
-            "user_2": UserStatus.confirmed,
-          },
-          participantsUIDs: const ["user_1", "user_2"],
-          budgetLimit: 10,
-          currency: "USD",
-          eventDate: DateTime.now(),
-          createdAt: DateTime.now(),
-          inviteCode: "123456",
-          state: GroupStatus.active,
-        );
+    test('should emit error state when UpdateGroup fails', () async {
+      // arrange
+      final group = GroupEntity(
+        id: "group_123",
+        title: "Test Group",
+        authorUID: "user_1",
+        participants: const {
+          "user_1": UserStatus.confirmed,
+          "user_2": UserStatus.confirmed,
+          "user_3": UserStatus.confirmed,
+        },
+        participantsUIDs: const ["user_1", "user_2", "user_3"],
+        budgetLimit: 10,
+        currency: "USD",
+        eventDate: DateTime.now(),
+        createdAt: DateTime.now(),
+        inviteCode: "123456",
+        state: GroupStatus.active,
+      );
+      final matches = {
+        "user_1": "user_2",
+        "user_2": "user_3",
+        "user_3": "user_1",
+      };
+      fakeUpdateGroup.result = const Left(ServerFailure("DB Error"));
 
-        mockRemoteDataSource.mockGroup = group;
+      // act
+      groupBloc.add(ConfirmDrawEvent(group: group, matches: matches));
 
-        // act
-        final result = await drawPairsUseCase(tGroupId);
-
-        // assert
-        expect(result.isLeft(), true);
-        result.fold(
-          (failure) =>
-              expect(failure.message, "Group has less than 3 participants"),
-          (_) => fail("Should not succeed"),
-        );
-      },
-    );
+      // assert
+      await expectLater(
+        groupBloc.stream,
+        emits(isA<GroupState>().having(
+          (state) => state.status, 'status', GroupStatus.error
+        ).having(
+          (state) => state.errorMessage, 'errorMessage', 'DB Error'
+        )),
+      );
+    });
   });
 }
