@@ -12,6 +12,7 @@ class GroupState extends Equatable {
   final GroupEntity? group;
   final String? inviteCode;
   final List<UserEntity> participants;
+  final Map<String, String> matches;
   const GroupState({
     this.group,
     this.joinStatus = JoinGroupStatus.initial,
@@ -19,6 +20,7 @@ class GroupState extends Equatable {
     this.errorMessage,
     this.inviteCode,
     this.participants = const [],
+    this.matches = const {},
   });
 
   GroupState copyWith({
@@ -28,6 +30,7 @@ class GroupState extends Equatable {
     JoinGroupStatus? joinStatus,
     String? inviteCode,
     List<UserEntity>? participants,
+    Map<String, String>? matches,
   }) {
     return GroupState(
       group: group ?? this.group,
@@ -36,6 +39,7 @@ class GroupState extends Equatable {
       joinStatus: joinStatus ?? this.joinStatus,
       inviteCode: inviteCode ?? this.inviteCode,
       participants: participants ?? this.participants,
+      matches: matches ?? this.matches,
     );
   }
 
@@ -47,5 +51,6 @@ class GroupState extends Equatable {
     joinStatus,
     inviteCode,
     participants,
+    matches,
   ];
 }

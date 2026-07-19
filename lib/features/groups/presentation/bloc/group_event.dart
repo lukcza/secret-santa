@@ -60,11 +60,27 @@ class GetGroupParticipantsEvent extends GroupEvent {
   List<Object?> get props => [groupId];
 }
 
-class DrawPairsEvent extends GroupEvent {
-  final String groupId;
+/// Losuje pary lokalnie (bez zapisu do bazy).
+class DrawPairsLocalEvent extends GroupEvent {
+  final List<String> participantUids;
+  final Map<String, List<String>> excludedPairs;
 
-  const DrawPairsEvent({required this.groupId});
+  const DrawPairsLocalEvent({
+    required this.participantUids,
+    this.excludedPairs = const {},
+  });
 
   @override
-  List<Object?> get props => [groupId];
+  List<Object?> get props => [participantUids, excludedPairs];
+}
+
+/// Zatwierdza wylosowane pary i zapisuje do bazy.
+class ConfirmDrawEvent extends GroupEvent {
+  final GroupEntity group;
+  final Map<String, String> matches;
+
+  const ConfirmDrawEvent({required this.group, required this.matches});
+
+  @override
+  List<Object?> get props => [group, matches];
 }

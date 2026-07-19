@@ -613,7 +613,7 @@ class _ExclusionsSummary extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: '$excludedCount z $totalCount ',
+                    text: context.loc.excludedCountOf(excludedCount, totalCount) + ' ',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: AppTheme.primary,

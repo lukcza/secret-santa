@@ -113,7 +113,7 @@ class GroupDataCard extends StatelessWidget {
                 context,
                 icon: Icons.group,
                 label: context.loc.membersCard,
-                value: '$membersCount ${membersCount == 1 ? 'Elf' : 'Elves'}',
+                value: context.loc.membersCountText(membersCount),
               ),
             ],
           ),

@@ -63,9 +63,9 @@ class _ConfirmGroupPageState extends State<ConfirmGroupPage> {
       listener: (context, state) {
         if (state.status == GroupStatus.drawn) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Group drawn successfully"),
-              duration: Duration(seconds: 2),
+            SnackBar(
+              content: Text(context.loc.groupDrawnSuccessfully),
+              duration: const Duration(seconds: 2),
             ),
           );
           if (state.group != null) {
@@ -83,8 +83,8 @@ class _ConfirmGroupPageState extends State<ConfirmGroupPage> {
         } else if (state.status == GroupStatus.error) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Error: ${state.errorMessage}"),
-              duration: Duration(seconds: 2),
+              content: Text(context.loc.errorPrefix(state.errorMessage ?? '')),
+              duration: const Duration(seconds: 2),
             ),
           );
         } else if (state.status == GroupStatus.checking) {
@@ -340,9 +340,9 @@ class _ConfirmGroupPageState extends State<ConfirmGroupPage> {
                           color: Theme.of(context).colorScheme.tertiary,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Text(
-                          'HOST',
-                          style: TextStyle(
+                        child: Text(
+                          context.loc.host.toUpperCase(),
+                          style: const TextStyle(
                             color: Color(0xFF2E1500),
                             fontSize: 9,
                             fontWeight: FontWeight.bold,

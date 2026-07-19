@@ -220,7 +220,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                                     groupName:
                                         name.isNotEmpty
                                             ? name
-                                            : "Secret Santa Group",
+                                            : context.loc.secretSantaGroup,
                                     budget: budget.toInt(),
                                     date: widget.selectedDate,
                                     participants: _participants,
@@ -275,7 +275,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                   controller: nameController,
                   decoration: InputDecoration(
                     labelText: context.loc.nameLabel,
-                    hintText: 'Enter name',
+                    hintText: context.loc.enterNameHint,
                   ),
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -310,7 +310,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
+              child: Text(context.loc.cancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -416,9 +416,9 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                           color: Theme.of(context).colorScheme.tertiary,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Text(
-                          'HOST',
-                          style: TextStyle(
+                        child: Text(
+                          context.loc.host.toUpperCase(),
+                          style: const TextStyle(
                             color: Color(0xFF2E1500),
                             fontSize: 9,
                             fontWeight: FontWeight.bold,

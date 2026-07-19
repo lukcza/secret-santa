@@ -164,5 +164,58 @@
     "manage": "Manage",
     "noParticipants": "No participants",
     "addParticipantsToStart": "Add participants to start drawing",
-    "startDrawing": "Start Drawing"
+    "startDrawing": "Start Drawing",
+    "drawnPairsTitle": "Drawn Pairs",
+    "profileNavigationMock": "Profile: {name}",
+    "@profileNavigationMock": {
+      "placeholders": {
+        "name": {
+          "type": "String"
+        }
+      }
+    },
+    "failedToDrawPairs": "Failed to draw pairs",
+    "tryAgain": "Try again",
+    "drawAgain": "Draw again",
+    "confirmedCheck": "Confirmed ✓",
+    "confirmDrawing": "Confirm drawing",
+    "evenParticipantsRequired": "Group must have an even number of participants. Add more or add a special role for one participant to make an additional pair.",
+    "atLeastTwoParticipants": "Group must have at least 2 participants",
+    "areYouSure": "Are you sure?",
+    "invitedParticipantsWillBeRemoved": "Are you sure you want to continue? Invited participants will be removed from the group and will not be able to accept the invitation.",
+    "yes": "Yes",
+    "excludedCountOf": "{excluded} of {total}",
+    "@excludedCountOf": {
+      "placeholders": {
+        "excluded": {
+          "type": "int"
+        },
+        "total": {
+          "type": "int"
+        }
+      }
+    },
+    "groupDrawnSuccessfully": "Group created successfully",
+    "errorPrefix": "Error: {message}",
+    "@errorPrefix": {
+      "placeholders": {
+        "message": {
+          "type": "String"
+        }
+      }
+    },
+    "secretSantaGroup": "Secret Santa Group",
+    "enterNameHint": "Enter name",
+    "membersCountText": "{count, plural, =1{1 Elf} other{{count} Elves}}",
+    "@membersCountText": {
+      "placeholders": {
+        "count": {
+          "type": "num"
+        }
+      }
+    },
+    "savingMatches": "Saving matches...",
+    "giversColumnHeader": "Givers",
+    "receiversColumnHeader": "Receivers"
 }
+

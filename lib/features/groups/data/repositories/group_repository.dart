@@ -20,5 +20,4 @@ abstract class GroupRepository {
     String groupId,
     GetUserByUid getUserByUid,
   );
-  Future<Either<Failure, GroupEntity>> drawPairs(String groupId);
 }
