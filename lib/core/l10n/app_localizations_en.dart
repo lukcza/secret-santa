@@ -594,4 +594,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get receiversColumnHeader => 'Receivers';
+
+  @override
+  String get drawnPairsAdminTitle => 'Drawn Pairs';
+
+  @override
+  String get waitingForDraw => 'Waiting for the organizer to start the draw';
+
+  @override
+  String get waitingForDrawSub => 'The big reveal is coming soon! 🎄';
+
+  @override
+  String get yourSecretRecipient => 'Your Secret Recipient';
+
+  @override
+  String get sendAnonymousMessage => 'Send Anonymous Message';
+
+  @override
+  String get sendAnonymousMessageHint => 'Write your message...';
+
+  @override
+  String get send => 'Send';
+
+  @override
+  String get messageSentMock => 'Message sent anonymously! 🎅';
+
+  @override
+  String get myWishlistForGroup => 'My Wishlist for This Group';
+
+  @override
+  String get allParticipants => 'All Participants';
+
+  @override
+  String get hoHoHo => 'Ho Ho Ho!';
+
+  @override
+  String get youAreSecretSantaFor => 'You are the Secret Santa for';
+
+  @override
+  String get viewTheirWishlist => 'View Their Wishlist';
+
+  @override
+  String get makeSureToGetSomethingNice =>
+      'Make sure to get something nice before Dec 25th!';
+
+  @override
+  String get wishlistSuffix => '\'s Wishlist';
+
+  @override
+  String get youAreTheirSecretSanta => 'You are their Secret Santa! 🤫';
+
+  @override
+  String get budgetPrefix => 'Budget:';
+
+  @override
+  String get topPicks => 'Top Picks';
+
+  @override
+  String itemsCount(num count) {
+    return '$count ITEMS';
+  }
+
+  @override
+  String get viewOnline => 'View Online';
+
+  @override
+  String get highPriority => 'High Priority';
+
+  @override
+  String get preferred => 'preferred';
+
+  @override
+  String get secretSantaUpper => 'SECRET SANTA';
+
+  @override
+  String get doneUpper => 'DONE';
+
+  @override
+  String get meSuffix => '(me)';
+
+  @override
+  String get mockItemMugTitle => 'Ceramic Travel Mug';
+
+  @override
+  String get mockItemMugDesc => 'Blue glaze preferred';
+
+  @override
+  String get mockItemBookTitle => 'Sci-Fi Novel';
+
+  @override
+  String get mockItemYarnTitle => 'Wool Knitting Yarn';
+
+  @override
+  String get mockItemYarnDesc => 'Any shade of red';
 }

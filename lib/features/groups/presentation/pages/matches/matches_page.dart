@@ -11,6 +11,7 @@ import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart'
 import 'package:secret_santa/features/groups/presentation/widgets/match_tile.dart';
 import 'package:secret_santa/features/groups/presentation/widgets/outline_button.dart';
 import 'package:secret_santa/features/groups/presentation/widgets/confirm_button.dart';
+import 'package:secret_santa/features/groups/presentation/pages/details/details_group_page.dart';
 
 class MatchesPage extends StatefulWidget {
   const MatchesPage({
@@ -75,15 +76,34 @@ class _MatchesPageState extends State<MatchesPage> {
   Widget build(BuildContext context) {
     return BlocConsumer<GroupBloc, GroupState>(
       listener: (context, state) {
+        if (state.status == GroupStatus.error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage ?? 'Błąd'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          );
+          context.pop();
+        }
         // Po pomyślnym zatwierdzeniu na serwerze (group.matches niepuste)
         if (_confirming &&
             state.status == GroupStatus.drawn &&
             state.group?.matches.isNotEmpty == true) {
           setState(() => _confirming = false);
           final groupBloc = context.read<GroupBloc>();
-          context.pushReplacement(
-            '/group/${state.group!.id}',
-            extra: {'bloc': groupBloc, 'group': state.group!},
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder:
+                  (context) => BlocProvider.value(
+                    value: groupBloc,
+                    child: DetailsGroupPage(group: state.group!),
+                  ),
+            ),
           );
           return;
         }
@@ -111,6 +131,16 @@ class _MatchesPageState extends State<MatchesPage> {
         return Stack(
           children: [
             Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                scrolledUnderElevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                  onPressed: () => context.pop(),
+                ),
+              ),
               body: SafeArea(
                 child: Column(
                   children: [
@@ -125,10 +155,9 @@ class _MatchesPageState extends State<MatchesPage> {
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withValues(alpha: 0.5),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.5),
                                 letterSpacing: 0.8,
                               ),
                             ),
@@ -141,10 +170,9 @@ class _MatchesPageState extends State<MatchesPage> {
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface
-                                    .withValues(alpha: 0.5),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurface.withValues(alpha: 0.5),
                                 letterSpacing: 0.8,
                               ),
                             ),
@@ -153,66 +181,73 @@ class _MatchesPageState extends State<MatchesPage> {
                       ),
                     ),
                     Expanded(
-                      child: isError && matches.isEmpty
-                          ? Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(24),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.error_outline_rounded,
-                                      size: 56,
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                    ),
-                                    const SizedBox(height: 16),
-                                    Text(
-                                      state.errorMessage ??
-                                          context.loc.failedToDrawPairs,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .error,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
+                      child:
+                          isError && matches.isEmpty
+                              ? Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(24),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.error_outline_rounded,
+                                        size: 56,
+                                        color:
+                                            Theme.of(context).colorScheme.error,
                                       ),
-                                    ),
-                                    const SizedBox(height: 24),
-                                    FilledButton.icon(
-                                      onPressed: _draw,
-                                      icon: const Icon(Icons.refresh_rounded),
-                                      label: Text(context.loc.tryAgain),
-                                    ),
-                                  ],
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        state.errorMessage ??
+                                            context.loc.failedToDrawPairs,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color:
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.error,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 24),
+                                      FilledButton.icon(
+                                        onPressed: _draw,
+                                        icon: const Icon(Icons.refresh_rounded),
+                                        label: Text(context.loc.tryAgain),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                              )
+                              : matches.isEmpty
+                              ? const Center(child: CircularProgressIndicator())
+                              : ListView.builder(
+                                padding: const EdgeInsets.fromLTRB(
+                                  16,
+                                  4,
+                                  16,
+                                  8,
+                                ),
+                                itemCount: matches.length,
+                                itemBuilder: (context, index) {
+                                  final entry = matches.entries.elementAt(
+                                    index,
+                                  );
+                                  final giver = _findUser(entry.key);
+                                  final recipient = _findUser(entry.value);
+                                  if (giver == null || recipient == null) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return MatchTile(
+                                    giver: giver,
+                                    recipient: recipient,
+                                    onTapGiver:
+                                        () => _openProfile(context, giver),
+                                    onTapRecipient:
+                                        () => _openProfile(context, recipient),
+                                  );
+                                },
                               ),
-                            )
-                          : matches.isEmpty
-                          ? const Center(child: CircularProgressIndicator())
-                          : ListView.builder(
-                              padding:
-                                  const EdgeInsets.fromLTRB(16, 4, 16, 8),
-                              itemCount: matches.length,
-                              itemBuilder: (context, index) {
-                                final entry =
-                                    matches.entries.elementAt(index);
-                                final giver = _findUser(entry.key);
-                                final recipient = _findUser(entry.value);
-                                if (giver == null || recipient == null) {
-                                  return const SizedBox.shrink();
-                                }
-                                return MatchTile(
-                                  giver: giver,
-                                  recipient: recipient,
-                                  onTapGiver: () =>
-                                      _openProfile(context, giver),
-                                  onTapRecipient: () =>
-                                      _openProfile(context, recipient),
-                                );
-                              },
-                            ),
                     ),
                     if (matches.isNotEmpty)
                       _MatchesActions(
@@ -232,9 +267,7 @@ class _MatchesPageState extends State<MatchesPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
+                      const CircularProgressIndicator(color: Colors.white),
                       const SizedBox(height: 16),
                       Text(
                         context.loc.savingMatches,

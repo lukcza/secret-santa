@@ -1203,6 +1203,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Receivers'**
   String get receiversColumnHeader;
+
+  /// No description provided for @drawnPairsAdminTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Drawn Pairs'**
+  String get drawnPairsAdminTitle;
+
+  /// No description provided for @waitingForDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the organizer to start the draw'**
+  String get waitingForDraw;
+
+  /// No description provided for @waitingForDrawSub.
+  ///
+  /// In en, this message translates to:
+  /// **'The big reveal is coming soon! 🎄'**
+  String get waitingForDrawSub;
+
+  /// No description provided for @yourSecretRecipient.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Secret Recipient'**
+  String get yourSecretRecipient;
+
+  /// No description provided for @sendAnonymousMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Anonymous Message'**
+  String get sendAnonymousMessage;
+
+  /// No description provided for @sendAnonymousMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your message...'**
+  String get sendAnonymousMessageHint;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
+
+  /// No description provided for @messageSentMock.
+  ///
+  /// In en, this message translates to:
+  /// **'Message sent anonymously! 🎅'**
+  String get messageSentMock;
+
+  /// No description provided for @myWishlistForGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'My Wishlist for This Group'**
+  String get myWishlistForGroup;
+
+  /// No description provided for @allParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'All Participants'**
+  String get allParticipants;
+
+  /// No description provided for @hoHoHo.
+  ///
+  /// In en, this message translates to:
+  /// **'Ho Ho Ho!'**
+  String get hoHoHo;
+
+  /// No description provided for @youAreSecretSantaFor.
+  ///
+  /// In en, this message translates to:
+  /// **'You are the Secret Santa for'**
+  String get youAreSecretSantaFor;
+
+  /// No description provided for @viewTheirWishlist.
+  ///
+  /// In en, this message translates to:
+  /// **'View Their Wishlist'**
+  String get viewTheirWishlist;
+
+  /// No description provided for @makeSureToGetSomethingNice.
+  ///
+  /// In en, this message translates to:
+  /// **'Make sure to get something nice before Dec 25th!'**
+  String get makeSureToGetSomethingNice;
+
+  /// No description provided for @wishlistSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'\'s Wishlist'**
+  String get wishlistSuffix;
+
+  /// No description provided for @youAreTheirSecretSanta.
+  ///
+  /// In en, this message translates to:
+  /// **'You are their Secret Santa! 🤫'**
+  String get youAreTheirSecretSanta;
+
+  /// No description provided for @budgetPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget:'**
+  String get budgetPrefix;
+
+  /// No description provided for @topPicks.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Picks'**
+  String get topPicks;
+
+  /// No description provided for @itemsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} ITEMS'**
+  String itemsCount(num count);
+
+  /// No description provided for @viewOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'View Online'**
+  String get viewOnline;
+
+  /// No description provided for @highPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'High Priority'**
+  String get highPriority;
+
+  /// No description provided for @preferred.
+  ///
+  /// In en, this message translates to:
+  /// **'preferred'**
+  String get preferred;
+
+  /// No description provided for @secretSantaUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'SECRET SANTA'**
+  String get secretSantaUpper;
+
+  /// No description provided for @doneUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'DONE'**
+  String get doneUpper;
+
+  /// No description provided for @meSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'(me)'**
+  String get meSuffix;
+
+  /// No description provided for @mockItemMugTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ceramic Travel Mug'**
+  String get mockItemMugTitle;
+
+  /// No description provided for @mockItemMugDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue glaze preferred'**
+  String get mockItemMugDesc;
+
+  /// No description provided for @mockItemBookTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sci-Fi Novel'**
+  String get mockItemBookTitle;
+
+  /// No description provided for @mockItemYarnTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wool Knitting Yarn'**
+  String get mockItemYarnTitle;
+
+  /// No description provided for @mockItemYarnDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Any shade of red'**
+  String get mockItemYarnDesc;
 }
 
 class _AppLocalizationsDelegate
