@@ -71,6 +71,30 @@ class AppRouter {
               child: const SetDateGroupPage(),
             ),
       ),
+      GoRoute(
+        path: "/group/:groupId",
+        builder: (context, state) {
+          final groupId = state.pathParameters['groupId']!;
+          return BlocProvider(
+            create:
+                (_) => di.sl<GroupBloc>()..add(GetGroupEvent(groupId: groupId)),
+            child: const DetailsGroupPage(), // bez group – ładuje ze stanu
+          );
+        },
+      ),
+      GoRoute(
+        path: "/invite/:inviteCode",
+        builder: (context, state) {
+          final inviteCode = state.pathParameters['inviteCode']!;
+          return BlocProvider(
+            create:
+                (_) =>
+                    di.sl<GroupBloc>()
+                      ..add(JoinGroupByCodeEvent(inviteCode: inviteCode)),
+            child: const JoinGroupPage(),
+          );
+        },
+      ),
     ],
   );
 }

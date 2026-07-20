@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
@@ -10,7 +11,6 @@ import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart'
 import 'package:secret_santa/features/groups/presentation/widgets/match_tile.dart';
 import 'package:secret_santa/features/groups/presentation/widgets/outline_button.dart';
 import 'package:secret_santa/features/groups/presentation/widgets/confirm_button.dart';
-import 'package:secret_santa/features/groups/presentation/pages/details/details_group_page.dart';
 
 class MatchesPage extends StatefulWidget {
   const MatchesPage({
@@ -81,14 +81,9 @@ class _MatchesPageState extends State<MatchesPage> {
             state.group?.matches.isNotEmpty == true) {
           setState(() => _confirming = false);
           final groupBloc = context.read<GroupBloc>();
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => BlocProvider.value(
-                value: groupBloc,
-                child: DetailsGroupPage(group: state.group!),
-              ),
-            ),
+          context.pushReplacement(
+            '/group/${state.group!.id}',
+            extra: {'bloc': groupBloc, 'group': state.group!},
           );
           return;
         }
