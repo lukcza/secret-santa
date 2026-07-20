@@ -216,6 +216,43 @@
     },
     "savingMatches": "Saving matches...",
     "giversColumnHeader": "Givers",
-    "receiversColumnHeader": "Receivers"
+    "receiversColumnHeader": "Receivers",
+    "drawnPairsAdminTitle": "Drawn Pairs",
+    "waitingForDraw": "Waiting for the organizer to start the draw",
+    "waitingForDrawSub": "The big reveal is coming soon! 🎄",
+    "yourSecretRecipient": "Your Secret Recipient",
+    "sendAnonymousMessage": "Send Anonymous Message",
+    "sendAnonymousMessageHint": "Write your message...",
+    "send": "Send",
+    "messageSentMock": "Message sent anonymously! 🎅",
+    "myWishlistForGroup": "My Wishlist for This Group",
+    "allParticipants": "All Participants",
+    "hoHoHo": "Ho Ho Ho!",
+    "youAreSecretSantaFor": "You are the Secret Santa for",
+    "viewTheirWishlist": "View Their Wishlist",
+    "makeSureToGetSomethingNice": "Make sure to get something nice before Dec 25th!",
+    "wishlistSuffix": "'s Wishlist",
+    "youAreTheirSecretSanta": "You are their Secret Santa! 🤫",
+    "budgetPrefix": "Budget:",
+    "topPicks": "Top Picks",
+    "itemsCount": "{count} ITEMS",
+    "@itemsCount": {
+      "placeholders": {
+        "count": {
+          "type": "num"
+        }
+      }
+    },
+    "viewOnline": "View Online",
+    "highPriority": "High Priority",
+    "preferred": "preferred",
+    "secretSantaUpper": "SECRET SANTA",
+    "doneUpper": "DONE",
+    "meSuffix": "(me)",
+    "mockItemMugTitle": "Ceramic Travel Mug",
+    "mockItemMugDesc": "Blue glaze preferred",
+    "mockItemBookTitle": "Sci-Fi Novel",
+    "mockItemYarnTitle": "Wool Knitting Yarn",
+    "mockItemYarnDesc": "Any shade of red"
 }
 
