@@ -10,6 +10,10 @@ import 'package:secret_santa/features/groups/domain/usecases/generate_group_code
 import 'package:secret_santa/features/groups/domain/usecases/join_group.dart';
 import 'package:secret_santa/features/groups/domain/usecases/leave_group.dart';
 import 'package:secret_santa/features/groups/domain/usecases/update_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_group_wishlist.dart';
+import 'package:secret_santa/features/groups/domain/usecases/add_wishlist_item.dart';
+import 'package:secret_santa/features/groups/domain/usecases/remove_wishlist_item.dart';
+import 'package:secret_santa/features/wishlist/domain/entities/wishlist_item_entity.dart';
 
 class GroupBloc extends Bloc<GroupEvent, GroupState> {
   GroupBloc({
@@ -19,7 +23,52 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     required UpdateGroup updateGroup,
     required GenerateGroupCode generateGroupCode,
     required GetGroupsParticipants getGroupsParticipants,
+    required GetGroupWishlist getGroupWishlist,
+    required AddWishlistItem addWishlistItem,
+    required RemoveWishlistItem removeWishlistItem,
   }) : super(GroupState(status: GroupStatus.draft)) {
+    on<LoadGroupWishlistEvent>((event, emit) async {
+      emit(state.copyWith(wishlistLoading: true));
+      final result = await getGroupWishlist(uid: event.uid, groupId: event.groupId);
+      result.fold(
+        (failure) => emit(state.copyWith(wishlistLoading: false, errorMessage: failure.message)),
+        (items) => emit(state.copyWith(wishlistLoading: false, myGroupWishlist: items)),
+      );
+    });
+    on<AddWishlistItemEvent>((event, emit) async {
+      final optimistic = List<WishlistItemEntity>.from(state.myGroupWishlist)
+        ..add(event.item);
+      emit(state.copyWith(myGroupWishlist: optimistic));
+      final result = await addWishlistItem(
+        uid: event.uid,
+        groupId: event.groupId,
+        item: event.item,
+      );
+      result.fold(
+        (failure) {
+          // rollback
+          final rolled = List<WishlistItemEntity>.from(state.myGroupWishlist)
+            ..removeWhere((i) => i.id == event.item.id);
+          emit(state.copyWith(myGroupWishlist: rolled, errorMessage: failure.message));
+        },
+        (_) {/* already optimistically updated */},
+      );
+    });
+    on<RemoveWishlistItemEvent>((event, emit) async {
+      final optimistic = state.myGroupWishlist
+          .where((i) => i.id != event.itemId)
+          .toList();
+      emit(state.copyWith(myGroupWishlist: optimistic));
+      final result = await removeWishlistItem(
+        uid: event.uid,
+        groupId: event.groupId,
+        itemId: event.itemId,
+      );
+      result.fold(
+        (failure) => emit(state.copyWith(errorMessage: failure.message)),
+        (_) {/* already removed optimistically */},
+      );
+    });
     on<JoinGroupEvent>((event, emit) async {
       final result = await joinGroup(event.groupCode);
       result.fold(

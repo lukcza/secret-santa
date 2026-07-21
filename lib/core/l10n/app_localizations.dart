@@ -1383,6 +1383,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Any shade of red'**
   String get mockItemYarnDesc;
+
+  /// No description provided for @groupHubMyWishlistBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'My Wishes'**
+  String get groupHubMyWishlistBtn;
+
+  /// No description provided for @groupHubMyLotBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'My Secret Recipient'**
+  String get groupHubMyLotBtn;
+
+  /// No description provided for @groupHubDrawNotReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw hasn\'t happened yet'**
+  String get groupHubDrawNotReady;
+
+  /// No description provided for @groupHubDrawNotReadySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Come back once the organizer starts the draw!'**
+  String get groupHubDrawNotReadySub;
+
+  /// No description provided for @groupHubGroupInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Info'**
+  String get groupHubGroupInfo;
+
+  /// No description provided for @myWishlistTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Wishes'**
+  String get myWishlistTitle;
+
+  /// No description provided for @myWishlistSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add items you\'d love to receive'**
+  String get myWishlistSubtitle;
+
+  /// No description provided for @myWishlistEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No wishes yet'**
+  String get myWishlistEmpty;
+
+  /// No description provided for @myWishlistEmptySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the button below to add your first wish!'**
+  String get myWishlistEmptySub;
+
+  /// No description provided for @addWish.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a Wish'**
+  String get addWish;
+
+  /// No description provided for @editWish.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Wish'**
+  String get editWish;
+
+  /// No description provided for @wishTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Item name'**
+  String get wishTitleLabel;
+
+  /// No description provided for @wishTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Coffee Mug, Book, Game...'**
+  String get wishTitleHint;
+
+  /// No description provided for @wishPriceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Price (optional)'**
+  String get wishPriceLabel;
+
+  /// No description provided for @wishPriceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 25.00'**
+  String get wishPriceHint;
+
+  /// No description provided for @wishLinkLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Link to product (optional)'**
+  String get wishLinkLabel;
+
+  /// No description provided for @wishLinkHint.
+  ///
+  /// In en, this message translates to:
+  /// **'https://...'**
+  String get wishLinkHint;
+
+  /// No description provided for @wishNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get wishNoteLabel;
+
+  /// No description provided for @wishNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Colour, size, edition...'**
+  String get wishNoteHint;
+
+  /// No description provided for @wishImageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Image URL (optional)'**
+  String get wishImageLabel;
+
+  /// No description provided for @wishImageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'https://... (direct image link)'**
+  String get wishImageHint;
+
+  /// No description provided for @wishHighPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'High Priority'**
+  String get wishHighPriority;
+
+  /// No description provided for @wishSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save wish'**
+  String get wishSave;
+
+  /// No description provided for @wishDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get wishDelete;
+
+  /// No description provided for @wishDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this wish?'**
+  String get wishDeleteConfirm;
+
+  /// No description provided for @wishDeleteConfirmSub.
+  ///
+  /// In en, this message translates to:
+  /// **'This action cannot be undone.'**
+  String get wishDeleteConfirmSub;
+
+  /// No description provided for @confirmDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get confirmDelete;
+
+  /// No description provided for @wishAddedSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Wish added! 🎁'**
+  String get wishAddedSnack;
+
+  /// No description provided for @wishRemovedSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Wish removed'**
+  String get wishRemovedSnack;
+
+  /// No description provided for @revealAlreadySeen.
+  ///
+  /// In en, this message translates to:
+  /// **'You already know your recipient. Tap to see their wishlist.'**
+  String get revealAlreadySeen;
+
+  /// No description provided for @seeRecipientWishlist.
+  ///
+  /// In en, this message translates to:
+  /// **'See their wishlist'**
+  String get seeRecipientWishlist;
+
+  /// No description provided for @pickFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick from gallery'**
+  String get pickFromGallery;
+
+  /// No description provided for @uploadingImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading image...'**
+  String get uploadingImage;
+
+  /// No description provided for @imageUploaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Image uploaded!'**
+  String get imageUploaded;
+
+  /// No description provided for @wishTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Item name is required'**
+  String get wishTitleRequired;
 }
 
 class _AppLocalizationsDelegate
