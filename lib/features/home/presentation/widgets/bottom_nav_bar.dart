@@ -19,32 +19,49 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return Container(
+      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondaryFixed,
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.35),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).colorScheme.secondary,
-          backgroundColor: Theme.of(context).colorScheme.secondaryFixed,
-          currentIndex: widget.currentIndex,
-          onTap: (index) {
-            widget.onTap(index);
-            _navigateToRoute(context, index);
-          },
-          items: [
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.home),
-              label: context.loc.home,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.notifications),
-              label: context.loc.notifications,
-            ),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.person),
-              label: context.loc.profile,
-            ),
-          ],
+        borderRadius: BorderRadius.circular(24),
+        child: MediaQuery.removePadding(
+          context: context,
+          removeBottom: true,
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            selectedItemColor: Theme.of(context).colorScheme.secondary,
+            currentIndex: widget.currentIndex,
+            onTap: (index) {
+              widget.onTap(index);
+              _navigateToRoute(context, index);
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.home),
+                label: context.loc.home,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.notifications),
+                label: context.loc.notifications,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.person),
+                label: context.loc.profile,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -56,12 +73,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
         context.go('/home');
         break;
       case 1:
-        context.go('/profile');
+        context.go('/notifications');
         break;
       case 2:
-        context.go('/notifications');
+        context.go('/profile');
         break;
     }
   }
-
 }

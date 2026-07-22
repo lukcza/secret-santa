@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 
 class SortingTypeSlider extends StatefulWidget {
-  SortingTypeSlider({super.key});
+  const SortingTypeSlider({super.key, this.onCategorySelected});
+
+  final ValueChanged<int>? onCategorySelected;
 
   @override
   State<SortingTypeSlider> createState() => _SortingTypeSliderState();
@@ -10,49 +12,80 @@ class SortingTypeSlider extends StatefulWidget {
 
 class _SortingTypeSliderState extends State<SortingTypeSlider> {
   int selectedIndex = 0;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    selectedIndex = 0;
+  final List<GlobalKey> _itemKeys = [];
+
+  void _scrollToItem(int index) {
+    if (index >= 0 && index < _itemKeys.length) {
+      final keyContext = _itemKeys[index].currentContext;
+      if (keyContext != null) {
+        Scrollable.ensureVisible(
+          keyContext,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          alignment: 0.5, // Centers the selected option in the list view
+        );
+      }
+    }
   }
+
   @override
   Widget build(BuildContext context) {
-  final listOfSortingCategories = [context.loc.allGroup, context.loc.drawingSoon, context.loc.completed];
+    final categories = [
+      context.loc.allGroup,
+      context.loc.drawingSoon,
+      context.loc.completed,
+    ];
+
+    // Ensure we have a key for each item
+    if (_itemKeys.length != categories.length) {
+      _itemKeys.clear();
+      _itemKeys.addAll(List.generate(categories.length, (_) => GlobalKey()));
+    }
+
     return SizedBox(
-      height: 70,
+      height: 48,
       child: ListView.separated(
-        padding: const EdgeInsets.only(left: 5),
-        separatorBuilder: (context, index) => const SizedBox(width: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemCount: listOfSortingCategories.length,
-        itemBuilder: (context, index) =>
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10,0, 10),
-            child: ElevatedButton(
-              onPressed: () => setState(() {
+        itemCount: categories.length,
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
+        itemBuilder: (context, index) {
+          final isSelected = selectedIndex == index;
+          return GestureDetector(
+            key: _itemKeys[index],
+            onTap: () {
+              setState(() {
                 selectedIndex = index;
-              }),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: selectedIndex == index
-                    ? Theme.of(context).colorScheme.secondary
-                    : Theme.of(context).colorScheme.secondaryFixed,
-                shape: const StadiumBorder(),
-                minimumSize: Size.zero
+              });
+              widget.onCategorySelected?.call(index);
+              _scrollToItem(index);
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: isSelected ? const Color(0xFF2E7D32) : const Color(0xFF112217),
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                  color: isSelected
+                      ? const Color(0xFF4CAF50)
+                      : Colors.white.withOpacity(0.08),
+                  width: 1.5,
+                ),
               ),
               child: Text(
-                listOfSortingCategories[index],
+                categories[index],
                 style: TextStyle(
-                  fontSize: 15,
-                  color: selectedIndex == index
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context).colorScheme.onPrimary.withOpacity(0.6),
+                  color: isSelected ? Colors.white : Colors.white.withOpacity(0.6),
+                  fontSize: 14,
+                  fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
                 ),
+              ),
             ),
-          ),
+          );
+        },
       ),
-      )
     );
   }
 }
