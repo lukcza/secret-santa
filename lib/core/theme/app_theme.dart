@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
+  // Primary Festive Red palette
   static const Color primary = Color(0xFFD32F2F);
   static const Color primaryDark = Color(0xFFB71C1C);
   static const Color primaryLight = Color(0xFFEF5350);
+  static const Color primaryAccent = Color(0xFFE53935);
   static const Color primaryTransparent = Color(0x80D32F2F);
 
+  // Pine & Forest Green palette
   static const Color forest = Color(0xFF2E7D32);
-  static const Color forestDark = Color.fromARGB(255, 21, 49, 30);
+  static const Color forestDark = Color(0xFF112217);
+  static const Color forestElevated = Color(0xFF1E3A28);
+  static const Color forestLight = Color(0xFF4CAF50);
   static const Color forestMoreDark = Color(0xFF66BB6A);
+
+  // Accent Gold & Slate palette
   static const Color gold = Color(0xFFFFC107);
+  static const Color goldLight = Color(0xFFFFB300);
   static const Color slateBlue = Color(0xFF90A4AE);
 
+  // Light Theme Surface & Text
   static const Color backgroundLight = Color(0xFFFCF8F9);
   static const Color surfaceLight = Color(0xFFFFFFFF);
-
-  static const Color backgroundDark = Color.fromARGB(255, 31, 10, 10);
-  static const Color surfaceDark = Color.fromARGB(255, 46, 23, 25);
-  static const Color surfaceHighlight = Color.fromARGB(255, 48, 27, 30);
-
   static const Color textMain = Color(0xFF1B0E10);
-  static const Color textInverse = Color(0xFFFDF2F4);
-  static const Color textMuted = Color(0xFF994D5C);
 
-  static const Color borderDark = Color.fromARGB(255, 95, 45, 52);
+  // Dark Theme Surface & Text (Deep Pine Dark Theme)
+  static const Color backgroundDark = Color(0xFF0A150E);
+  static const Color surfaceDark = Color(0xFF112217);
+  static const Color surfaceHighlight = Color(0xFF1E3A28);
+  static const Color surfaceDarkTransparent = Color(0xFF14271B);
 
-  static const Color surfaceDarkTransparent = Color(0xFF301C1C);
+  static const Color textInverse = Color(0xFFFFFFFF);
+  static const Color textMuted = Color(0xFFA1B0A6);
+
+  static const Color borderDark = Color(0xFF1F3526);
+
   static OutlineInputBorder _border(Color color) {
     return OutlineInputBorder(
       borderSide: BorderSide(
@@ -35,6 +45,7 @@ class AppTheme {
       borderRadius: BorderRadius.circular(15),
     );
   }
+
   static const SearchBarThemeData searchBarTheme = SearchBarThemeData(
     elevation: WidgetStatePropertyAll(0),
     shape: WidgetStatePropertyAll(
@@ -44,6 +55,7 @@ class AppTheme {
     ),
     hintStyle: WidgetStatePropertyAll(TextStyle(color: textMuted)),
   );
+
   static final ThemeData lightThemeMode = ThemeData(
     useMaterial3: true,
     fontFamily: 'PlusJakartaSans',
@@ -122,11 +134,11 @@ class AppTheme {
       surfaceTint: surfaceDarkTransparent,
       onSurface: textInverse,
       secondaryContainer: textMuted,
-      background: Color.fromARGB(255, 15, 26, 16),
+      background: backgroundDark,
       error: primaryLight,
     ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: surfaceDark,
+      backgroundColor: backgroundDark,
       foregroundColor: textInverse,
       centerTitle: true,
       elevation: 0,
@@ -137,7 +149,7 @@ class AppTheme {
       fillColor: surfaceDark,
       border: _border(textMuted),
       enabledBorder: _border(surfaceHighlight),
-      focusedBorder: _border(textMuted),
+      focusedBorder: _border(primary),
       errorBorder: _border(primaryLight),
       focusedErrorBorder: _border(primaryLight),
       hintStyle: TextStyle(color: textInverse.withOpacity(0.5)),
@@ -160,6 +172,14 @@ class AppTheme {
         ),
         textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      ),
+    ),
+    cardTheme: const CardThemeData(
+      color: surfaceDark,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(16)),
+        side: BorderSide(color: surfaceHighlight, width: 1),
       ),
     ),
   );
