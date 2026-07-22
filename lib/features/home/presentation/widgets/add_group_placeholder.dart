@@ -2,46 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 
-class AddGroupPlaceholder extends StatefulWidget {
+class AddGroupPlaceholder extends StatelessWidget {
   const AddGroupPlaceholder({super.key});
 
   @override
-  State<AddGroupPlaceholder> createState() => _AddGroupPlaceholderState();
-}
-
-class _AddGroupPlaceholderState extends State<AddGroupPlaceholder> {
-  @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
-      color: Theme.of(context).colorScheme.primary,
-      child: InkWell(
-        onTap: () => context.push("/create_group"),
-        child: Container(
-          height: 60,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            //color: Theme.of(context).colorScheme.background.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.primary.withAlpha(250),
-              width: 2,
-            ),
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      height: 56,
+      decoration: BoxDecoration(
+        color: const Color(0xFFD32F2F), // Bright Red
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFD32F2F).withOpacity(0.35),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => context.push("/create_group"),
+          borderRadius: BorderRadius.circular(30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.add_circle_outline,
-                size: 40,
-                color: Theme.of(context).colorScheme.onPrimary,
+              const Icon(
+                Icons.add_circle_outline_rounded,
+                size: 24,
+                color: Colors.white,
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 10),
               Text(
-                context.loc.createNewGroup,
-                style: TextStyle(
+                'Create / Join Group',
+                style: const TextStyle(
+                  color: Colors.white,
                   fontSize: 17,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ],

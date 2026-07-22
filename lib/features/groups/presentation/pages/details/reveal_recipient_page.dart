@@ -8,10 +8,12 @@ class RevealRecipientPage extends StatefulWidget {
     super.key,
     required this.recipient,
     required this.groupId,
+    this.onViewWishlist,
   });
 
   final UserEntity recipient;
   final String groupId;
+  final VoidCallback? onViewWishlist;
 
   @override
   State<RevealRecipientPage> createState() => _RevealRecipientPageState();
@@ -32,10 +34,7 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
 
     // Delikatne pulsowanie na napisie "Ho Ho Ho!"
     _pulseAnimation = Tween<double>(begin: 0.95, end: 1.05).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Curves.easeInOutSine,
-      ),
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOutSine),
     );
   }
 
@@ -64,12 +63,15 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                 ),
               ),
             ),
-            
+
             Column(
               children: [
                 // AppBar (custom)
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 12.0,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -79,7 +81,11 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
-                          icon: const Icon(Icons.close, color: Colors.white70, size: 20),
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.white70,
+                            size: 20,
+                          ),
                           onPressed: () => context.pop(),
                         ),
                       ),
@@ -118,7 +124,7 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(height: 8),
                 Text(
                   context.loc.youAreSecretSantaFor,
@@ -162,7 +168,7 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Spacer(),
-                              
+
                               // Awatar (wyśrodkowany)
                               Container(
                                 padding: const EdgeInsets.all(4),
@@ -180,31 +186,54 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                                 child: Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: cs.tertiary, width: 3),
+                                    border: Border.all(
+                                      color: cs.tertiary,
+                                      width: 3,
+                                    ),
                                   ),
                                   child: Stack(
                                     clipBehavior: Clip.none,
                                     children: [
                                       CircleAvatar(
                                         radius: 56,
-                                        backgroundColor: widget.recipient.avatarBgColorValue != null 
-                                            ? Color(widget.recipient.avatarBgColorValue!) 
-                                            : cs.primary,
-                                        backgroundImage: widget.recipient.photoUrl != null
-                                            ? NetworkImage(widget.recipient.photoUrl!)
-                                            : null,
-                                        child: widget.recipient.photoUrl == null
-                                            ? Text(
-                                                widget.recipient.initials,
-                                                style: TextStyle(
-                                                  fontSize: 36,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: widget.recipient.avatarForegroundColorValue != null
-                                                      ? Color(widget.recipient.avatarForegroundColorValue!)
-                                                      : Colors.white,
-                                                ),
-                                              )
-                                            : null,
+                                        backgroundColor:
+                                            widget
+                                                        .recipient
+                                                        .avatarBgColorValue !=
+                                                    null
+                                                ? Color(
+                                                  widget
+                                                      .recipient
+                                                      .avatarBgColorValue!,
+                                                )
+                                                : cs.primary,
+                                        backgroundImage:
+                                            widget.recipient.photoUrl != null
+                                                ? NetworkImage(
+                                                  widget.recipient.photoUrl!,
+                                                )
+                                                : null,
+                                        child:
+                                            widget.recipient.photoUrl == null
+                                                ? Text(
+                                                  widget.recipient.initials,
+                                                  style: TextStyle(
+                                                    fontSize: 36,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        widget
+                                                                    .recipient
+                                                                    .avatarForegroundColorValue !=
+                                                                null
+                                                            ? Color(
+                                                              widget
+                                                                  .recipient
+                                                                  .avatarForegroundColorValue!,
+                                                            )
+                                                            : Colors.white,
+                                                  ),
+                                                )
+                                                : null,
                                       ),
                                       Positioned(
                                         bottom: 0,
@@ -214,18 +243,25 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                                           decoration: BoxDecoration(
                                             color: const Color(0xFFE53935),
                                             shape: BoxShape.circle,
-                                            border: Border.all(color: const Color(0xFF1C1A17), width: 2),
+                                            border: Border.all(
+                                              color: const Color(0xFF1C1A17),
+                                              width: 2,
+                                            ),
                                           ),
-                                          child: const Icon(Icons.check, size: 16, color: Colors.white),
+                                          child: const Icon(
+                                            Icons.check,
+                                            size: 16,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              
+
                               const SizedBox(height: 16),
-                              
+
                               // Imię
                               Text(
                                 widget.recipient.displayName,
@@ -235,14 +271,11 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                                   color: Colors.white,
                                 ),
                               ),
-                              
                               const Spacer(),
-                              
-                              // Przycisk
                               Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: FilledButton.icon(
-                                  onPressed: () => context.pop(), // Zamyka Reveal, pokazuje Wishlist
+                                  onPressed: widget.onViewWishlist ?? () => context.pop(),
                                   icon: const Icon(Icons.card_giftcard_rounded),
                                   label: Text(
                                     context.loc.viewTheirWishlist,
@@ -254,7 +287,10 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                                   style: FilledButton.styleFrom(
                                     backgroundColor: const Color(0xFFE53935),
                                     foregroundColor: Colors.white,
-                                    minimumSize: const Size(double.infinity, 56),
+                                    minimumSize: const Size(
+                                      double.infinity,
+                                      56,
+                                    ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(16),
                                     ),
@@ -268,10 +304,7 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                     ),
                   ),
                 ),
-                
                 const SizedBox(height: 24),
-                
-                // Footer text
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -286,7 +319,6 @@ class _RevealRecipientPageState extends State<RevealRecipientPage>
                     ),
                   ],
                 ),
-                
                 const SizedBox(height: 32),
               ],
             ),

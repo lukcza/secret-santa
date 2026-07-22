@@ -687,4 +687,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mockItemYarnDesc => 'Any shade of red';
+
+  @override
+  String get groupHubMyWishlistBtn => 'My Wishes';
+
+  @override
+  String get groupHubMyLotBtn => 'My Secret Recipient';
+
+  @override
+  String get groupHubDrawNotReady => 'Draw hasn\'t happened yet';
+
+  @override
+  String get groupHubDrawNotReadySub =>
+      'Come back once the organizer starts the draw!';
+
+  @override
+  String get groupHubGroupInfo => 'Group Info';
+
+  @override
+  String get myWishlistTitle => 'My Wishes';
+
+  @override
+  String get myWishlistSubtitle => 'Add items you\'d love to receive';
+
+  @override
+  String get myWishlistEmpty => 'No wishes yet';
+
+  @override
+  String get myWishlistEmptySub =>
+      'Tap the button below to add your first wish!';
+
+  @override
+  String get addWish => 'Add a Wish';
+
+  @override
+  String get editWish => 'Edit Wish';
+
+  @override
+  String get wishTitleLabel => 'Item name';
+
+  @override
+  String get wishTitleHint => 'e.g. Coffee Mug, Book, Game...';
+
+  @override
+  String get wishPriceLabel => 'Price (optional)';
+
+  @override
+  String get wishPriceHint => 'e.g. 25.00';
+
+  @override
+  String get wishLinkLabel => 'Link to product (optional)';
+
+  @override
+  String get wishLinkHint => 'https://...';
+
+  @override
+  String get wishNoteLabel => 'Note (optional)';
+
+  @override
+  String get wishNoteHint => 'Colour, size, edition...';
+
+  @override
+  String get wishImageLabel => 'Image URL (optional)';
+
+  @override
+  String get wishImageHint => 'https://... (direct image link)';
+
+  @override
+  String get wishHighPriority => 'High Priority';
+
+  @override
+  String get wishSave => 'Save wish';
+
+  @override
+  String get wishDelete => 'Remove';
+
+  @override
+  String get wishDeleteConfirm => 'Remove this wish?';
+
+  @override
+  String get wishDeleteConfirmSub => 'This action cannot be undone.';
+
+  @override
+  String get confirmDelete => 'Remove';
+
+  @override
+  String get wishAddedSnack => 'Wish added! 🎁';
+
+  @override
+  String get wishRemovedSnack => 'Wish removed';
+
+  @override
+  String get revealAlreadySeen =>
+      'You already know your recipient. Tap to see their wishlist.';
+
+  @override
+  String get seeRecipientWishlist => 'See their wishlist';
+
+  @override
+  String get pickFromGallery => 'Pick from gallery';
+
+  @override
+  String get uploadingImage => 'Uploading image...';
+
+  @override
+  String get imageUploaded => 'Image uploaded!';
+
+  @override
+  String get wishTitleRequired => 'Item name is required';
 }

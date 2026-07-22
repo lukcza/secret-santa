@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/wishlist/domain/entities/wishlist_item_entity.dart';
 
 enum JoinGroupStatus { initial, loading, success, error, left }
 
@@ -13,6 +14,9 @@ class GroupState extends Equatable {
   final String? inviteCode;
   final List<UserEntity> participants;
   final Map<String, String> matches;
+  final List<WishlistItemEntity> myGroupWishlist;
+  final bool wishlistLoading;
+
   const GroupState({
     this.group,
     this.joinStatus = JoinGroupStatus.initial,
@@ -21,6 +25,8 @@ class GroupState extends Equatable {
     this.inviteCode,
     this.participants = const [],
     this.matches = const {},
+    this.myGroupWishlist = const [],
+    this.wishlistLoading = false,
   });
 
   GroupState copyWith({
@@ -31,6 +37,8 @@ class GroupState extends Equatable {
     String? inviteCode,
     List<UserEntity>? participants,
     Map<String, String>? matches,
+    List<WishlistItemEntity>? myGroupWishlist,
+    bool? wishlistLoading,
   }) {
     return GroupState(
       group: group ?? this.group,
@@ -40,6 +48,8 @@ class GroupState extends Equatable {
       inviteCode: inviteCode ?? this.inviteCode,
       participants: participants ?? this.participants,
       matches: matches ?? this.matches,
+      myGroupWishlist: myGroupWishlist ?? this.myGroupWishlist,
+      wishlistLoading: wishlistLoading ?? this.wishlistLoading,
     );
   }
 
@@ -52,5 +62,7 @@ class GroupState extends Equatable {
     inviteCode,
     participants,
     matches,
+    myGroupWishlist,
+    wishlistLoading,
   ];
 }

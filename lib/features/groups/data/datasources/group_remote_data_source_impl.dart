@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:secret_santa/features/groups/data/models/group_model.dart';
 import 'package:secret_santa/features/groups/data/datasources/group_remote_data_source.dart';
+import 'package:secret_santa/features/wishlist/data/models/wishlist_item_model.dart';
 
 class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
   final FirebaseFirestore _firestore;
@@ -110,5 +111,59 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
             return list;
           },
         );
+  }
+
+  CollectionReference<Map<String, dynamic>> _wishlistCol(
+    String uid,
+    String groupId,
+  ) =>
+      _firestore
+          .collection('users')
+          .doc(uid)
+          .collection('wishlists')
+          .doc(groupId)
+          .collection('items');
+
+  @override
+  Future<List<WishlistItemModel>> getGroupWishlist(
+    String uid,
+    String groupId,
+  ) async {
+    final snap = await _wishlistCol(uid, groupId).get();
+    return snap.docs
+        .map((doc) => WishlistItemModel.fromMap(doc.id, doc.data()))
+        .toList();
+  }
+
+  @override
+  Future<void> addWishlistItem(
+    String uid,
+    String groupId,
+    WishlistItemModel item,
+  ) async {
+    if (item.id.isEmpty) {
+      await _wishlistCol(uid, groupId).add(item.toMap());
+    } else {
+      await _wishlistCol(uid, groupId).doc(item.id).set(item.toMap());
+    }
+  }
+
+  @override
+  Future<void> removeWishlistItem(
+    String uid,
+    String groupId,
+    String itemId,
+  ) async {
+    await _wishlistCol(uid, groupId).doc(itemId).delete();
+  }
+
+  @override
+  Future<void> updateWishlistItemImage(
+    String uid,
+    String groupId,
+    String itemId,
+    String imageUrl,
+  ) async {
+    await _wishlistCol(uid, groupId).doc(itemId).update({'imageUrl': imageUrl});
   }
 }

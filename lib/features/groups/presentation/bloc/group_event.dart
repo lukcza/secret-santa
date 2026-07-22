@@ -1,11 +1,54 @@
 import 'package:equatable/equatable.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
+import 'package:secret_santa/features/wishlist/domain/entities/wishlist_item_entity.dart';
 
 abstract class GroupEvent extends Equatable {
   const GroupEvent();
 
   @override
   List<Object?> get props => [];
+}
+
+// ── Wishlist events ──────────────────────────────────────────────────────────
+
+class LoadGroupWishlistEvent extends GroupEvent {
+  final String uid;
+  final String groupId;
+
+  const LoadGroupWishlistEvent({required this.uid, required this.groupId});
+
+  @override
+  List<Object?> get props => [uid, groupId];
+}
+
+class AddWishlistItemEvent extends GroupEvent {
+  final String uid;
+  final String groupId;
+  final WishlistItemEntity item;
+
+  const AddWishlistItemEvent({
+    required this.uid,
+    required this.groupId,
+    required this.item,
+  });
+
+  @override
+  List<Object?> get props => [uid, groupId, item];
+}
+
+class RemoveWishlistItemEvent extends GroupEvent {
+  final String uid;
+  final String groupId;
+  final String itemId;
+
+  const RemoveWishlistItemEvent({
+    required this.uid,
+    required this.groupId,
+    required this.itemId,
+  });
+
+  @override
+  List<Object?> get props => [uid, groupId, itemId];
 }
 
 class CreateGroupEvent extends GroupEvent {

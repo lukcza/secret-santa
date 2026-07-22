@@ -10,6 +10,8 @@ import 'package:secret_santa/features/groups/data/models/group_model.dart';
 import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
+import 'package:secret_santa/features/wishlist/data/models/wishlist_item_model.dart';
+import 'package:secret_santa/features/wishlist/domain/entities/wishlist_item_entity.dart';
 import 'dart:math';
 
 class GroupRepositoryImpl implements GroupRepository {
@@ -171,6 +173,53 @@ class GroupRepositoryImpl implements GroupRepository {
         }
       }
       return Right(users);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  // ── Wishlist per group ────────────────────────────────────────────────────
+
+  @override
+  Future<Either<Failure, List<WishlistItemEntity>>> getGroupWishlist(
+    String uid,
+    String groupId,
+  ) async {
+    try {
+      final models = await _remoteDataSource.getGroupWishlist(uid, groupId);
+      return Right(models.map((m) => m.toEntity()).toList());
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addWishlistItem(
+    String uid,
+    String groupId,
+    WishlistItemEntity item,
+  ) async {
+    try {
+      await _remoteDataSource.addWishlistItem(
+        uid,
+        groupId,
+        WishlistItemModel.fromEntity(item),
+      );
+      return Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeWishlistItem(
+    String uid,
+    String groupId,
+    String itemId,
+  ) async {
+    try {
+      await _remoteDataSource.removeWishlistItem(uid, groupId, itemId);
+      return Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

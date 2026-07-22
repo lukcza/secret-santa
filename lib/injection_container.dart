@@ -28,6 +28,9 @@ import 'package:secret_santa/features/groups/domain/usecases/get_group_code.dart
 import 'package:secret_santa/features/groups/domain/usecases/join_group.dart';
 import 'package:secret_santa/features/groups/domain/usecases/leave_group.dart';
 import 'package:secret_santa/features/groups/domain/usecases/update_group.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_group_wishlist.dart';
+import 'package:secret_santa/features/groups/domain/usecases/add_wishlist_item.dart';
+import 'package:secret_santa/features/groups/domain/usecases/remove_wishlist_item.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
 
 final sl = GetIt.instance;
@@ -63,6 +66,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => UpdateGroup(sl()));
   sl.registerLazySingleton(() => GenerateGroupCode(sl()));
   sl.registerLazySingleton(() => GetGroupsParticipants(sl(), sl()));
+  sl.registerLazySingleton(() => GetGroupWishlist(sl()));
+  sl.registerLazySingleton(() => AddWishlistItem(sl()));
+  sl.registerLazySingleton(() => RemoveWishlistItem(sl()));
   //Blocs
   //Auth Bloc
   sl.registerLazySingleton(
@@ -84,6 +90,9 @@ Future<void> init() async {
       updateGroup: sl(),
       generateGroupCode: sl(),
       getGroupsParticipants: sl(),
+      getGroupWishlist: sl(),
+      addWishlistItem: sl(),
+      removeWishlistItem: sl(),
     ),
   );
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));

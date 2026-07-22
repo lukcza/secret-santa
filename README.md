@@ -15,9 +15,9 @@ A modern, feature-rich mobile application for organizing Secret Santa gift excha
 
 ## ✨ Features
 
-- 🔐 **Secure Authentication** - Google and Facebook login powered by Firebase Authentication
+- 🔐 **Secure Authentication** - Email and Password login powered by Firebase Authentication
 - 👥 **Create & Manage Groups** - Organize Secret Santa groups with friends and family
-- 🎁 **Smart Matching** - Automatic Secret Santa pair matching algorithm
+- 🎁 **Smart Matching** - (Upcoming) Automatic Secret Santa pair matching algorithm
 - 💬 **Real-time Updates** - Instant synchronization across devices using Firestore
 - 🌍 **Multi-language Support** - Support for multiple languages (i18n)
 - 🎨 **Dark & Light Themes** - Adaptive UI with system theme support
@@ -38,7 +38,7 @@ A modern, feature-rich mobile application for organizing Secret Santa gift excha
 
 ### Backend & Services
 - **Backend**: Firebase
-  - **Authentication**: Firebase Auth (Google, Facebook)
+  - **Authentication**: Firebase Auth (Email/Password)
   - **Database**: Cloud Firestore
   - **Realtime**: Real-time synchronization
 
@@ -162,7 +162,8 @@ flutter build web
 
 **Widgetbook - Component Library**
 ```bash
-flutter run -t lib/main.dart
+cd widgetbook
+flutter run -d chrome
 ```
 
 ---
@@ -201,8 +202,7 @@ Feature Module
 1. Go to [Firebase Console](https://console.firebase.google.com)
 2. Create a new project or use existing one
 3. Enable Authentication methods:
-   - Google Sign-In
-   - Facebook Login
+   - Email/Password
 4. Create Firestore Database:
    - Collections: `groups`, `users`, `pairings`
    - Set appropriate security rules
