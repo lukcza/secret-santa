@@ -50,6 +50,7 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
 
     await groupDoc.reference.update({
       'participantsUIDs': FieldValue.arrayUnion([userId]),
+      'participants.$userId': 'confirmed',
     });
   }
 
@@ -95,6 +96,21 @@ class GroupRemoteDataSourceImpl implements GroupRemoteDataSource {
       throw Exception('Group not found');
     }
     return GroupModel.fromSnapshot(groupDoc);
+  }
+
+  @override
+  Future<GroupModel> getGroupByInviteCode(String groupCode) async {
+    final query = await _firestore
+        .collection('groups')
+        .where('inviteCode', isEqualTo: groupCode)
+        .limit(1)
+        .get();
+
+    if (query.docs.isEmpty) {
+      throw Exception('Group not found');
+    }
+
+    return GroupModel.fromSnapshot(query.docs.first);
   }
 
   Stream<List<GroupModel>> getUserGroupsStream(String userId) {

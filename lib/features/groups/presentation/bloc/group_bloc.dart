@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
 
+import 'package:secret_santa/features/groups/domain/usecases/get_group_by_invite_code.dart';
 import 'package:secret_santa/features/groups/domain/usecases/get_groups_participants.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_state.dart';
@@ -18,6 +19,7 @@ import 'package:secret_santa/features/wishlist/domain/entities/wishlist_item_ent
 class GroupBloc extends Bloc<GroupEvent, GroupState> {
   GroupBloc({
     required JoinGroup joinGroup,
+    required GetGroupByInviteCode getGroupByInviteCode,
     required CreateGroup createGroup,
     required LeaveGroup leaveGroup,
     required UpdateGroup updateGroup,
@@ -69,7 +71,29 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
         (_) {/* already removed optimistically */},
       );
     });
-    on<JoinGroupEvent>((event, emit) async {
+    on<FetchGroupByInviteCodeEvent>((event, emit) async {
+      emit(state.copyWith(joinStatus: JoinGroupStatus.loading));
+      final result = await getGroupByInviteCode(event.groupCode);
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              joinStatus: JoinGroupStatus.error,
+              errorMessage: failure.message,
+            ),
+          );
+        },
+        (group) {
+          emit(
+            state.copyWith(
+              joinStatus: JoinGroupStatus.found,
+              group: group,
+            ),
+          );
+        },
+      );
+    });
+    on<JoinGroupByInviteCodeEvent>((event, emit) async {
       final result = await joinGroup(event.groupCode);
       result.fold(
         (failure) {

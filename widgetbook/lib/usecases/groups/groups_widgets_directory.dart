@@ -10,6 +10,8 @@ import 'participant_tile_usecase.dart';
 import 'participants_list_usecase.dart';
 import 'match_tile_usecase.dart';
 
+import 'group_found_modal_usecase.dart';
+
 final groupsWidgetsDirectory = WidgetbookFolder(
   name: 'Widgets',
   children: [
@@ -22,6 +24,7 @@ final groupsWidgetsDirectory = WidgetbookFolder(
     participantTileComponent,
     participantsListComponent,
     matchTileComponent,
+    groupFoundModalComponent,
   ],
 );
 

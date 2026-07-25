@@ -104,6 +104,28 @@ class GroupRepositoryImpl implements GroupRepository {
   }
 
   @override
+  Future<Either<Failure, GroupEntity>> getGroupByInviteCode(
+      String groupCode) async {
+    try {
+      final group = await _remoteDataSource.getGroupByInviteCode(groupCode);
+      return Right(group);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GroupEntity>> getGroupByInviteCode(
+      String groupCode) async {
+    try {
+      final group = await _remoteDataSource.getGroupByInviteCode(groupCode);
+      return Right(group);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, String>> getGroupCode(String groupId) async {
     try {
       final group = await _remoteDataSource.getGroupById(groupId);

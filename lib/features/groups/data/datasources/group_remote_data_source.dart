@@ -7,6 +7,7 @@ abstract class GroupRemoteDataSource {
   Future<void> joinGroup(String groupCode, String userId);
   Future<void> leaveGroup(String groupCode, String userId);
   Future<GroupModel> getGroupById(String groupId);
+  Future<GroupModel> getGroupByInviteCode(String groupCode);
   Future<void> updateGroup(GroupModel group);
   Future<void> generateGroupCode(String groupId);
   Stream<List<GroupModel>> getUserGroupsStream(String userId);

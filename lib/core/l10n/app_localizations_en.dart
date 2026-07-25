@@ -202,7 +202,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get joinExistingGroupDescription =>
-      'Got an invite code? Enter it here to join your firends\' gift exchange.';
+      'Got an invite code? Enter it here to join your friends\' gift exchange.';
 
   @override
   String get enterCode => 'Enter Code';
@@ -220,7 +220,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whoIsInvited => 'Who is invited?';
 
   @override
-  String get addFirendsManually => 'Add Friends Manually';
+  String get addFriendsManually => 'Add Friends Manually';
 
   @override
   String get inputNameAndEmail => 'Input email, copy link or invite code';
@@ -254,7 +254,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manuallyInviteSubtitle =>
-      'Add firends one by one to your group by writing email below';
+      'Add friends one by one to your group by writing email below';
 
   @override
   String get emailFieldLabel => 'Email';
@@ -835,6 +835,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get avatarColorTitle => 'Avatar Color';
+
+  @override
+  String get joinGroupTitle => 'Join Group';
+
+  @override
+  String get joinGroupButton => 'Join Group';
+
+  @override
+  String get confirmJoinGroup => 'Accept & Join Group';
+
+  @override
+  String get invalidGroupCode => 'Please enter a valid invite code';
+
+  @override
+  String get groupFoundTitle => 'Group Found!';
+
+  @override
+  String get joinGroupSuccess => 'Joined group successfully!';
 
   @override
   String stepCount(int current, int total) {

@@ -127,7 +127,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                     ),
                     const SizedBox(height: 12),
                     AddFriendsListTile(
-                      title: context.loc.addFirendsManually,
+                      title: context.loc.addFriendsManually,
                       subtitle: context.loc.inputNameAndEmail,
                       icon: Icons.person_add_alt_1_rounded,
                       iconColor: Theme.of(context).colorScheme.primary,
@@ -265,7 +265,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(context.loc.addFirendsManually),
+          title: Text(context.loc.addFriendsManually),
           content: Form(
             key: formKey,
             child: Column(
