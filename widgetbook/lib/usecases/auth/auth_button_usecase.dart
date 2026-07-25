@@ -1,36 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:widgetbook/widgetbook.dart';
 import 'package:secret_santa/features/auth/presentation/widgets/auth_button.dart';
+import 'package:widgetbook/widgetbook.dart';
 
 final authButtonComponent = WidgetbookComponent(
   name: 'AuthButton',
   useCases: [
     WidgetbookUseCase(
-      name: 'Login',
-      builder:
-          (context) => Scaffold(
-            body: Center(
-              child: AuthButton(onPressed: () {}, buttonText: 'Login'),
+      name: '① Login Button',
+      builder: (context) => Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: AuthButton(
+              onPressed: () {},
+              buttonText: 'Login',
             ),
           ),
+        ),
+      ),
     ),
     WidgetbookUseCase(
-      name: 'Register',
-      builder:
-          (context) => Scaffold(
-            body: Center(
-              child: AuthButton(onPressed: () {}, buttonText: 'Sign Up'),
+      name: '② Register Button',
+      builder: (context) => Scaffold(
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: AuthButton(
+              onPressed: () {},
+              buttonText: 'Sign Up',
             ),
           ),
+        ),
+      ),
     ),
     WidgetbookUseCase(
-      name: 'Loading State',
-      builder:
-          (context) => Scaffold(
-            body: Center(
-              child: AuthButton(onPressed: () {}, buttonText: 'Processing...'),
+      name: '③ Custom Interactive Knob',
+      builder: (context) {
+        final label = context.knobs.string(
+          label: 'Button Text',
+          initialValue: 'Continue',
+        );
+        return Scaffold(
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: AuthButton(
+                onPressed: () {},
+                buttonText: label,
+              ),
             ),
           ),
+        );
+      },
     ),
   ],
 );

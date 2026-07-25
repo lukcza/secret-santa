@@ -39,6 +39,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         nickname: event.nickname,
         email: event.email,
         password: event.password,
+        avatarImageBytes: event.avatarImageBytes,
+        avatarBgColorValue: event.avatarBgColorValue,
       );
       result.fold(
         (failure) {

@@ -795,4 +795,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wishTitleRequired => 'Item name is required';
+
+  @override
+  String get registerStep1Title => 'Account Details';
+
+  @override
+  String get registerStep2Title => 'Profile Picture';
+
+  @override
+  String get registerStep2Subtitle =>
+      'Choose a photo or keep your personalized initials avatar';
+
+  @override
+  String get registerNextStep => 'Continue';
+
+  @override
+  String get registerBackStep => 'Back';
+
+  @override
+  String get cropImageTitle => 'Crop Photo';
+
+  @override
+  String get cropImageConfirm => 'Crop & Save';
+
+  @override
+  String get cropImageCancel => 'Cancel';
+
+  @override
+  String get chooseImageSourceTitle => 'Select Profile Photo';
+
+  @override
+  String get chooseFromGallery => 'Choose from Gallery';
+
+  @override
+  String get takePhoto => 'Take a Photo';
+
+  @override
+  String get removePhoto => 'Remove Photo';
+
+  @override
+  String get avatarColorTitle => 'Avatar Color';
+
+  @override
+  String stepCount(int current, int total) {
+    return 'Step $current of $total';
+  }
 }
