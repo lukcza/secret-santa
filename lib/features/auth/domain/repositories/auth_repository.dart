@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:secret_santa/core/errors/failures.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:fpdart/fpdart.dart';
@@ -13,6 +14,8 @@ abstract class AuthRepository {
     required String nickname,
     required String email,
     required String password,
+    Uint8List? avatarImageBytes,
+    int? avatarBgColorValue,
   });
   Future<Either<Failure, UserEntity>> getUserByUid({required String uid});
   Future<Either<Failure, UserEntity>> getUserByEmail({required String email});

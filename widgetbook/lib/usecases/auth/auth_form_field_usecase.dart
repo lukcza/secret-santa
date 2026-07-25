@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:secret_santa/features/auth/presentation/widgets/auth_field.dart';
+import 'package:secret_santa/features/auth/presentation/widgets/auth_form_field.dart';
 import 'package:widgetbook/widgetbook.dart';
 
-final authFieldComponent = WidgetbookComponent(
-  name: 'AuthField',
+final authFormFieldComponent = WidgetbookComponent(
+  name: 'AuthFormField',
   useCases: [
     WidgetbookUseCase(
       name: '① Email Field',
       builder: (context) => Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: AuthField(
+          child: AuthFormField(
             controller: TextEditingController(),
-            labelText: 'Email',
+            labelText: 'Email Address',
             hintText: 'santa@northpole.com',
             isEmailField: true,
             prefixIcon: const Icon(Icons.email),
@@ -25,7 +25,7 @@ final authFieldComponent = WidgetbookComponent(
       builder: (context) => Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: AuthField(
+          child: AuthFormField(
             controller: TextEditingController(),
             labelText: 'Password',
             hintText: '********',
@@ -40,55 +40,36 @@ final authFieldComponent = WidgetbookComponent(
       builder: (context) => Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16),
-          child: AuthField(
+          child: AuthFormField(
             controller: TextEditingController(),
             labelText: 'Confirm Password',
             hintText: '********',
-            isReapetPasswordField: true,
-            prefixIcon: const Icon(Icons.lock_outline),
+            isRepeatPasswordField: true,
+            prefixIcon: const Icon(Icons.safety_check),
           ),
         ),
       ),
     ),
     WidgetbookUseCase(
-      name: '④ Username / Nickname Field',
-      builder: (context) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: AuthField(
-            controller: TextEditingController(),
-            labelText: 'Username',
-            hintText: 'Enter your nickname',
-            prefixIcon: const Icon(Icons.person),
-          ),
-        ),
-      ),
-    ),
-    WidgetbookUseCase(
-      name: '⑤ Interactive Knobs',
+      name: '④ Interactive Knobs',
       builder: (context) {
         final label = context.knobs.string(
           label: 'Label',
-          initialValue: 'Custom Field',
+          initialValue: 'Nickname',
         );
         final hint = context.knobs.string(
           label: 'Hint',
-          initialValue: 'Type something...',
-        );
-        final isPassword = context.knobs.boolean(
-          label: 'Is Password Field',
-          initialValue: false,
+          initialValue: 'Enter nickname',
         );
 
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.all(16),
-            child: AuthField(
+            child: AuthFormField(
               controller: TextEditingController(),
               labelText: label,
               hintText: hint,
-              isPasswordField: isPassword,
-              prefixIcon: const Icon(Icons.edit),
+              prefixIcon: const Icon(Icons.person),
             ),
           ),
         );

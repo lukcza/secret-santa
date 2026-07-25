@@ -91,6 +91,8 @@ class _FakeAuthRepository implements AuthRepository {
     required String nickname,
     required String email,
     required String password,
+    dynamic avatarImageBytes,
+    int? avatarBgColorValue,
   }) async => const Right(_fakeUser);
   @override
   Stream<UserEntity?> get getCurrentUserStream => Stream.value(_fakeUser);

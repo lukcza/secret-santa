@@ -1,6 +1,8 @@
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:secret_santa/features/auth/data/models/user_model.dart';
 import 'package:secret_santa/features/auth/domain/repositories/auth_repository.dart';
 import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
@@ -84,6 +86,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required String nickname,
     required String email,
     required String password,
+    Uint8List? avatarImageBytes,
+    int? avatarBgColorValue,
   }) async {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -91,11 +95,31 @@ class AuthRepositoryImpl implements AuthRepository {
         password: password,
       );
       final user = userCredential.user;
+      String? photoUrl;
+
+      if (user != null && avatarImageBytes != null && avatarImageBytes.isNotEmpty) {
+        try {
+          final storageRef = FirebaseStorage.instance
+              .ref()
+              .child('profile_images')
+              .child('${user.uid}.jpg');
+          await storageRef.putData(
+            avatarImageBytes,
+            SettableMetadata(contentType: 'image/jpeg'),
+          );
+          photoUrl = await storageRef.getDownloadURL();
+          await user.updatePhotoURL(photoUrl);
+        } catch (e) {
+          print('Error uploading profile image: $e');
+        }
+      }
+
       final newUserModel = UserModel(
         uid: user!.uid,
         email: email,
         nickname: nickname,
-        photoUrl: user.photoURL,
+        photoUrl: photoUrl ?? user.photoURL,
+        avatarBgColorValue: avatarBgColorValue,
         groups: [],
         wishlist: [],
       );

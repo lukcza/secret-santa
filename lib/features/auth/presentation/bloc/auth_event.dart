@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:equatable/equatable.dart';
 
 abstract class AuthEvent extends Equatable {
@@ -27,15 +28,19 @@ class AuthSignUpRequested extends AuthEvent {
   final String nickname;
   final String email;
   final String password;
+  final Uint8List? avatarImageBytes;
+  final int? avatarBgColorValue;
 
   const AuthSignUpRequested({
     required this.nickname,
     required this.email,
     required this.password,
+    this.avatarImageBytes,
+    this.avatarBgColorValue,
   });
 
   @override
-  List<Object?> get props => [nickname, email, password];
+  List<Object?> get props => [nickname, email, password, avatarImageBytes, avatarBgColorValue];
 }
 class AuthSignOutRequested extends AuthEvent {
   const AuthSignOutRequested();

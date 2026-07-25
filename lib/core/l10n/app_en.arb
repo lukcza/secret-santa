@@ -288,5 +288,29 @@
     "pickFromGallery": "Pick from gallery",
     "uploadingImage": "Uploading image...",
     "imageUploaded": "Image uploaded!",
-    "wishTitleRequired": "Item name is required"
+    "wishTitleRequired": "Item name is required",
+    "registerStep1Title": "Account Details",
+    "registerStep2Title": "Profile Picture",
+    "registerStep2Subtitle": "Choose a photo or keep your personalized initials avatar",
+    "registerNextStep": "Continue",
+    "registerBackStep": "Back",
+    "cropImageTitle": "Crop Photo",
+    "cropImageConfirm": "Crop & Save",
+    "cropImageCancel": "Cancel",
+    "chooseImageSourceTitle": "Select Profile Photo",
+    "chooseFromGallery": "Choose from Gallery",
+    "takePhoto": "Take a Photo",
+    "removePhoto": "Remove Photo",
+    "avatarColorTitle": "Avatar Color",
+    "stepCount": "Step {current} of {total}",
+    "@stepCount": {
+      "placeholders": {
+        "current": {
+          "type": "int"
+        },
+        "total": {
+          "type": "int"
+        }
+      }
+    }
 }

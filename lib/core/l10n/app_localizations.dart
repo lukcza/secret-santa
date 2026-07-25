@@ -1593,6 +1593,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Item name is required'**
   String get wishTitleRequired;
+
+  /// No description provided for @registerStep1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Details'**
+  String get registerStep1Title;
+
+  /// No description provided for @registerStep2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Picture'**
+  String get registerStep2Title;
+
+  /// No description provided for @registerStep2Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a photo or keep your personalized initials avatar'**
+  String get registerStep2Subtitle;
+
+  /// No description provided for @registerNextStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get registerNextStep;
+
+  /// No description provided for @registerBackStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get registerBackStep;
+
+  /// No description provided for @cropImageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Crop Photo'**
+  String get cropImageTitle;
+
+  /// No description provided for @cropImageConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Crop & Save'**
+  String get cropImageConfirm;
+
+  /// No description provided for @cropImageCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cropImageCancel;
+
+  /// No description provided for @chooseImageSourceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Profile Photo'**
+  String get chooseImageSourceTitle;
+
+  /// No description provided for @chooseFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose from Gallery'**
+  String get chooseFromGallery;
+
+  /// No description provided for @takePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a Photo'**
+  String get takePhoto;
+
+  /// No description provided for @removePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Photo'**
+  String get removePhoto;
+
+  /// No description provided for @avatarColorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Avatar Color'**
+  String get avatarColorTitle;
+
+  /// No description provided for @stepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String stepCount(int current, int total);
 }
 
 class _AppLocalizationsDelegate
