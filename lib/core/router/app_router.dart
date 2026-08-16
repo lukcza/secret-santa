@@ -8,9 +8,13 @@ import 'package:secret_santa/features/auth/presentation/pages/login_page.dart';
 import 'package:secret_santa/features/auth/presentation/pages/register_page.dart';
 import 'package:secret_santa/features/auth/presentation/pages/splash_page.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_bloc.dart';
+import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
 import 'package:secret_santa/features/groups/presentation/pages/create/create_group_page.dart';
 import 'package:secret_santa/features/groups/presentation/pages/create/set_date_group_page.dart';
+import 'package:secret_santa/features/groups/presentation/pages/details/details_group_page.dart';
+import 'package:secret_santa/features/groups/presentation/pages/join/join_group_page.dart';
 import 'package:secret_santa/features/home/presentation/bloc/home_bloc.dart';
+import 'package:secret_santa/features/home/presentation/pages/create_or_join_page.dart';
 import 'package:secret_santa/features/home/presentation/pages/home_page.dart';
 import 'package:secret_santa/injection_container.dart' as di;
 
@@ -64,11 +68,23 @@ class AppRouter {
             ),
       ),
       GoRoute(
+        path: "/decision",
+        builder: (context, state) => const CreateOrJoinPage(),
+      ),
+      GoRoute(
         path: "/create_group",
         builder:
             (context, state) => BlocProvider.value(
               value: di.sl<GroupBloc>(),
               child: const SetDateGroupPage(),
+            ),
+      ),
+      GoRoute(
+        path: "/join",
+        builder:
+            (context, state) => BlocProvider(
+              create: (_) => di.sl<GroupBloc>(),
+              child: const JoinGroupPage(),
             ),
       ),
       GoRoute(
@@ -78,7 +94,7 @@ class AppRouter {
           return BlocProvider(
             create:
                 (_) => di.sl<GroupBloc>()..add(GetGroupEvent(groupId: groupId)),
-            child: const DetailsGroupPage(), // bez group – ładuje ze stanu
+            child: DetailsGroupPage(),
           );
         },
       ),
@@ -90,8 +106,8 @@ class AppRouter {
             create:
                 (_) =>
                     di.sl<GroupBloc>()
-                      ..add(JoinGroupByCodeEvent(inviteCode: inviteCode)),
-            child: const JoinGroupPage(),
+                      ..add(JoinGroupByInviteCodeEvent(groupCode: inviteCode)),
+            child: JoinGroupPage(initialInviteCode: inviteCode),
           );
         },
       ),

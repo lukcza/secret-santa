@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:secret_santa/core/enums/group_status.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_group_by_id.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_group_by_invite_code.dart';
 
 import 'package:secret_santa/features/groups/domain/usecases/get_groups_participants.dart';
 import 'package:secret_santa/features/groups/presentation/bloc/group_event.dart';
@@ -26,13 +28,22 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
     required GetGroupWishlist getGroupWishlist,
     required AddWishlistItem addWishlistItem,
     required RemoveWishlistItem removeWishlistItem,
+    required GetGroupByInviteCode getGroupByInviteCode,
+    required GetGroupById getGroupById,
   }) : super(GroupState(status: GroupStatus.draft)) {
     on<LoadGroupWishlistEvent>((event, emit) async {
       emit(state.copyWith(wishlistLoading: true));
-      final result = await getGroupWishlist(uid: event.uid, groupId: event.groupId);
+      final result = await getGroupWishlist(
+        uid: event.uid,
+        groupId: event.groupId,
+      );
       result.fold(
-        (failure) => emit(state.copyWith(wishlistLoading: false, errorMessage: failure.message)),
-        (items) => emit(state.copyWith(wishlistLoading: false, myGroupWishlist: items)),
+        (failure) => emit(
+          state.copyWith(wishlistLoading: false, errorMessage: failure.message),
+        ),
+        (items) => emit(
+          state.copyWith(wishlistLoading: false, myGroupWishlist: items),
+        ),
       );
     });
     on<AddWishlistItemEvent>((event, emit) async {
@@ -49,15 +60,21 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
           // rollback
           final rolled = List<WishlistItemEntity>.from(state.myGroupWishlist)
             ..removeWhere((i) => i.id == event.item.id);
-          emit(state.copyWith(myGroupWishlist: rolled, errorMessage: failure.message));
+          emit(
+            state.copyWith(
+              myGroupWishlist: rolled,
+              errorMessage: failure.message,
+            ),
+          );
         },
-        (_) {/* already optimistically updated */},
+        (_) {
+          /* already optimistically updated */
+        },
       );
     });
     on<RemoveWishlistItemEvent>((event, emit) async {
-      final optimistic = state.myGroupWishlist
-          .where((i) => i.id != event.itemId)
-          .toList();
+      final optimistic =
+          state.myGroupWishlist.where((i) => i.id != event.itemId).toList();
       emit(state.copyWith(myGroupWishlist: optimistic));
       final result = await removeWishlistItem(
         uid: event.uid,
@@ -66,25 +83,12 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
       );
       result.fold(
         (failure) => emit(state.copyWith(errorMessage: failure.message)),
-        (_) {/* already removed optimistically */},
-      );
-    });
-    on<JoinGroupEvent>((event, emit) async {
-      final result = await joinGroup(event.groupCode);
-      result.fold(
-        (failure) {
-          emit(
-            state.copyWith(
-              joinStatus: JoinGroupStatus.error,
-              errorMessage: failure.message,
-            ),
-          );
-        },
         (_) {
-          emit(state.copyWith(joinStatus: JoinGroupStatus.success));
+          /* already removed optimistically */
         },
       );
     });
+
     on<LeaveGroupEvent>((event, emit) async {
       final result = await leaveGroup(event.groupId);
       emit(state.copyWith(joinStatus: JoinGroupStatus.left));
@@ -216,7 +220,6 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
       }
       emit(state.copyWith(status: GroupStatus.drawn, matches: matches));
     });
-
     on<ConfirmDrawEvent>((event, emit) async {
       final updatedGroup = event.group.copyWith(matches: event.matches);
       final result = await updateGroup(updatedGroup);
@@ -240,6 +243,54 @@ class GroupBloc extends Bloc<GroupEvent, GroupState> {
         },
       );
     });
+    on<FetchGroupByInviteCodeEvent>((event, emit) async {
+      emit(state.copyWith(joinStatus: JoinGroupStatus.loading));
+      final result = await getGroupByInviteCode(event.groupCode);
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              joinStatus: JoinGroupStatus.error,
+              errorMessage: failure.message,
+            ),
+          );
+        },
+        (group) {
+          emit(
+            state.copyWith(joinStatus: JoinGroupStatus.success, group: group),
+          );
+        },
+      );
+    });
+    on<GetGroupEvent>((event, emit) async {
+      final result = await getGroupById(event.groupId);
+      result.fold(
+        (failure) => emit(
+          state.copyWith(
+            status: GroupStatus.error,
+            errorMessage: failure.message,
+          ),
+        ),
+        (group) => emit(state.copyWith(group: group)),
+      );
+    });
+    on<JoinGroupByInviteCodeEvent>((event, emit) async {
+      final result = await joinGroup(event.groupCode);
+      result.fold(
+        (failure) => emit(state.copyWith(
+          joinStatus: JoinGroupStatus.error,
+          errorMessage: failure.message,
+        )),
+        (_) async {
+          // po dołączeniu pobierz grupę by móc nawigować
+          final groupResult = await getGroupByInviteCode(event.groupCode);
+      groupResult.fold(
+        (_) => emit(state.copyWith(joinStatus: JoinGroupStatus.success)),
+        (group) => emit(state.copyWith(joinStatus: JoinGroupStatus.success, group: group)),
+      );
+    },
+  );
+});
   }
 }
 

@@ -7,6 +7,7 @@ import 'confirm_group_page_usecase.dart';
 import 'details_group_page_usecase.dart';
 import 'details_group_split_usecase.dart';
 import 'details_participants_page_usecase.dart';
+import 'join_group_page_usecase.dart';
 import 'matches_page_usecase.dart';
 import 'details_group_hub_usecase.dart';
 
@@ -22,6 +23,7 @@ final groupsPagesDirectory = WidgetbookFolder(
     detailsGroupUserComponent,
     revealRecipientComponent,
     detailsParticipantsPageComponent,
+    joinGroupPageUseCase,
     matchesPageComponent,
     detailsGroupHubPageComponent,
     myGroupWishlistPageComponent,

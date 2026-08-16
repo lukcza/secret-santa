@@ -24,7 +24,7 @@ class AddGroupPlaceholder extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () => context.push("/create_group"),
+          onTap: () => context.push("/decision"),
           borderRadius: BorderRadius.circular(30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

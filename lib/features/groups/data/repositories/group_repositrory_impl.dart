@@ -104,6 +104,22 @@ class GroupRepositoryImpl implements GroupRepository {
   }
 
   @override
+  Future<Either<Failure, GroupEntity>> getGroupByInviteCode(
+    String groupCode,
+  ) async {
+    try {
+      final userId = _firebaseAuth.currentUser?.uid;
+      if (userId == null) {
+        return Left(ServerFailure('User not authenticated'));
+      }
+      final group = await _remoteDataSource.getGroupById(groupCode);
+      return Right(group);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, String>> getGroupCode(String groupId) async {
     try {
       final group = await _remoteDataSource.getGroupById(groupId);
@@ -178,7 +194,7 @@ class GroupRepositoryImpl implements GroupRepository {
     }
   }
 
-  // ── Wishlist per group ────────────────────────────────────────────────────
+  //Wishlist per group
 
   @override
   Future<Either<Failure, List<WishlistItemEntity>>> getGroupWishlist(

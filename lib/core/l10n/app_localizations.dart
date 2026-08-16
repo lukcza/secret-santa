@@ -475,7 +475,7 @@ abstract class AppLocalizations {
   /// No description provided for @joinExistingGroupDescription.
   ///
   /// In en, this message translates to:
-  /// **'Got an invite code? Enter it here to join your firends\' gift exchange.'**
+  /// **'Got an invite code? Enter it here to join your friends\' gift exchange.'**
   String get joinExistingGroupDescription;
 
   /// No description provided for @enterCode.
@@ -508,11 +508,11 @@ abstract class AppLocalizations {
   /// **'Who is invited?'**
   String get whoIsInvited;
 
-  /// No description provided for @addFirendsManually.
+  /// No description provided for @addFriendsManually.
   ///
   /// In en, this message translates to:
   /// **'Add Friends Manually'**
-  String get addFirendsManually;
+  String get addFriendsManually;
 
   /// No description provided for @inputNameAndEmail.
   ///
@@ -577,7 +577,7 @@ abstract class AppLocalizations {
   /// No description provided for @manuallyInviteSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Add firends one by one to your group by writing email below'**
+  /// **'Add friends one by one to your group by writing email below'**
   String get manuallyInviteSubtitle;
 
   /// No description provided for @emailFieldLabel.
@@ -1671,6 +1671,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Avatar Color'**
   String get avatarColorTitle;
+
+  /// No description provided for @joinGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Group'**
+  String get joinGroupTitle;
+
+  /// No description provided for @joinGroupButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Group'**
+  String get joinGroupButton;
+
+  /// No description provided for @confirmJoinGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept & Join Group'**
+  String get confirmJoinGroup;
+
+  /// No description provided for @invalidGroupCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid invite code'**
+  String get invalidGroupCode;
+
+  /// No description provided for @groupFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Found!'**
+  String get groupFoundTitle;
+
+  /// No description provided for @joinGroupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined group successfully!'**
+  String get joinGroupSuccess;
 
   /// No description provided for @stepCount.
   ///

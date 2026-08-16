@@ -4,7 +4,7 @@ import 'package:secret_santa/features/auth/domain/entities/user_entity.dart';
 import 'package:secret_santa/features/groups/domain/entities/group_entity.dart';
 import 'package:secret_santa/features/wishlist/domain/entities/wishlist_item_entity.dart';
 
-enum JoinGroupStatus { initial, loading, success, error, left }
+enum JoinGroupStatus { initial, loading, found, success, error, left }
 
 class GroupState extends Equatable {
   final JoinGroupStatus joinStatus;

@@ -9,8 +9,6 @@ abstract class GroupEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-// ── Wishlist events ──────────────────────────────────────────────────────────
-
 class LoadGroupWishlistEvent extends GroupEvent {
   final String uid;
   final String groupId;
@@ -19,6 +17,15 @@ class LoadGroupWishlistEvent extends GroupEvent {
 
   @override
   List<Object?> get props => [uid, groupId];
+}
+
+class GetGroupEvent extends GroupEvent {
+  final String groupId;
+
+  const GetGroupEvent({required this.groupId});
+
+  @override
+  List<Object?> get props => [groupId];
 }
 
 class AddWishlistItemEvent extends GroupEvent {
@@ -60,10 +67,19 @@ class CreateGroupEvent extends GroupEvent {
   List<Object?> get props => [group];
 }
 
-class JoinGroupEvent extends GroupEvent {
+class FetchGroupByInviteCodeEvent extends GroupEvent {
   final String groupCode;
 
-  const JoinGroupEvent({required this.groupCode});
+  const FetchGroupByInviteCodeEvent({required this.groupCode});
+
+  @override
+  List<Object?> get props => [groupCode];
+}
+
+class JoinGroupByInviteCodeEvent extends GroupEvent {
+  final String groupCode;
+
+  const JoinGroupByInviteCodeEvent({required this.groupCode});
 
   @override
   List<Object?> get props => [groupCode];

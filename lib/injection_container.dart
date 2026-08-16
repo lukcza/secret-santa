@@ -24,6 +24,7 @@ import 'package:secret_santa/features/groups/data/datasources/group_remote_data_
 import 'package:secret_santa/features/groups/data/repositories/group_repository.dart';
 import 'package:secret_santa/features/groups/domain/usecases/generate_group_code.dart';
 import 'package:secret_santa/features/groups/domain/usecases/get_group_by_id.dart';
+import 'package:secret_santa/features/groups/domain/usecases/get_group_by_invite_code.dart';
 import 'package:secret_santa/features/groups/domain/usecases/get_group_code.dart';
 import 'package:secret_santa/features/groups/domain/usecases/join_group.dart';
 import 'package:secret_santa/features/groups/domain/usecases/leave_group.dart';
@@ -63,6 +64,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => LeaveGroup(sl()));
   sl.registerLazySingleton(() => GetGroupCode(sl()));
   sl.registerLazySingleton(() => GetGroupById(sl()));
+  sl.registerLazySingleton(() => GetGroupByInviteCode(sl()));
   sl.registerLazySingleton(() => UpdateGroup(sl()));
   sl.registerLazySingleton(() => GenerateGroupCode(sl()));
   sl.registerLazySingleton(() => GetGroupsParticipants(sl(), sl()));
@@ -86,6 +88,7 @@ Future<void> init() async {
     () => GroupBloc(
       createGroup: sl(),
       joinGroup: sl(),
+      getGroupByInviteCode: sl(),
       leaveGroup: sl(),
       updateGroup: sl(),
       generateGroupCode: sl(),
@@ -93,6 +96,7 @@ Future<void> init() async {
       getGroupWishlist: sl(),
       addWishlistItem: sl(),
       removeWishlistItem: sl(),
+      getGroupById: sl(),
     ),
   );
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));

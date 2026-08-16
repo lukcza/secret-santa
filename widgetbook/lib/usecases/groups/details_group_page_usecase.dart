@@ -168,7 +168,7 @@ final detailsGroupPageComponent = WidgetbookComponent(
           child: Navigator(
             onGenerateRoute:
                 (_) => MaterialPageRoute(
-                  builder: (_) => DetailsGroupPage(group: group),
+                  builder: (_) => const DetailsGroupPage(),
                 ),
           ),
         );
@@ -199,7 +199,7 @@ final detailsGroupPageComponent = WidgetbookComponent(
           child: Navigator(
             onGenerateRoute:
                 (_) => MaterialPageRoute(
-                  builder: (_) => DetailsGroupPage(group: emptyGroup),
+                  builder: (_) => const DetailsGroupPage(),
                 ),
           ),
         );
@@ -288,7 +288,7 @@ final detailsGroupPageComponent = WidgetbookComponent(
           child: Navigator(
             onGenerateRoute:
                 (_) => MaterialPageRoute(
-                  builder: (_) => DetailsGroupPage(group: bigGroup),
+                  builder: (_) => const DetailsGroupPage(),
                 ),
           ),
         );
