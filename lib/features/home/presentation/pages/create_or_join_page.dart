@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:secret_santa/core/extensions/context_extension.dart';
 import 'package:secret_santa/features/home/presentation/widgets/decision_card.dart';
 
@@ -11,7 +12,7 @@ class CreateOrJoinPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => context.pop(),
           icon: const Icon(Icons.close),
           splashRadius: 24,
           splashColor: Colors.blueGrey.withOpacity(0.2),
@@ -46,7 +47,7 @@ class CreateOrJoinPage extends StatelessWidget {
                   title: context.loc.createNewGroup,
                   description: context.loc.createNewGroupDescription,
                   buttonText: context.loc.getStarted,
-                  onTap: () {},
+                  onTap: () => context.push('/create_group'),
                   cardType: true,
                 ),
               ),
@@ -57,7 +58,7 @@ class CreateOrJoinPage extends StatelessWidget {
                   title: context.loc.joinExistingGroup,
                   description: context.loc.joinExistingGroupDescription,
                   buttonText: context.loc.enterCode,
-                  onTap: () {},
+                  onTap: () => context.push('/join'),
                   cardType: false,
                 ),
               ),

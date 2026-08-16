@@ -101,7 +101,7 @@ class _MatchesPageState extends State<MatchesPage> {
               builder:
                   (context) => BlocProvider.value(
                     value: groupBloc,
-                    child: DetailsGroupPage(group: state.group!),
+                    child: const DetailsGroupPage(),
                   ),
             ),
           );

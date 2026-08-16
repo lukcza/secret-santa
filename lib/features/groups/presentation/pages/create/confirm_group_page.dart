@@ -75,7 +75,7 @@ class _ConfirmGroupPageState extends State<ConfirmGroupPage> {
               MaterialPageRoute(
                 builder: (context) => BlocProvider.value(
                   value: groupBloc,
-                  child: DetailsGroupPage(group: state.group!),
+                  child: const DetailsGroupPage(),
                 ),
               ),
             );

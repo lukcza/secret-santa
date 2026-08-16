@@ -96,6 +96,7 @@ Future<void> init() async {
       getGroupWishlist: sl(),
       addWishlistItem: sl(),
       removeWishlistItem: sl(),
+      getGroupById: sl(),
     ),
   );
   sl.registerLazySingleton(() => AppRouter(authBloc: sl()));

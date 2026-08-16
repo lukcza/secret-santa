@@ -5,6 +5,7 @@ import 'bottom_nav_bar_usecase.dart';
 import 'decision_card_usecase.dart';
 import 'group_list_item_usecase.dart';
 import 'add_group_placeholder_usecase.dart';
+import 'create_or_join_page_usecase.dart';
 import 'sorting_type_slider_usecase.dart';
 import 'home_page_usecase.dart';
 
@@ -16,6 +17,7 @@ final homeDirectory = WidgetbookFolder(
     decisionCardComponent,
     groupListItemComponent,
     addGroupPlaceholderComponent,
+    createOrJoinPageComponent,
     sortingTypeSliderComponent,
     homePageComponent,
   ],
